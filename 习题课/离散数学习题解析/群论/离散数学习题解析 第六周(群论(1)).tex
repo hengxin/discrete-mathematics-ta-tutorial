@@ -1,0 +1,118 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{第六周(群论(1))}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{习题十 \hspace{0.15cm} 群与环(1)}
+
+\begin{enumerate}
+  \setlength{\itemsep}{0.40cm}
+  
+  \item \textbf{$P_{202}(2.4,2.5,2.6)$}  \\
+    \begin{enumerate}
+      \item \textbf{$(2.4)$,一元实系数多项式的集合关于多项式的加法.}  \\
+		\textbf{解答:}  \\
+        此为群。结合律显然成立; 单位元是$f(x) = 0$; 逆元即为实系数取反所得到的多项式.
+      \item \textbf{$(2.5)$,一元实系数多项式的集合关于多项式的乘法.}  \\
+        \textbf{解答:}  \\
+        此为半群和独异点，但是不构成群。 结合律显然成立; 单位元为$f(x) = 1$; $f(x) = 0$的逆元不存在.
+      \item \textbf{$(2.6)$,$n$元单位根集合$U_n$关于复数乘法.}  \\
+        \textbf{解答:}  \\
+        \textbf{此为群。}具体讲解见``第四次习题课 群论(1)''中``Cyclic Group''部分的习题.
+    \end{enumerate}
+  
+  
+  
+  \item \textbf{$P_{202}(4.2)$, 通过增加最少的元素使得$S$扩张为一个独异点.}  \\
+    \textbf{解答:}  \\
+    添加单位元$e$即可。感觉该题没什么意义，不必太在意。
+    
+    
+  \item \textbf{$P_{203}(17)$,证明$\vert abc \vert = \vert bca \vert = \vert cab \vert$}  \\
+    \textbf{解答:}  \\
+    该类关于元素阶相等的题目，可以通过数论中的整除性质来证明。即，若要证明 $m = \vert a \vert = \vert b \vert = n$,
+    可以分别证明$m \vert n$和$n \vert m$，而这两点又可以通过\textcolor{blue}{$\vert a \vert = n, a^m = e \to n \mid m$}
+    来说明.  \\
+    另外，借助于教科书$P_{184}(10.6)$例题的结论，$\vert ab \vert = \vert ba \vert$, 可以更方便证明该题命题。  \\
+    例如，$\vert abc \vert = \vert a(bc) \vert = \vert (bc) a \vert.$
+  
+  
+  
+  \item \textbf{$P_{203}(19)$,证明非Abel群$G$中必存在非单位元$a,b. a \neq b, ab = ba.$}  \\
+    \textbf{解答:}  \\
+    本题解答简略叙述如下:  \\
+    非Abel群$G$中必存在阶大于或等于3的元素，否则，$G$将为Abel群，与题设矛盾。  \\
+    取 $a \neq e, \vert a \vert \ge 3, b = a^{-1} \neq a$即可。
+    
+  \item \textbf{$P_{204}(21,22)$,子群判定.} \\
+    \textbf{解答:}  \\
+    这两题都是比较正规的子群判定问题，按部就班地证明即可，没有太大困难。有两点需要说明:  \\
+    一是，需要\textcolor{blue}{首先证明子集合非空},许多同学都忘记了这一点，请以后留意。  \\
+    二是，有同学按照群的定义依次检查给子集合的运算封闭性，结合律，单位元和逆元。这本身没有错误，但是不够简洁。建议直接
+    直接使用子群判定定理。
+    
+    
+    
+    
+  \item \textbf{$P_{204}(24)$,设$H$和$K$分别为群$G$的$r,s$阶子群，若$(r,s) = 1$,证明 $H \cap K = \lbrace e 
+      \rbrace.$} \\
+      \textbf{解答:}  \\
+      使用Lagrange定理解决群的阶与其子群的阶的关系问题。本题要点如下：  \\
+      \begin{itemize}
+        \item \textcolor{blue}{$H \cap K \leq H \land H \cap K \leq K.$}.注意，书中$P_{187}(10.10)$证明了$H \cap K \leq G$,
+          实际上，该结论可以更进一步。如上式。
+        \item 由Lagrange定理有，$\vert H \cap K \vert \mid r \land \vert H \cap K \vert \mid s.$
+        \item $(r,s) = 1.$
+        \item \textcolor{blue}{$e \in H \cap K.$} 该点虽然简单，但是不可缺少。以上三点仅说明$\vert H \cap K \vert = 1$. 
+      \end{itemize}
+      需要说明的是，有同学使用反证法，假设$\exists a \neq e \in H \cap K$, 然后考察$\langle a \rangle \leq H, \langle a \rangle \leq K$,
+      并使用Lagrange定理证明$\vert \langle a \rangle \vert = 1$,这与$a \neq e$产生矛盾。我认为该方法也是正确的。
+\end{enumerate}
+
+
+\end{document}
+
+

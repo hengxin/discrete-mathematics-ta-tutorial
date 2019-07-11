@@ -1,0 +1,180 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{2010年离散数学期末测试 }
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{2010年离散数学期末测试试题}
+
+\begin{problem}{\textbf{连通图}}  \label{ps:paths}
+
+  $P,Q$是连通图中的两条最长的路径.证明$P,Q$至少有一个公共点.
+\end{problem}
+*********************************************************************
+\begin{problem}{\textbf{生成树}}  \label{ps:spanning_tree}
+
+  证明: 连通图中边$e$是割边 $\iff$ $e$包含在该图的所有生成树中.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{倒油问题}}  \label{ps:application}
+
+  有3个油瓶,容量分别是10,7和3斤.开始时10斤瓶内装满油,其余两瓶为空.不用称,如何能经过尽可能少
+  的倒油次数将油分为两个5斤?请建立图论模型,给出问题解.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{图的连通度}}  \label{ps:connectivity}
+
+  $G$是一个有$n$个节点的图,$\delta(G) \geq \frac{n-1}{2}$.试证明: $\lambda(G) = \delta(G)$.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{布尔代数}}  \label{ps:boolean}
+
+  设$B$是布尔代数,$\forall a,b,c \in B$若满足$a \leq c \rightarrow a \lor(b \land c) =
+  (a \lor b) \land c$,称这个等式为模律.证明布尔代数满足模律.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{群论}}  \label{ps:group}
+
+  设$H$是群$G$的子群,$x \in G, xHx^{-1} = \set{xhx^{-1} \mid h \in H}$.
+  证明: $xHx^{-1}$是群$G$的子群.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{哈密顿图}}  \label{ps:hamiltonian}
+
+  设$G$是连通无向图.证明: 若$G$中有桥或者割点,则$G$不是哈密顿图.
+\end{problem}
+*********************************************************************
+
+\begin{problem}{\textbf{平面题}}  \label{ps:planar}
+
+  $G$是点数不超过11的平面图.证明$G$中至少含有一个四度或四度以下节点.
+\end{problem}
+*********************************************************************
+\begin{problem}{\textbf{点覆盖}}  \label{ps:cover}
+
+  确定下图(图略)的点独立数$\beta_0$,点覆盖数$\alpha_0$,边独立数$\beta_1$和边覆盖数$\alpha_1$.
+  
+  任给一个$n$阶无孤立点的图,$\alpha_0 + \beta_0 = n$一定成立吗? 证明之.
+\end{problem}
+*********************************************************************
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+

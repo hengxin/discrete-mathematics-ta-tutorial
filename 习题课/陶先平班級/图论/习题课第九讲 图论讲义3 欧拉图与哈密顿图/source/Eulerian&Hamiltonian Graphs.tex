@@ -1,0 +1,428 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{alg}[theorem]{Algorithm}
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(3) 欧拉图(Eulerian Graph)}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{
+  \large
+  \begin{quote}
+    ``Graph theory starts with \emph{graph} and ends with \emph{theory}.''
+  \end{quote}
+}
+
+\section{Special Topics}
+
+\subsection{Eulerian Graph}
+\begin{quote}
+  ``Read Euler, read Euler, he is our teacher in all
+  things.''($\textrm{Pierre-Simon Laplace}$)
+  
+%   Euler(15 April 1707 $\sim$ 18 September 1783)出生于瑞士巴塞尔(Basel).
+\end{quote}
+
+\begin{definition}{\textbf{Eulerian graph}}  \label{def:eulerian}
+
+  若$G$为无向图，则包含$G$中每条边的简单通路$\tau$(边各异，顶点不一定各异)称为欧拉通路.
+  
+  若$\tau$又是回路，则称$\tau$为欧拉回路.
+  
+  $G$若有欧拉通路，则称为半欧拉图;$G$若有欧拉回路，则称为欧拉图.
+\end{definition}
+\begin{remark}{\textbf{Eulerian graph}}  \label{remark:eulerian}
+
+  欧拉图来源于\emph{$\textrm{Seven Bridge of K}\ddot{o} \textrm{igsberg}$}问题.
+\end{remark}
+
+关于欧拉图,我们有如下两个问题:
+\begin{enumerate}
+  \item 给定无向图$G$,如何判断该图是否是欧拉图?
+  \item 给定欧拉图$G$,如何给出欧拉回路?
+\end{enumerate}
+下面我们就分别来探讨这两个问题.
+\begin{theorem}{欧拉图判定的充要条件}  \label{thm:eulerian}
+  
+  无向图$G$是欧拉图 $\iff$ $G$是连通图且其所有顶点均为偶度顶点.
+\end{theorem}
+我们称所有顶点均为偶度顶点的图为偶图.
+\begin{proof}{欧拉图判定的充要条件}  \label{proof:eulerian}
+  \begin{enumerate}
+    \item ``$\Rightarrow:$'' 该结论显然成立. ``有进必有出,头尾合一'',故所有顶点必为偶度顶点.
+    \item ``$\Leftarrow:$'' 实际上,我们可以证明: 
+      \begin{enumerate}
+        \item \label{lemma:cycle} $G$可以拆分为若干个边不重的圈之并.
+        \item \label{lemma:combine} 这些圈可以串成一个欧拉回路.
+      \end{enumerate}
+      关于第一个结论\ref{lemma:cycle}, 我们可以通过对边数作归纳来完成.完成该归纳法的关键在于如何先找到一个圈,然后
+      通过将该圈上的边删除得到规模(边数)较小的偶图. 圈的存在性可以通过极大路径法来证明($\delta(G) \geq 2$).圈用去
+      了所关联到的每个顶点的两度.所以,删除该圈上的边之后可得到规模较小的偶图.
+      
+      关于第二个结论\ref{lemma:combine}, 我们注意到图是连通的,所以两个圈之间必有共同点.这些共同点就是将圈串成一个
+      欧拉回路的``切合点''.
+      
+      图\ref{fig:euler_proof}形象地说明该证明方法.
+		%\usepackage{graphics} is needed for \includegraphics
+		\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.8]{figure/euler_proof}
+		  \caption[labelInTOC]{欧拉图可表为若干边不重的圈之并}
+		  \label{fig:euler_proof}
+		\end{center}
+		\end{figure}
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{欧拉图判定的充要条件}  \label{remark:eulerian}
+
+  如定理\ref{thm:eulerian}和其证明\ref{proof:eulerian}所表明的那样,我们可以通过两种方式来刻画欧拉图.
+  \begin{enumerate}
+    \item 连通的偶图
+    \item 连通的,且是若干个边不重的圈之并.
+  \end{enumerate}
+  这两种方式同样重要.在这里,我们尤其需要强调第二种刻画方式.一是因为大家对其重视不足;二是因为该刻画实际上蕴含了一种
+  给出欧拉回路的算法.对该算法的介绍,我们将在\ref{alg:euler}中给出.
+\end{remark}
+
+\begin{alg}{求欧拉回路的算法}  \label{alg:euler}
+
+  根据证明过程\ref{proof:eulerian},我们可以得到一种求欧拉回路的算法.该算法过程可描述如下:
+  \begin{enumerate}
+    \item 任意选择一个点作为起始点$s$.
+    \item 随机(可沿着边一直走,在顶点处随机选择出边)找到一个以$s$点为始点和终点的圈,记为$c$,将其上之边做上标记,
+      表示已经访问过.
+    \item 如果$c$上包含了所有的边,则算法结束.否则,必存在一条未被标记的边,该边与圈$c$有一共同点$t$,以该点为始点和
+      终点再随机找到一个圈$c'$.将圈$c$与$c'$合并成一个新的更大的以$s$为始点和终点的圈.
+    \item 重复以上过程. 
+  \end{enumerate}
+\end{alg}
+
+\begin{example}{求欧拉回路的算法}  \label{example:euler}
+
+  \begin{enumerate}
+    \item 题目:请给出欧拉图\ref{fig:euler_example(0)}的一条欧拉回路.
+    \item 在图\ref{fig:euler_example(1)}中选取点$y$为起始点,找到一个圈$(y,x,z,a,y)$.
+    \item
+    在图\ref{fig:euler_example(3)}中选取点$x$为起始点,找到一个圈$(x,w,b,a,x)$,并将其与上一个圈合并成一个更大的圈
+      $(y,x,w,b,a,x,z,a,y)$.
+    \item 在图\ref{fig:euler_example(4)}中继续以上过程.
+    \item
+    在图\ref{fig:euler_example(5)}中得到欧拉回路$(y,x,e,d,c,a,w,v,x,w,b,a,x,z,a,y)$.
+  \end{enumerate}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(0)}
+	  \label{fig:euler_example(0)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(1)}
+	  \label{fig:euler_example(1)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(3)}
+	  \label{fig:euler_example(3)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(4)}
+	  \label{fig:euler_example(4)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(5)}
+	  \label{fig:euler_example(5)}
+	\end{center}
+	\end{figure}
+	
+\end{example}
+
+\section{Eulerian Digraph}
+本小节,我们关注有向图的欧拉路径问题.
+
+\begin{definition}{\textbf{Eulerian Digraph}} 
+\label{definition:eulerian_digraph}
+
+  有向图上的欧拉通路指的是,有向图上遍历所有边(沿边的方向)一次且仅一次的通路.
+  
+  有向图上的欧拉回路指的是,有向图上遍历所有边(沿边的方向)一次且仅一次的回路.
+\end{definition}
+
+与无向图一样,我们也有一个与顶点度数有关的用来刻画有向图欧拉回路的充要条件.在以定理的形式介绍该充要条件之前,
+我们来介绍一下极大路径法在有向图中的一个应用.
+
+\begin{lemma}{极大路径法在有向图中的应用}  \label{lemma:maximal_path_digraph}
+
+  如果有向图$G$满足$\delta^{+}(G) \geq 1$,那么该图$G$包含圈(回路)(有向图意义下).
+  
+  同样地,如果有向图$G$满足$\delta^{-}(G) \geq 1$,那么该图$G$包含圈(回路).
+\end{lemma}
+
+\begin{proof}{极大路径法在有向图中的应用}  \label{proof:maximal_path_digraph}
+
+  设$P$是有向图$G$中的极大路径,\emph{$u$}是$P$的最后一个顶点.因为$P$为极大路径,不能再扩展,所以$u$的所有后继
+  都必须在$P$上.$\deg^{+}(u) \geq 1$,所以$u$具有后继.设$u$在$P$上的后继顶点为$v$,则$v \leadsto u \to
+  v$构成圈.该证明过程可用图\ref{fig:maximal_path_digraph}来表示.
+\end{proof}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/maximal_path_digraph}
+	  \caption[labelInTOC]{极大路径法在有向图中的应用}
+	  \label{fig:maximal_path_digraph}
+	\end{center}
+	\end{figure}
+\begin{remark}{极大路径法在有向图中的应用}  \label{remark:maximal_path_digraph}
+
+  同学们需要注意极大路径法在有向图中的应用与其在无向图中的应用的一个不同之处,也就是,在这里我们是使用最后面的顶点
+  $u$来推导出圈的存在的.而在无向图中,我们使用的是路径的第一个顶点(也可以用最后面的顶点,在无向图中两个端点是对称
+  的,但是在有向图中则不对称).
+\end{remark}
+
+下面我们就给出有向图中欧拉回路的充要条件.大家会发现,该定理与定理\ref{thm:eulerian}极为相似,甚至连证明过程也极为
+相似.
+ 
+\begin{theorem}{有向欧拉图的充要条件}  \label{thm:eulerian_digraph}
+
+  有向图$G$是欧拉图(即具有欧拉回路) $\iff$ $\forall v \in V(G), deg^{+}(v) = deg^{-}(v)$
+  并且图$G$的底图(忽略有向图边上的方向所得到的无向图)是连通的.
+\end{theorem}
+
+\begin{proof}{有向欧拉图的充要条件}  \label{proof:eulerian_digraph}
+  
+  \begin{description}
+    \item[$\Rightarrow:$] 显然成立. 同无向图的情况一样,``有进必有出,头尾合一''.
+    \item[$\Leftarrow:$] 同无向图的情况类似.使用与无向图中类似的数学归纳法即可.其中引理\ref{lemma:maximal_path_digraph}
+     在归纳证明中起到了与无向图中类似的作用.具体证明过程不再赘述. 
+  \end{description}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Set}
+欧拉图部分不安排习题.我们重点讲解有向欧拉图的一个应用\ref{subsection:app_dbs}.
+
+本节课的习题部分内容为讲解前几次图论作业题目.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application and Extension}  \label{section:app}
+
+\subsection{Chinese Postman Problem}  \label{subsection:app_cpp}
+关于无向欧拉图在``中国邮递员问题''中的应用,课件中已有介绍,这里不再重述.若大家对此问题感兴趣,可以阅读相关文献.
+对``中国邮递员问题''的介绍,可以参见这里:\url{http://eie507.eie.polyu.edu.hk/ss-submission/B7a/};
+文献``Matching, Euler tours and the Chinese postman''
+(\url{http://www.springerlink.com/content/m13073156441m47x/}) 利用匹配理论解决该问题.
+
+\subsection{de Bruijn Sequence}  \label{subsection:app_dbs}
+我们重点通过该例子来介绍有向图中欧拉回路的应用.
+
+我们现在有这样一个问题,该问题具有电信行业的应用背景.
+\begin{problem}{滚筒问题}  \label{ps:rotating_drum}
+
+  一个滚筒有\emph{16个}不同的扇片.滚筒当然可以滚动,滚筒每滚过一个扇片,其位置就有所不同.问题是,我们能否不直接
+  观察该滚筒就能确定它的位置? 
+  
+  一种方法是在某些扇片上放置导电材料,而在另外的一些扇片上放置非导电材料.把\emph{4个}
+  电极相邻地放置到滚筒旁,使得在滚筒的任意位置中,电极都邻接4个连续的扇片.如果电极邻接有导电材料的扇片,它就会被触发,
+  比如说电极会发光,如图\ref{fig:rotating_drum}.
+  
+  我们希望通过选择在哪些扇片上放置导电材料和非导电材料,来使得触发的和未触发的电极模式能告知我们这个滚筒的位置.
+\end{problem}
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/rotating_drum}
+	  \caption[labelInTOC]{The problem of rotating drum}
+	  \label{fig:rotating_drum}
+	\end{center}
+	\end{figure}
+更``数学''一点的描述可以这样来得到:
+
+导电和非导电,可以分别用1和0来表示.16个扇片,那就构成了长度为16的0,1比特串.4个连续的电极,可以用来读取该比特串的连续
+4位.那么如果我们想通过这4位字串来确定扇片的位置,我们就需要使得所有的这样的4位连续字串(一共有16个)都是各个不同的!
+图\ref{fig:rotating_drum}实际上给出了一种解法(0,1比特的一种圆形排列).
+
+\begin{solution}{de Brujin graph}  \label{solution:de Brujin}
+
+  实际上对应图\ref{fig:rotating_drum},我们定义一个有向图.而该有向图的边使用0,1比特来标识,有向图的欧拉回路便对应
+  着图\ref{fig:rotating_drum}的0,1比特排列方式.该类有向图就是``de Brujin graph''. 这里，我们考虑更一般的情形，
+  也就是有$2^n$个扇片,对应着长度为$2^n$的0,1比特串,我们要考察的便是连续的长度为$n$的字串,这样的子串共有$2^n$个.
+  
+  如下构造``de Brujin graph''$D_n$:
+  \begin{description}  \label{solution:construction}
+    \item[顶点:] 所有的长度为$n-1$的0,1比特串.
+    \item[$a \to b$有向边:] 如果$a$的最后$n-2$位与$b$的最初$n-2$位相同,则定义一条有向边$a \to
+    b$.并且使用$b$的最后一位(0或1)来标识该有向边.
+  \end{description}
+  对应于图\ref{fig:rotating_drum}的``de Brujin graph''$D_4$如图\ref{fig:de Brujin}所示.
+  
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.8]{figure/de_Brujin}
+	  \caption[labelInTOC]{de Brujin graph $D_4$}
+	  \label{fig:de Brujin}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+下面,我们需要证明该构造过程\ref{solution:construction}所得到的有向图是欧拉图,并且其欧拉回路具有我们想要的圆形
+排列性质(即,$n$位连续子串的唯一性).
+
+\begin{theorem}{de Brujin graph 是欧拉图}  \label{thm:de_Brujin_eulerian}
+
+  如\ref{solution:construction}所构造得到的``de Brujin graph''$D_n$是欧拉图(有向图意义下).
+  
+  更重要的是,$D_n$的任一欧拉回路的边的标记组成了$2^n$位0,1比特串,该比特串的$2^n$个$n$位连续子串是互异的.
+\end{theorem}
+
+\begin{proof}{de Brujin graph 是欧拉图}  \label{thm:de_Brujin_eulerian}
+
+  \begin{description}
+    \item[de Brujin graph 是欧拉图:] 根据定理\ref{thm:eulerian_digraph},只需证明以下两点:
+      \begin{description}
+        \item[$\deg^{+}(v) = \deg^{-}(v):$] 由构造\ref{solution:construction}知,
+        $\forall v \in V(D_n), \deg^{+}(v) = \deg^{-}(v) = 2$(请思考,为什么?).
+        \item[基图连通:]
+        实际上图$D_n$是强连通的.从任一点到达$b=\set{b_1,\cdots,b_{n-1}}$,可以依次通过边$b_1,\cdots,b_{n-1}$.
+      \end{description}
+    \item[$D_n$具有圆形排列性质:] $2^{n-1}$个顶点是互异的,每个顶点的出边上的标记是互异的(0和1),在欧拉回路$C$中
+      我们遍历了每一个顶点的每一条边(仅一次).而某顶点$a=(a_1,\cdots,a_{n-1}$与其某一出边0或1实际上构成了$n$位
+      连续子串(不太容易说得清楚,请大家结合图例仔细体会).
+  \end{description} 
+\end{proof}
+
+\begin{remark}{Extension to extention}  \label{remark:de_Brujin_graph_extension}
+
+  ``de Brujin graph''有很多有意思的性质.比如,它有很多的顶点但是只有很少的边($n$个顶点,$2n$条边),然而该图还是
+  强连通的.关于该类图的应用和更有意思的性质，可参见这里:\url{http://en.wikipedia.org/wiki/De_bruijn_graph}.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

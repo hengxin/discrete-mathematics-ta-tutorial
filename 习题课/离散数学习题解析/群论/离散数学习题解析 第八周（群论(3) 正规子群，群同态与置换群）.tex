@@ -1,0 +1,252 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{第八周(群论(3),正规子群，同态与置换群)}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt \hfill NJUCS \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{补充习题 \hspace{0.15cm} 群论(3) 正规子群，同态与置换群}
+
+\begin{enumerate}
+  \setlength{\itemsep}{0.40cm}
+
+  \item \textit{假设$f$是群$G$到$G'$的映射，$H \subseteq G$,证明:
+  	\begin{enumerate}
+  	  \item $H \subseteq f^{-1}(f(H))$,但是$H = f^{-1}(f(H))$不一定成立。
+  	  \item 若$\textrm{Ker}f \subseteq H$，则$H = f^{-1}(f(H))$。
+	\end{enumerate} }
+    \textbf{解答:}  \\
+    (该题似有差错，待我们弄清楚之后，再在习题课上讲解。若各位对该题有什么看法，欢迎讨论。)
+
+  \item \textit{设$f$是群$G$到群$G'$的满同态。证明,$H \triangleleft G \Leftrightarrow f(H) \triangleleft G'$}  \\
+    \textbf{解答:}  \\
+	(该题似有差错，待我们弄清楚之后，再在习题课上讲解。若各位对该题有什么看法，欢迎讨论。)
+
+  \item \textit{$\phi: G \to G', \textrm{为同态映射, } H \leq G, K \leq G'$,试证明如下与群同态相关的结论:}  \\
+    \textbf{解答:}
+	\begin{enumerate}
+	  \item \textbf{$\phi(H)$是$G'$的子群.}  \\
+	    $e' \in \phi(H) \Rightarrow \phi(H) \neq \emptyset.$  \\
+	    $\forall h_1,h_2 \in H, h_1h_2^{-1} \in H.$  \\
+	    $\phi(h_1) (\phi(h_2))^{-1} = \phi(h_1)\phi(h_2^{-1}) = \phi(h_1h_2^{-1} \in \phi(H).$
+	  \item \textbf{$\phi^{-1}(K)$是$G$的子群.}  \\
+	    $e \in \phi^{-1}(K) \Rightarrow \phi^{-1}(K) \neq \emptyset.$  \\
+	    $\forall a,b \in \phi^{-1}(K), \phi(a),\phi(b) \in K.$  \\
+	    $\phi(ab^{-1}) = \phi(a)\phi(b^{-1}) = \phi(a) \phi(b)^{-1} \in K. \Rightarrow ab^{-1} \in \phi^{-1}(K)$
+	  \item \textbf{如果$H$是$G$的正规子群，则$\phi(H)$是$\phi(G)$的正规子群.}  \\
+	    $\phi(H) \leq \phi(G) \Rightarrow \forall g \in G, h \in H, ghg^{-1} \in H.$  \\
+	    $\phi(g)\phi(h)(\phi(g))^{-1} = \phi(g)\phi(h)\phi(g^{-1}) = \phi(ghg^{-1}) \in \phi(H).$
+	  \item \textbf{如果$K$是$G'$的正规子群，则$\phi^{-1}(K)$是$G$的正规子群.}  \\
+	    $\phi^{-1}(K) \leq G, \forall g \in G, h \in \phi^{-1}(K) \Rightarrow \phi(h) \in K.$  \\
+	    $K \triangleleft G' \Rightarrow \phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g)^{-1} \in K \Rightarrow ghg^{-1} \in
+	    \phi^{-}(K).$
+	  \item \textbf{$Ker \phi$是$G$的正规子群.}  \\
+	    $\lbrace e' \rbrace \triangleleft G' \Rightarrow \textrm{Ker} \phi \triangleleft G.$
+	\end{enumerate}
+
+
+  \item \textit{\textbf{第二同构定理.} 设$H \triangleleft G, K \triangleleft G$，则$HK \triangleleft G, H \cap K \triangleleft
+  G$, 且$HK/K \cong H/(H \cap K)$ } \\
+  	\textbf{解答:}  \\
+    该题的证明对于初学者来说是有一定难度的，要想给出严谨的证明过程，需要对相关知识点很熟悉才有可能。请大家放松
+    心情，耐心体会该题的证明过程。从这一道题的证明中，我们也顺带可以复习许多知识点。  \\
+    对于该类复杂定理的证明，建议大家采用分层证明的策略。所谓分层证明，就是自顶向下，逐步精化的过程。比如，要证明某群$H$
+    是群$G$的正规子群，就要先证明$H \leq G$，再证明$H \triangleleft G$;而要证明$H \leq G$，又要先说明$H \neq \emptyset$。
+    大家在证明的时候，可以将以上关于层次的思考书写下来，分出一二三点，再分一二三小点，依次逐步证明。这样，就不至于
+    感到无从下手。  \\
+    根据群同态基本定理，要证明$HK/K \cong H/(H \cap K)$，我们有两种选择，
+    \begin{enumerate}
+      \item 寻找满同态$f: HK \to H/(H \cap K)$,并证明$\textrm{Ker}f = K$；
+      \item 寻找满同态$f: H \to HK/K$，并证明$\textrm{Ker}f = H/(H \cap K)$。
+    \end{enumerate}
+    有选择，就会产生困惑。到底采取哪一条途径呢？我们不妨都试试看。实际上，这两条途径都是行得通的。  \\
+    在开始考虑使用哪种途径来应用(apply)群同态基本定理之前，我们还要先做些准备工作。也就是，我们要先证明一些相关
+    的辅助证明，这些证明看上去不像使用群同态基本定理那样重要，但对于本题来讲却是不可或缺的。这包括:
+    \begin{enumerate}
+      \item 证明 $HK \triangleleft G, H \cap K \triangleleft G$;
+      \item 证明 $K \triangleleft HK, H\cap K \triangleleft H$.
+    \end{enumerate}
+    第一条大家一般不会忽略，但是第二条却少有人注意。之所以要证明第二条，是因为我们要保证$HK/K \cong H/(H \cap K)$
+    的合法性。文字$HK/K \cong H/(H \cap K)$本身是不能证明自身的合法性的。  \\
+	\begin{enumerate}
+	  \item \textbf{一证:$HK \triangleleft G$}
+		\begin{itemize}
+		  \item \textbf{$HK \leq G.$}  \\
+		  	$e \in HK, HK \neq \emptyset.$  \\
+		  	$\forall hk \in HK, h_1k_1 \in HK, \textrm{其中 },h,h_1 \in H, k,k_1 \in K.$  \\
+		  	$(hk)(h_1k_1)^{-1} = hkk_1^{-1}h_1^{-1}$  \\
+		  	$K \triangleleft G \Rightarrow Kh_1^{-1} = h_1^{-1}K \Rightarrow \exists k_2 \in K, k_1^{-1}h_1^{-1} = h_1^{-1}k_2$
+		  	\\  故，$(hk)(h_1k_1)^{-1} = hkk_1^{-1}h_1^{-1} = hkh_1^{-1}k_2 = hh_1k_3k_2(\exists \k_3 \in K) \in HK.$  \\
+		  	由子群判定定理得,$HK \leq G$成立。
+		  \item \textbf{$HK \triangleleft G$}  \\
+		    $\forall g \in G, hk \in HK(h \in H,k \in K).$  \\
+		    $H \triangleleft G \Rightarrow ghg^{-1} \in H; K \triangleleft G \Rightarrow gkg^{-1} \in K.$  \\
+		    故，$g(hk)g^{-1} = ghg^{-1}gkg^{-1} \in HK.$  \\
+		    由正规子群判定定理得,$HK \triangleleft G$成立。
+		\end{itemize}
+	  \item \textbf{二证:$H \cap K \triangleleft G$}  \\
+	    \begin{itemize}
+	      \item \textbf{$H \cap K \leq G.$}  \\
+	      	$e \in H \cap K \Rightarrow H \cap K \neq \emptyset.$  \\
+	      	$\forall a \in H \cap K, b \in H \cap K \Rightarrow ab^{-1} \in H(\because H \leq G) \land ab^{-1} \in K
+	      	  (\because K \leq G.) \Rightarrow ab^{-1} \in H \cap K.$
+	      \item \textbf{$H \cap K \triangleleft G.$}  \\
+			$\forall n \in H \cap K, \forall g \in G.$  \\
+			$gng^{-1} \in H, gng^{-1} \in K \Rightarrow gng^{-1} \in H \cap K.$
+	    \end{itemize}
+	  \item \textbf{验证$HK/K$的合法性，即需证明$K \triangleleft HK$.}  \\
+	    $K = eK \subseteq HK, K \triangleleft G \Rightarrow K \triangleleft HK.$
+	  \item \textbf{验证$H/(H \cap K)$的合法性，即需证明$H \cap K \triangleleft H$.}  \\
+	    $H \cap K \subseteq H, H \cap K \triangleleft G \Rightarrow H \cap K \triangleleft H.$
+	\end{enumerate}
+
+	到此为止，我们完成了准备工作。接下来，我们将要使用群同态基本定理来证明商群之间的同构关系。在前面，我们已经分析过，
+	对于如何使用群同态基本定理我们有两条途径可选，而两条途径又都是可行的，所以接下来我们分别来分析每一条途径。  \\
+	\begin{enumerate}
+	  \item \textbf{方法一:寻找满同态$f: H \to HK/K$，并证明$\textrm{Ker}f = H/(H \cap K)$.}  \\
+	    \begin{enumerate}
+	      \item \textbf{构造映射.}  \\
+	      	构造映射
+	      	\[
+	      	  \phi: H \to HK/K.
+	      	\]
+	      	\[
+	      	  h \mapsto hkK = hK. (h \in H, k \in K.)
+	      	\]
+	      \item \textbf{证明你所构造的确实是映射.}  \\
+	      	即证明：$\forall h \in H, \exists ! hK \in HK/K , \phi(h) = hK.$  \\
+	      	存在性，显然; \\
+	      	唯一性: $h = h_1 \Rightarrow \phi(h) = \phi(h_1).$ 得证.
+	      \item \textbf{证明该映射为满射.}  \\
+	        $\forall hkK \in HK/K , \exists h, \phi(h) = hK = hkK.$ 得证.
+	      \item \textbf{证明该映射为群之间的满同态映射.}  \\
+	        $\forall h_1,h_2 \in H, \phi(h_1h_2) = h_1h_2K = (h_1K)(h_2K) = \phi(h_1)\phi(h_2).$
+	      \item \textbf{求解同态核.}  \\
+	        $\textrm{Ker} \phi = \lbrace h \in H \mid \phi(h) = eK = K \rbrace = \lbrace h \in H \mid hK = K \rbrace$  \\
+	        $= \lbrace h \in H \mid h \in K \rbrace = H \cap K.$
+	      \item \textbf{应用同态基本定理.}  \\
+	        故，$H/(H \cap K) \cong HK/K.$得证。     $\square$
+	    \end{enumerate}
+	  \item \textbf{方法二:寻找满同态$f: HK \to H/(H \cap K)$,并证明$\textrm{Ker}f = K$.}  \\
+	    \begin{enumerate}
+	      \item \textbf{构造映射.}  \\
+	        \[
+	          \phi: HK \to H/(H \cap K).
+	        \]
+	        \[
+	          hk \mapsto h(H \cap K).
+	        \]
+	      \item \textbf{证明你所构造的确实是映射.}  \\
+	        即证明：$\forall hk \in HK, \exists ! h(H \cap K) \in H/(H \cap K) , \phi(hk) = h(H \cap K).$  \\
+	        存在性，显然;  \\
+	        唯一性，即证明,$hk = h'k' \Rightarrow \phi(hk) = \phi(h'k')$。  \\
+	        $hk = h'k' \Rightarrow h^{-1}hk(k')^{-1} = h^{-1}h'k'(k')^{-1} \Rightarrow k(k')^{-1} = h^{-1}h'$  \\
+	        $\Rightarrow h^{-1}h' \in K, h^{-1}h' \in H \Rightarrow h^{-1}h' \in H \cap K \Rightarrow h(H \cap K) = h'(H
+	        \cap K) \Rightarrow \phi(hk) = \phi(h'k').$
+	      \item \textbf{证明该映射为满射.}  \\
+	        $e \in K. \forall h(H \cap K), \exists h = he \in HK, \phi(he) = h(H \cap K).$
+	      \item \textbf{证明该映射为群之间的满同态映射.}  \\
+	        即需证明,$\phi((hk)(h'k')) = (h(H \cap K))(h'(H \cap K)).$  \\
+	        $\phi((hk)(h'k')) = \phi(hkh'k') = \phi(hh'k''k') (\exists k'',kh' = h'k'', \textrm{请思考，为什么?})$  \\
+	        $=hh'(H \cap K) = (h(H \cap K))(h'(H \cap K)).$
+	      \item \textbf{求解同态核.}  \\
+	        $\textrm{Ker}\phi = \lbrace hk \in HK \mid \phi(hk) = e(H \cap K) = H \cap K \rbrace$  \\
+	        $= \lbrace hk \in HK \mid h(H \cap K) = H \cap K \rbrace = \lbrace hk \in HK \mid h \in H \cap K \rbrace$  \\
+	        $= (H \cap K)K = K(\because, H \cap K \subseteq K, K \leq G \Rightarrow \forall a \in H \cap K, aK = K.).$
+	      \item \textbf{应用同态基本定理.}  \\
+	        由同态基本定理,$H/(H \cap K) \cong HK/K.$得证。   $\square$
+	    \end{enumerate}
+	\end{enumerate}
+	群同态基本定理经常被用来证明与商群相关的同构关系。由群同态基本定理的形式可知，有时我们不知道该构造哪些群之间的满同态映射，
+	同样也不清楚该把哪个正规子群当作同态核来看待并计算。这时，我们可以尝试这些不同途径，试着构造不同的满同态映射。  \\
+	对于简单的商群等价，基本可以根据陪集的形式来构造满同态映射，大家可以先尝试一下，就像该例所构造的那些满同态映射一样。  \\
+	构造好映射以后，需要先验证你所构造的确实是映射，也就是满足函数的``存在唯一''条件，然后再证明其为满射和满同态。  \\
+	在计算同态核的时候，要时刻牢记与子群、子群陪集等价($Ha = Hb \Leftrightarrow ab^{-1} \in H, a \in H \Leftrightarrow Ha = H$)
+	以及正规子群相关的性质。  \\
+	验证题目中商群记号的合法性也是必不可少的。  \\
+	顺带说一句，当证明不知该如何进行时，再回过头来想想哪些是已知条件，现在需要证明的是什么，要想达到目标还差什么条件，然后可以从已知条件
+	和目标分别出发，一步步填补证明的过程。
+  \item \textit{ \textbf{第三同构定理:} 已知$H \triangleleft G, K \triangleleft G, H \subseteq K$,证明，$G/K \cong (G/H) / (K/H).$}
+    本定理在课堂上已介绍过，其证明在老版教科书上也已给出。但是，该证明不够详尽，我们再按照上一题的步骤给出详细证明过程。同学们可以再
+    借此机会熟悉一下群同态基本定理及其应用和相关知识点。  \\
+    \begin{enumerate}
+      \item \textbf{验证$K/H$的合法性，即证明$H \triangleleft K$.}  \\
+        $H \triangleleft G, H \subseteq K \Rightarrow H \triangleleft K.$
+      \item \textbf{验证$(G/H)/(K/H)$的合法性，即证明$K/H \triangleleft G/H$.}  \\
+        \begin{itemize}
+          \item \textbf{$K/H \leq G/H.$}  \\
+            $eH \in K/H \Rightarrow K/H \neq \emptyset.$  \\
+            $\forall kH,k_1H \in K/H, k,k_1 \in K,$  \\
+            $(kH)(k_1H)^{-1} = kHH^{-1}k_1 = kHHk_1 = kHk_1 = kk_1H \in KH.$
+          \item \textbf{$K/H \triangleleft G/H.$}  \\
+            $\forall kH \in K/H, \forall gH \in G/H.$  \\
+            $(gH)(kH)(gH)^{-1} = gHkHH^{-1}g^{-1} = gHkHg^{-1} = gkg^{-1}H \in K/H.$
+        \end{itemize}
+      \item \textbf{构造映射.}  \\
+        \[
+          \phi: G/H \to G/K.
+        \]
+        \[
+          gH \to gK
+        \]
+      \item \textbf{证明你所构造的确实是映射.}  \\
+        即证明,$\forall gH \in G/H, \exists ! gK \in G/K, \phi(gH) = gK.$  \\
+      	存在性，显然;  \\
+      	唯一性：$gH = g_1H \Rightarrow gg^{-1} \in H \gg^{-1} \in K(H \subseteq K) \Rightarrow gK = g_1K$  \\
+      	即$gH = g_1H \Rightarrow \phi(gH) = \phi(g_1H)$.
+      \item \textbf{证明该映射为满射.}  \\
+        $\forall gK \in G/K, \exists gH \in G/H , \phi(gH) = gK.$
+      \item \textbf{证明该映射为群之间的满同态映射.}  \\
+        $\phi((gH)(g_1H)) = \phi(gg_1H) = gg_1K = (gK)(g_1K) = \phi(gK) \phi(g_1K).$
+      \item \textbf{求解同态核.}  \\
+        $\textrm{Ker}\phi = \lbrace gH \mid \phi(gH) = K \rbrace = \lbrace gH \mid gK = K \rbrace = \lbrace gH \mid g
+        \in K \rbrace = K/H.$
+      \item \textbf{应用同态基本定理.}  \\
+        由群同态基本定理，$G/K \cong (G/H) / (K/H).$成立。  $\square$
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+

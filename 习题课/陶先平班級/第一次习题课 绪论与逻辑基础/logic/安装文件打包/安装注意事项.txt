@@ -1,0 +1,5 @@
+1. 字体文件需要安装到 C:\windows\font 下
+2. C根目录下的需要放 logic.th 文件
+
+
+

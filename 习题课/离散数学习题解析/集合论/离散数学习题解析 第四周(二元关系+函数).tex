@@ -1,0 +1,112 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{第四周(二元关系+函数)}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{习题七 \hspace{0.15cm} 二元关系}
+\begin{enumerate}
+  \setlength{\itemsep}{0.20cm}
+  \item \textbf{($P_{134}\textrm{第45题}$) 根据Hasse图写出偏序关系。}  \\
+    \textbf{常见错误:}  \\
+      有些作业丢失了部分有序对，比如，$\langle a,d \rangle$, $\langle a,e \rangle$等。
+      这主要是因为遗忘了偏序关系的传递性。  \\
+      Hasse diagram是对偏序关系的一种简化表达方式，它根据偏序关系的自反性省略了环，根据对称性省略了边的方向，
+      根据传递性省略了间接边。在根据Hasse图反推偏序关系时，就要恢复这些被省略的有序对。
+  \item \textbf{($P_{135}\textrm{第48题}$) 证明偏序关系。}  \\
+    \textbf{解析:}  \\
+      大家对于自反性和传递性的掌握都很到位，但是对于反对称性的理解就有点薄弱了。  \\
+      $\langle a_1,b_1 \rangle T \langle a_2,b_2 \rangle \land \langle a_2,b_2 \rangle T \langle a_1,b_1 \rangle
+       \Rightarrow a_1Ra_2 \land a_2Ra_1 \land b_1Sb_2 \land b_2Sb_1.$  \\
+      $\because R,S$是反对称的，$\therefore$上式错误。$\therefore T$不是对称的，$\therefore T$是反对称的。  \\
+      \vspace{0.20cm}
+      上述证明的错误在于: 某二元关系可能既是对称的，又是反对称的。所以，我们不能根据某关系不是对称的，就推断它是反对称的。这涉及到类似$\langle a,a \rangle$等有序对。具体到该题目而言，就是有可能$a_1=a_2$。如果要使用上面的证明，就需要排除该情况。但是我们推荐另外
+      一种叙述方式，这对于反对称性的证明(以及其后的函数单射性质的证明)都是通用的。  \\
+      $\langle a_1,b_1 \rangle T \langle a_2,b_2 \rangle \land \langle a_2,b_2 \rangle T \langle a_1,b_1 \rangle$
+      $\Rightarrow a_1Ra_2 \land a_2Ra_1 \land b_1Sb_2 \land b_2Sb_1$
+      $\Rightarrow a_1=a_2 \land b_1=b_2 \Rightarrow \langle a_1,b_1 \rangle = \langle a_2,b_2 \rangle.$
+\end{enumerate}
+
+\section{习题八 \hspace{0.15cm} 函数}
+\begin{enumerate}
+  \setlength{\itemsep}{0.20cm}
+  \item \textbf{($P_{161}\textrm{第7(4)题}$) 存在单射、满射和双射函数的充要条件。}  \\
+    \textbf{解析:}  \\
+      \textcolor{red}{存在}单射、满射和双射函数的充要条件分别为: \\
+      $m \le n; m \ge n; m=n.$  \\
+    \textbf{常见错误:}  \\
+      有同学在上述条件下添加了相应于单射、满射和双射的条件，而这是不必要的。因为本题只要求\textcolor{red}{存在性}。
+  \item \textbf{$P_{163}\textrm{第23题}$ 商集:}  \\
+    \textbf{解析:}  \\
+      商集分别为:
+      \begin{enumerate}
+        \setlength{\itemsep}{0.20cm}
+        \item $R \diagup E_1 = \lbrace R^{-1},R-R^{-1} \rbrace.$
+        \item $R \diagup E_2 = \lbrace \lbrace x \rbrace \vert x \in R \rbrace.$
+        \item $R \diagup E_3 = \lbrace z,R-z \rbrace.$
+        \item $R \diagup E_4 = \lbrace R \rbrace.$
+      \end{enumerate}
+    \textbf{常见问题:}  \\
+      表述方式不够简洁。比如$R/E_4 = \lbrace \lbrace x \vert x \in R \rbrace.$
+  \item \textbf{($P_{163}\textrm{第25题}$)}  \\
+    $f: R \times R \to R \times R,f(\langle x,y \rangle) = \langle \frac{x+y}{2},\frac{x-y}{2} \rangle.$试证明: $f$是双射的。  \\
+    \textbf{解答:}
+      \begin{itemize}
+        \setlength{\itemsep}{0.20cm}
+        \item \textbf{单射性:}  \\
+          $f(\langle x,y \rangle)=f(\langle u,v \rangle)$
+          $\Rightarrow \langle \frac{x+y}{2},\frac{x-y}{2}\rangle = \langle \frac{u+v}{2},\frac{u-v}{2}\rangle$
+          $\Rightarrow \frac{x+y}{2} = \frac{u+v}{2} \land \frac{x-y}{2} = \frac{u-v}{2}$
+          $\Rightarrow x=u \land y=v \Rightarrow \langle x,y \rangle = \langle u,v\rangle.$
+        \item \textbf{满射性:}  \\
+          $\forall \langle u,v \rangle \in R \times R, \exists (u+v,u-v) \in R \times R,$
+          $f(\langle u+v,u-v \rangle) = \langle u,v \rangle$
+      \end{itemize}
+      
+\end{enumerate}
+
+
+\end{document}
+

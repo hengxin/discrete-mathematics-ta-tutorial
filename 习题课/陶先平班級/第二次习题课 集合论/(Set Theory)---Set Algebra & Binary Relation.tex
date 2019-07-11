@@ -1,0 +1,1046 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,red]{beamer}
+\mode<presentation>
+
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+
+%\usepackage{mathdots}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{CJK*}{GBK}{kai}
+
+\title{第2次 离散数学习题课}
+\subtitle{集合论(1) \\ 集合代数\&二元关系 }
+\author{魏恒峰 \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science \& Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame{
+	\titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Review}
+
+\subsection{Set Theory}
+\subsubsection{Algebra of Sets(Optional)}
+
+\frame
+{
+  \frametitle{集合论的先驱发展}
+
+  \begin{columns}
+  \column{0.60\textwidth}
+  \textbf{萌芽($Euclid$):}
+  \begin{quote}
+    空间乃位置点之无限堆积。
+  \end{quote}
+
+  \vspace{0.25cm}
+
+  \textbf{对无穷集合的思考($Galileo$):}
+  \[
+    \lambda_1 : 1,2,3,\cdots,n,\cdots
+  \]
+  \[
+    \lambda_2\only<2-3>{^2} : 1\only<2-3>{^2},2\only<2-3>{^2},3\only<2-3>{^2},\cdots,n\only<2-3>{^2},\cdots
+  \]
+  \only<3>
+  {
+    \[
+      \lambda^{\ast}: 1^{100},2^{100^{100}},\cdots,n^{100^{100^{\cdots}}},\cdots
+    \]
+  }
+  \column{0.30\textwidth}
+      \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.6]{figure/galileo}
+      \caption{\scriptsize ``Dialogues Concerning Two New Science''}
+    \end{figure}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{集合论的先驱发展}
+
+  \begin{columns}
+
+  \column{0.7\textwidth}
+  \begin{quote}
+    ``从有限推进到无限，乃是Cantor的不朽功绩。''
+  \end{quote}
+
+    \vspace{0.30cm}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.3]{figure/zero2infinity}
+      \caption{\scriptsize From ``One,Two,Three,...,Infinity''}
+    \end{figure}
+
+  \column{0.3\textwidth}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.4]{figure/cantor}
+      \caption{\scriptsize Georg Cantor(1845-1918) 缔造集合论}
+    \end{figure}
+
+  \end{columns}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame
+{
+  \frametitle{集合基本概念}
+
+  \begin{quote}
+    ``吾人直观或思维之对象，如为\alert{相异}而\alert{确定}之物，其\alert{总括之全体}
+    即谓之集合，其组成此集合之物谓之集合之元素。'' --- Cantor
+  \end{quote}
+
+  \pause
+  \vspace{0.2cm}
+  \begin{quote}
+    ``这是在用莫名定义莫名。'' --- Hausdorff
+  \end{quote}
+
+  \vspace{0.40cm}
+  \scriptsize($P_{83}$)  \\
+  \begin{quote}
+    ``在本书所采用的体系中规定，集合的元素都是集合。''
+  \end{quote}
+  
+  \vspace{0.40cm}
+  \scriptsize(定义6.4($P_{84}$))
+  \[
+    {\O},\lbrace {\O} \rbrace
+  \]
+  
+  \vspace{0.40cm}
+  \scriptsize($P_{96}$第3(3)题:)
+  \normalsize
+  \[
+    N-\lbrace 1,2 \rbrace
+  \]
+}
+
+
+\frame
+{
+  \frametitle{集合的运算 --- $\cup(union),\cap(intersection),\sim(complement)$}
+
+  \textbf{集合运算律: \scriptsize (compare $P_{93}$ with $P_{18}$)}\\
+  \normalsize
+  \begin{description}
+    \item [Distributive Law]
+      \[
+        A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
+      \]
+      \[
+        A \cap (B \cup C) = (A \cap B) \cup (A \cap C)
+      \]
+    \item[De Morgan Law]
+      \[
+        A - (B \cup C) = (A - B) \cap (A - C)
+      \]
+      \[
+        A - (B \cap C) = (A - B) \cup (A - C)
+      \]
+    \item[Complement]
+      \[
+        A - B = A \cap \sim B = A - (A \cap B)
+      \]
+      \[
+        A \cap (B - A) = {\O}
+      \]
+      \[
+        A \cup (B - A) = A \cap B
+      \]
+  \end{description}
+}
+
+
+\frame
+{
+  \frametitle{集合的运算 --- $\oplus$(symmetric difference)}
+
+  \begin{columns}
+
+  \begin{column}{0.6\textwidth}
+    \textbf{对称差等价定义:}
+    \vspace{0.20cm}
+    \begin{enumerate}
+      \item ``Union of both relative complements''
+        \[
+          A \oplus B = (A - B) \cup (B - A)
+        \]
+      \item ``Union of two sets, minus their intersection''
+        \[
+          A \oplus B = (A \cup B) - (A \cap B)
+        \]
+    \end{enumerate}
+  \end{column}
+
+  \begin{column}{0.4\textwidth}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.6]{figure/symdif_2}
+      %\caption{\scriptsize $A \oplus B = (A \cup B) - (A \cap B)$}
+    \end{figure}
+  \end{column}
+
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{集合的运算 --- $\oplus$(symmetric difference)}
+
+  \begin{columns}
+
+  \column{0.6\textwidth}
+  \textbf{对称差运算性质:}
+  \vspace{0.20cm}
+    \begin{description}
+      \item[Commutative] $A \oplus B = B \oplus A$
+      \item[Associative] $(A \oplus B) \oplus C = A \oplus (B \oplus C)$
+      \item[Cancellative] $A \oplus B = A \oplus C \Rightarrow B = C$
+      \item[]
+        \[
+          A \oplus {\O} = A
+        \]
+        \[
+          A \oplus E = \sim A
+        \]
+        \[
+          A \oplus A = {\O}
+        \]
+    \end{description}
+
+  \column{0.4\textwidth}
+  \begin{figure}[h!]
+    \centering
+      \includegraphics[scale=0.6]{figure/symdif_3}
+      \caption{\scriptsize Venn diagram of $A \oplus B \oplus C$}
+  \end{figure}
+
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{集合的运算 --- 幂集(Power Set)}
+
+  \textbf{定义:}
+  \[
+    P(A) = \lbrace x \mid x \subseteq A \rbrace
+  \]
+
+  \vspace{0.25cm}
+  \textbf{Theorem}  \\
+    \[
+      \mid A \mid = n \in N \to \mid P(A) \mid = 2 ^ n
+    \]
+
+  \vspace{0.20cm}
+  \textbf{Proof}  \\
+    Relation to binomial theorem.
+    \[
+      {n \choose 0} + {n \choose 1} + \cdots + {n \choose k} + \cdots + {n \choose n} = 2 ^ n \qed
+    \]
+
+  \vspace{0.20cm}
+  \alert{\textbf{Q: What happens if $A$ is an infinite set?}} \\
+  \pause
+  \textbf{A: 欲知后事如何，请听下回分解。}
+}
+
+
+\frame
+{
+  \frametitle{广义并\&广义交}
+
+  \textbf{广义并:}
+    \[
+      \cup A = \lbrace x \mid \exists z (z \in A \land x \in z) \rbrace
+    \]
+
+  \textbf{广义交:}
+    \[
+      A \neq {\O}, \cup A = \lbrace x \mid \forall z (z \in A \to x \in z) \rbrace
+    \]
+
+  \vspace{0.30cm}
+  \alert{\textbf{Q: What happens if $A = {\O}$ in arbitrary intersection?}}  \\
+  \pause
+  \textbf{A: $\cap {\O} = E$}
+}
+
+\subsubsection{Counting --- Principle of Inclusion-Exclusion}
+\frame
+{
+  \frametitle{容斥原理}
+
+  \[
+    \mid A \cup B \mid = \mid A \mid + \mid B \mid - \mid A \cap B \mid
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \begin{center}
+  $
+    \mid A_1 \cup A_2 \cup \dots \cup A_n \mid = \sum \mid A_i \mid - \sum \mid A_i \cap A_j \mid + \dots
+  $ \\ $ + (-1)^{n+1} \mid A_1 \cap A_2 \cap \dots \cap A_n \mid $
+  \end{center}
+
+  \pause
+  \vspace{0.20cm}
+  \hypertarget{in-ex}{\textbf{Complement Form:}}
+  \hyperlink{problem}{\beamergotobutton{Problem}}
+  \begin{description}
+    \item[$U$:] universe object
+    \item[$A_i$:] specific property to avoid
+    \item[$\overline A_1 \cap \overline A_2 \cap \cdots \cap \overline A_n$:] objects without any of the properties.
+  \end{description}
+  \vspace{0.20cm}
+  \begin{center}
+    $\mid \overline A_1 \cap \overline A_2 \cap \cdots \cap \overline A_n \mid = \mid U \mid - \sum \mid A_i \mid + \sum \mid A_i \cap A_j \mid$ \\
+    $+ \cdots + (-1)^n \mid A_1 \cap A_2 \cap \cdots \cap A_n \mid$
+  \end{center}
+}
+
+
+
+\subsection{Binary Relation}
+
+\subsubsection{Binary Relation}
+\frame
+{
+  \frametitle{有序对(Ordered Pair)}
+  \textbf{有序对:}
+  \[
+    \langle x,y \rangle = \langle u,v \rangle \Leftrightarrow x = u \& y = v.
+  \]
+  \vspace{0.20cm}
+  \textbf{如何用集合定义有序对:}
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $\langle x,y \rangle = \lbrace x,y \rbrace $ \hspace{0.20cm} \textcolor{gray}{$\texttimes$}
+    \vspace{0.20cm}
+    \item $\langle x,y \rangle = \lbrace x,\lbrace y \rbrace \rbrace $ \hspace{0.20cm} \textcolor{gray}{$\texttimes$}
+    \vspace{0.20cm}
+    \item $\langle x,y \rangle = \lbrace \lbrace \lbrace x \rbrace,{\O} \rbrace,\lbrace \lbrace y \rbrace \rbrace \rbrace $ \hspace{0.20cm} \alert{$\surd$}
+    \vspace{0.20cm}
+    \item $\langle x,y \rangle = \lbrace \lbrace x \rbrace,\lbrace x,y \rbrace \rbrace $ \hspace{0.20cm} \alert{$\surd$}
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{笛卡尔积(The Cartesian Product)}
+
+  \begin{columns}
+
+  \column{0.6\textwidth}
+  \textbf{定义:}
+  \[
+    A \times B = \lbrace \langle a,b \rangle \mid a \in A \land b \in B \rbrace
+  \]
+  \vspace{0.30cm}
+  \textbf{性质(Distributive Law):} \scriptsize ($P_{130}$第4题)
+  \normalsize
+  \[
+    A \times (B \cup C) = (A \times B) \cup (A \times C)
+  \]
+  \[
+    A \times (B \cap C) = (A \times B) \cap (A \times C)
+  \]
+
+  \column{0.40\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.4]{figure/coordinate.png}
+      \caption{Cartesian coordinate system}
+    \end{figure}
+
+  \end{columns}
+}
+
+
+\frame
+{
+  \frametitle{二元关系及其运算}
+
+  \textbf{定义:}  \\
+  \vspace{0.20cm}
+    $\textrm{若 }R \subseteq A \times B ,\textrm{则称}R\textrm{为从}A\textrm{到}B\textrm{的二元关系}.$
+
+  \vspace{0.30cm}
+  \textbf{关系的运算}  \\
+  \begin{enumerate}
+    \item \textbf{Inverse:} $(F \circ G)^{-1} = G^{-1} \circ F^{-1}$
+    \vspace{0.30cm}
+    \item \textbf{Composition:}
+      \begin{enumerate}
+        \item \textbf{Associative Law:} $(F \circ G) \circ H = F \circ (G \circ H)$
+        \vspace{0.20cm}
+        \item \textbf{Distributive Law over Union:} $F \circ (G \cup H) = F \circ G \cup F \circ H$
+        \vspace{0.20cm}
+        \item {\textcolor{gray}{Distributive Law over Intersection}:} $F \circ (G \cap H) \subseteq F \circ G \cap F \circ H$ \scriptsize (课本$P_{109}$定理7.4,$P_{132}$第18题)
+      \end{enumerate}
+  \end{enumerate}
+}
+
+
+\frame
+{
+  \frametitle{二元关系的性质}
+
+  \textbf{二元关系的重要性质:}
+  \vspace{0.20cm}
+  \begin{description}
+    \item [reflexive:] $(\forall x \in A) (xRx)$
+    \vspace{0.20cm}
+    \item [irreflexive:] $(\forall x \in A) (\neg xRx)$
+    \vspace{0.20cm}
+    \item [symmetric:] $(\forall x,y \in A) (xRy \to yRx)$
+    \vspace{0.20cm}
+    \item [antisymmetric:] $(\forall x,y \in A) (xRyRx \to x=y)$
+    \vspace{0.20cm}
+    \item [transitive:] $(\forall x,y,z \in A)(xRyRz \to xRz)$
+  \end{description}
+}
+
+\frame
+{
+  \frametitle{二元关系的性质}
+
+  \textbf{二元关系可以使用关系矩阵表示:}
+  \begin{columns}[t]
+    \column{0.25\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.30]{figure/reflexive.png}
+    \end{figure}
+    \column{0.25\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.30]{figure/irreflexive.png}
+    \end{figure}
+    \column{0.25\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.30]{figure/symmetry.png}
+    \end{figure}
+    \column{0.25\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.20]{figure/antisymmetric.png}
+    \end{figure}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{二元关系的性质}
+
+  \textbf{二元关系也是集合!\scriptsize ($P_{118}$表7.2 and $P_{116}$例题7.13)}
+  \normalsize
+  \vspace{0.20cm}
+  \begin{center}
+  \begin{description}
+    \item [reflexive:] $I_A \subseteq R$
+    \vspace{0.20cm}
+    \item [irreflexive:] $R \cap I_A = {\O}$
+    \vspace{0.20cm}
+    \item [symmetric:] $R = R^{-1}$
+    \vspace{0.20cm}
+    \item [antisymmetric:] $R \cap R^{-1} \subseteq I_A$
+    \vspace{0.20cm}
+    \item [transitive:] $R \circ R \subseteq R$
+  \end{description}
+  \end{center}
+}
+
+\subsubsection{Equivalence Relation}
+
+\frame
+{
+  \frametitle{等价关系(Equivalence Relation)}
+
+  \begin{columns}[t]
+
+  \column{0.60\textwidth}
+  \textbf{$\sim$ is an equivalence relation:}
+  \begin{enumerate}
+    \item $x \sim x$
+    \vspace{0.30cm}
+    \item $x \sim y \to y \sim x$
+    \vspace{0.30cm}
+    \item $x \sim y \sim z \to x \sim z$
+  \end{enumerate}
+
+  \vspace{0.30cm}
+  \alert{\textbf{Q: Why ?}}  \\
+  \pause
+  \vspace{0.20cm}
+  \textbf{A: The simplest and the commonest.}
+
+  \pause
+  \column{0.40\textwidth}
+  \textbf{Equivalence Class:}
+  \[
+    \lbrack x \rbrack _{R} = \lbrace y \mid y \in A \land xRy \rbrace
+  \]
+  \textbf{Quotient Set:}
+  \[
+    A/R = \lbrace \lbrack x \rbrack _{R} \mid x \in A \rbrace
+  \]
+
+  \vspace{0.30cm}
+  \alert{\textbf{Q: Why Quotient Set?}}  \\
+%  \pause
+%  \vspace{0.20cm}
+%  \textbf{A: Equivalence class holds some interesting properties.}
+
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Equivalence Class and Partition}
+  \begin{columns}
+
+  \column{0.50\textwidth}
+    \textbf{Equivalence class holds some interesting properties:} \\
+    \begin{enumerate}
+      \item $\lbrack x \rbrack \neq {\O}$
+      \vspace{0.20cm}
+      \item $xRy \to \lbrack x \rbrack = \lbrack y \rbrack$
+      \vspace{0.20cm}
+      \item $\neg (xRy) \to \lbrack x \rbrack \cap \lbrack y \rbrack = {\O}$
+      \vspace{0.20cm}
+      \item $\cup \lbrace \lbrack x \rbrack \mid x \in A \rbrace = A$
+    \end{enumerate}
+  \column{0.50\textwidth}
+    \textbf{Partition: $\pi \subseteq P(A)$}  \\
+    \begin{enumerate}
+      \item ${\O} \notin \pi$
+      \vspace{0.20cm}
+      \item $\forall x \forall y(x,y \in \pi \land x \neq y \to x \cap y = {\O})$
+      \vspace{0.20cm}
+      \item $\cap \pi = A$
+    \end{enumerate}
+  \end{columns}
+%
+%  \pause
+  \vspace{0.30cm}
+  \begin{quote}
+    \textit{There is an one-to-one correspondence between equivalence relation and partition.}
+  \end{quote}
+}
+
+\frame
+{
+  \frametitle{Conclusion}
+  
+  \textbf{请仔细体会以下概念之间的联系:}  \\
+  \begin{center}
+  \begin{enumerate}
+    \item Set
+    \vspace{0.20cm}
+    \item Ordered pair
+    \vspace{0.20cm}
+    \item The cartesian product
+    \vspace{0.20cm}
+    \item Binary relation
+    \vspace{0.20cm}
+    \item Equivalence relation
+  \end{enumerate}
+  \end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Set}
+\subsection{Set Theory}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Algebra of Sets}
+\frame
+{
+  \frametitle{集合运算律}
+
+  \textbf{1: 请证明补集之唯一性(Optional)。}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+  \vspace{0.20cm}
+    令$A,B$为$E$的任意子集，则 $B = \sim A \Leftrightarrow A \cup B = E \& A \cap B = {\O}$  \\
+  \vspace{0.40cm}
+  \textbf{tips:}  \\
+  \vspace{0.20cm}
+  $B = B \cap E = B \cap (A \cup \sim A) = (B \cap A) \cup (B \cap \sim A)$  \\
+  $= {\O} \cup (B \cap \sim A)=(A \cap \sim A) \cap (B \cap \sim A)$
+  $= \sim A \cap (A \cup B) = \sim A \cap E = \sim A.$
+%
+%  \pause
+%  \vspace{0.30cm}
+%  \textbf{Proof:} \\
+%
+%  \qed
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+
+  \textbf{2: 请证明以下命题等价:}  \\
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $A \subseteq B$
+    \vspace{0.20cm}
+    \item $A \cup B = B$
+    \vspace{0.20cm}
+    \item $A \cap B = A$
+    \vspace{0.20cm}
+    \item $A - B = {\O}$
+  \end{enumerate}
+
+  \vspace{0.30cm}
+  \alert{\textbf{Q: 为什么可以采用循环证明?}}  \\
+  \pause
+  \textbf{A: $\Leftrightarrow$ is an equivalence relation.}
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{3: 请证明$\cap$关于$-$是可分配的:}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+    \[
+      A \cap (B - C) = (A \cap B) - (A \cap C)
+    \]
+  \vspace{0.50cm}
+  \textbf{tip: 换个方向，化繁为简更容易。}  \\
+  
+%
+%  \pause
+%  \vspace{0.30cm}
+%  \textbf{Proof:} \\
+%
+%  \qed
+
+  \pause
+  \vspace{0.2cm}
+  \textbf{\alert{练习:}}  \\
+  请问$\cup$关于$-$是可分配的吗？
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{4: 请证明$\cap$关于$\oplus$是可分配的:}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+    \[
+      A \cap (B \oplus C) = (A \cap B) \oplus (A \cap C)
+    \]
+
+    \vspace{0.30cm}
+    \textbf{tips:}
+    \begin{itemize}
+      \item $B \oplus C = (B - C) \cup (C - B)$
+      \vspace{0.20cm}
+      \item $A \cap (B - C) = (A \cap B) - (A \cap C)$
+    \end{itemize}
+
+%
+%  \pause
+%  \vspace{0.30cm}
+%  \textbf{Proof:}  \\
+%
+%  \qed
+
+  \pause
+  \vspace{0.2cm}
+  \textbf{\alert{练习:}}  \\
+  请问$\cup$关于$\oplus$是可分配的吗？
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{5: 请解答如下与幂集相关的题目:}  \\
+  \vspace{0.30cm}
+  \textbf{tip:}  \\
+  概念清晰，区分$\in,\subseteq$。
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $A \subseteq B \Leftrightarrow P(A) \subseteq P(B)$ \scriptsize (课本$P_{100}$第36题 \& $P_{101}$第44题)
+    \pause
+    \vspace{0.25cm}
+    \item \normalsize $P(A) \cap P(B) = P(A \cap B)$ \scriptsize (课本$P_{101}$第45(1)题)
+    \pause
+    \vspace{0.25cm}
+    \item \normalsize 字母集合$\mid A \mid = n$,自然数集合$\mid B \mid = m$,求 $P(A) \cap P(B)$ \scriptsize (课本$P_{98}$第12(1)题)
+    \pause
+    \vspace{0.25cm}
+    \item \normalsize $P(\bigcap A_i) = \bigcap P(A_i)$ \scriptsize (2010年期中测试题)
+  \end{enumerate}
+}
+
+\subsubsection{Counting --- Principle of Inclusion-Exclusion}
+\frame
+{
+  \frametitle{容斥原理}
+  \textbf{6: 求Euler函数$\phi$:}\hyperlink{in-ex}{\beamergotobutton{Review}} \\
+  \hypertarget{problem}{}
+  \vspace{0.20cm}
+  \scriptsize ($P_{91}$例6.6,2001年期中测试题)
+  \normalsize
+  \[
+    n = p_1^{\alpha_1}p_2^{\alpha_2} \cdots p_k^{\alpha_k},
+  \]
+  \[
+    \phi(n) = n \prod_{i=1}^{k}(1- \frac{1}{p_k}).
+  \]
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Binary Relation}
+
+\frame
+{
+  \frametitle{有序对}
+  \textbf{7: 如何定义三元组(Optional)?} \\
+  \vspace{0.20cm}
+  \textbf{We have:}
+  \[
+    \langle x,y \rangle = \lbrace \lbrace x \rbrace,\lbrace x,y \rbrace \rbrace
+  \]
+  \textbf{then:}
+  \[
+    \langle x,y,z \rangle = \lbrace \lbrace x \rbrace, \lbrace x,y \rbrace, \lbrace x,y,z \rbrace \rbrace
+  \]
+  \pause
+  \vspace{0.40cm}
+  \textbf{\alert{Q: Is the definition OK?}}  \\
+  \textit{Tips: Consider $\langle x,y,x \rangle and \langle x,y,y \rangle$}  \\
+  \pause
+  \vspace{0.20cm}
+  \textbf{A: $\langle x_1,x_2,x_3 \rangle = \langle \langle x_1,x_2 \rangle ,x_3 \rangle.$}
+}
+
+
+\frame
+{
+  \frametitle{Operation over Binary Relation}
+  \textbf{8: 请证明如下运算性质:}  \\
+  \vspace{0.20cm}
+  $R_1 \subseteq A \times B, R_2 \subseteq A \times B$
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $(R_1 \cup R_2)^{-1} = R_1^{-1} \cup R_2^{-1}$  \scriptsize ($P_{132}$第20(1)题)
+    \normalsize
+    \vspace{0.30cm}
+    \item $(R_1 \cap R_2)^{-1} = R_1^{-1} \cap R_2^{-1}$  \scriptsize ($P_{132}$第20(2)题)
+    \normalsize
+    \vspace{0.30cm}
+    \item $(\sim R)^{-1} = \sim (R^{-1})$
+    \vspace{0.30cm}
+    \item $(R_1 - R_2)^{-1} = R_1^{-1} - R_2^{-1}$
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Properties of Binary Relation}
+
+  \textbf{9: 请证明如下命题: \scriptsize ($P_{118}$表7.2)}  \\
+  \vspace{0.20cm}
+  \normalsize
+  \[
+    R,S \textrm{ are symmetric, so are } R^{-1},R \cap S, R\cup S, \textrm{ and }R-S.
+  \]
+
+  \vspace{0.30cm}
+  \textbf{tips:}
+  \begin{itemize}
+    \item $R \textrm{ is symmetric } \Leftrightarrow R = R^{-1}.$
+    \item $(\sim R)^{-1} = \sim (R^{-1}).$
+    \item $(R_1 \cap R_2)^{-1} = R_1^{-1} \cap R_2^{-1}.$
+  \end{itemize}
+}
+
+\frame
+{
+  \frametitle{Equivalence Relation}
+  \textbf{10: 请证明如下定义的关系为等价关系，并给出商群。}
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $\langle a,b \rangle \sim \langle c,d \rangle \Leftrightarrow a+d=b+c$ \\
+      (where $a < b, a,b \in N$)\scriptsize ($P_{133}$第36题,作业补充题)
+    \vspace{0.30cm}
+    \normalsize
+    \item $\langle a,b \rangle \sim \langle c,d \rangle \Leftrightarrow ad=bc$
+    \vspace{0.30cm}
+    \item $A=P(X),C \subseteq X, \forall x,y \in A, xRy \Leftrightarrow x \oplus y \subseteq C$ \scriptsize ($P_{133}$第32(5)题)
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Equivalence Relation}
+
+  \textbf{11: Counting partitions on a set with $n$ elements(Optional)} \\
+  \vspace{0.30cm}
+
+  \begin{columns}
+
+  \column{0.40\textwidth}
+  \textcolor{red}{try:}  \\
+  \begin{itemize}
+    \item $\lbrace {n \atop 0} \rbrace = 0$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop 1} \rbrace = 1$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop 2} \rbrace = 2^{n-1}-1$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop n-1} \rbrace = {n \choose 2}$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop n} \rbrace = 1$
+  \end{itemize}
+
+  \pause
+  \column{0.60\textwidth}
+  \textcolor{red}{Recurrence relation:}  \\
+  \[
+    \lbrace {n \atop r} \rbrace = r \lbrace {n-1 \atop r} \rbrace + \lbrace {n-1 \atop r-1} \rbrace
+  \]
+
+  \end{columns}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{center}
+  \textbf{Bell number:}
+  \end{center}
+  \[
+    B_n = \sum_{r=0}^{n} \lbrace {n \atop r} \rbrace (n \ge 1)
+  \]
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Applications and Extension(Optional)}
+
+\subsection{Relational Database}
+\frame
+{
+  \frametitle{Relational Database(关系数据库)}
+
+  \vspace{0.20cm}
+  \begin{columns}
+    \column{0.40\textwidth}
+    \begin{figure}
+      \includegraphics[scale=0.4]{figure/db}
+      \caption{Person table}
+    \end{figure}
+    \column{0.60\textwidth}
+    \textbf{Concept and Operator:}
+    \begin{itemize}
+      \item $relation \to table,tuple \to row$
+      \vspace{0.25cm}
+      \item Union, Intersection, Difference, Cartesian product.
+      \vspace{0.25cm}
+      \item Select(subset), \textcolor{gray}{Project},$\cdots$  \\
+        \textit{``select \textcolor{gray}{person.LName} from person where person.city=3.''}  \\
+    \end{itemize}
+  \end{columns}
+
+  \vspace{0.70cm}
+  \url{http://www.seas.upenn.edu/~zives/03f/cis550/codd.pdf}
+}
+
+\subsection{Cantor Set}
+
+\frame
+{
+  \frametitle{Cantor Set}
+
+    \begin{figure}
+      \includegraphics[scale=0.3]{figure/cantorset}
+    \end{figure}
+
+  \vspace{0.40cm}
+  \textbf{What are removed?}
+  \vspace{0.20cm}
+  \[
+    \frac{1}{3}+\frac{2}{9}+\frac{4}{27}+\cdots = \frac{1}{3} \sum_{n=0}^{\infty} \frac{2^n}{3^n} = 1.
+  \]
+  \textbf{And what remains?}  \\
+  \begin{center}
+  \alert{Just as many ``points'' as there were before we began!}  \\
+  \end{center}
+  \vspace{0.20cm}
+  \scriptsize (from \url{http://personal.bgsu.edu/~carother/cantor/Cantor1.html})
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Russell's Paradox and Axiomatic Set Theory}
+\frame
+{
+  \frametitle{Russell's Paradox}
+
+  \begin{columns}
+
+    \column{0.5\textwidth}
+      \textbf{When we meet infinity...}  \\
+        \begin{figure}
+          \includegraphics[scale=0.40]{figure/hands}
+          \caption{Drawing Hands by M.C.Escher}
+        \end{figure}
+    \column{0.5\textwidth}
+      \textbf{When we meet paradox...}
+      \[
+        R = \lbrace x \mid x \notin x \rbrace.
+      \]
+      \vspace{0.30cm}
+      \alert {\textbf{Q: Is R a set?}  \\}
+      \textbf{A: $R \in R \Leftrightarrow R \notin R$}
+
+        \begin{figure}
+          \includegraphics[scale=0.30]{figure/russell}
+        \end{figure}
+
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Axiomatic Set Theory}
+
+  \textbf{If you are encouraged by the paradox, \\
+  \vspace{0.20cm}
+  \alert{or} you are annoyed and begin to lose sleep night after night,  \\
+  \vspace{0.20cm}
+  please refer to this article\only<1>{:} \only<2> {\alert{or a doctor immediately}}.}  \\
+  \vspace{0.50cm}
+
+  \url{http://mplab.ucsd.edu/tutorials/settheory.pdf}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{An Invitation to SETL}
+%\frame
+%{
+%  \frametitle{An Invitation to SETL}
+%
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+\frame
+{
+  \huge \center \textbf{That's the end. Thank you.}
+  \begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{figure/question}
+    \caption{Bring Up a Question}
+  \end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{CJK*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document} 

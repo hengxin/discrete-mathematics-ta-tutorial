@@ -1,0 +1,258 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(4) 连通度,欧拉图与哈密顿图}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{离散数学习题解析(第十五周)}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{第十五章  欧拉图与哈密顿图}
+
+\begin{problem}{\textbf{$P_{305}$(1(b))}}  \label{ps:eulerian_add}
+
+  (b)图不是欧拉图.只需要添加2条边(左边上下对应顶点添加两条重边即可)便可使其成为欧拉图，
+  而不是有些同学要求的添加4条边.
+\end{problem}
+--------------------------------------------------------------------------------
+
+\begin{problem}{\textbf{$P_{306}$(9)}}  \label{ps:hamiltonian_bridge}
+
+  设$G$是无向连通图,证明:若$G$中有桥或者割点,则$G$不是哈密顿图.
+\end{problem}
+
+\begin{solution}{\textbf{$P_{306}$(9)}}  \label{solution:hamiltonian_bridge}
+
+  \begin{enumerate}
+    \item 若$G$中有割点$v$,则$p(G-\set{v}) \geq 2 > 1 = \vert \set{v} \vert$.
+    \item 设$G$中有桥$e=(u,v)$.若$u,v$都是悬挂顶点,则$G=K_2$，不是哈密顿图;否则,$u,v$必有一点度数大于等于2，
+      则该点为割点.故$G$亦不是哈密顿图.
+  \end{enumerate}
+\end{solution}
+
+\begin{remark}{\textbf{$P_{306}$(9)}}  \label{remark:hamiltonian_bridge}
+
+  有同学在第二问中忘记了讨论$K_2$这一特殊情况.
+  
+  该定理说明,哈密顿图一定是2-边连通图和2-点连通图.这也可看作哈密顿图的一个必要条件.
+\end{remark}
+--------------------------------------------------------------------------------
+
+\begin{problem}{\textbf{$P_{14}$(14 应用题)}}  \label{ps:two_people}
+
+  今有$n$个人,已知他们中的任何二人合起来认识其余的$n-2$个人.证明$n \geq 3$时，这$n$个人能排成一列，使得任何
+  两个相邻的人都相互认识.而当$n \geq 4$时，这$n$个人能排成一个圆圈，使得每个人都认识两旁的人.
+\end{problem}
+
+\begin{solution}{\textbf{$P_{14}$(14 应用题)}}  \label{ps:two_people}
+
+  使用图论语言建模.顶点表示人,边$(u,v)$表示$u$与$v$相识且$u \neq v$.则,$\forall u,v \in V,d(u) + d(v)
+  \geq n-2$.能否排成一列则对应哈密顿通路问题，能否排成一个圆圈则对应哈密顿回路问题.观察该条件，是关于顶点度数之和
+  的，所以可以考虑使用哈密顿图的充分条件.但是需要注意的是,在哈密顿图的充分条件中,$u,v$是两个不相邻的顶点.
+  所以，我们要对$u,v$是否相邻做讨论,也就是对$u,v$是否相识做讨论.
+  
+  \begin{enumerate}
+    \item $u,v$相识.$d(u) + d(v) \geq n-2+2 = n$.
+    \item $u,v$不相识.则$\forall w \in V, w \neq u, w \neq v \Rightarrow (u,w) \in
+    E, (v,w) \in E$(否则$u,v$合起来至多认识$n-2$个人).所以,$d(u) + d(v) \geq 2(n-2)$.
+    
+    \[ n \geq 3 \Rightarrow d(u) + d(v) \geq 2(n-2) \geq n-1 \]
+    \[ n \geq 4 \Rightarrow d(u) + d(v) \geq 2(n-2) \geq n \]
+    使用哈密顿图的充分条件即可.
+  \end{enumerate}
+\end{solution}
+
+
+\section{补充习题}
+
+\begin{problem}{\textbf{点连通度}}  \label{ps:conn}
+  
+  证明:图$G$中,若$\delta \geq n-2$，则$\kappa(G) =
+  \delta$.找出一个图例,满足$\delta=n-3,\kappa(G)<\delta$.
+\end{problem}
+
+\begin{solution}{\textbf{点连通度}}  \label{solution:conn}
+
+  \begin{description}
+    \item[$\delta = n-1:$] 此种情况下,$G=K_n$.显然成立.
+    \item[$\delta = n-2:$]
+    可使用归纳法.
+    \begin{description}
+      \item[基本步:]$n=3$.
+      \item[归纳假设:]$n=k$成立.
+      \item[归纳证明:]$n=k+1$.$\exists v \in V,deg(v) = n-2 \Rightarrow \exists w,
+      (vw) \notin E, \forall u \neq w, (vu) \in G$.任意删除$n-3$个顶点，剩余的顶点有如下情况:
+        \begin{itemize}
+          \item v,w,其他点(表示非v非w)
+          \item v,其他点，其他点
+          \item 其他点，其他点，其他点
+        \end{itemize}
+        前两种情况,剩余的3个点仍是连通的;对于第三种情况,可以使用归纳假设.
+    \end{description}
+  \end{description}
+  
+  ''两个$K_3$共享一个顶点''是满足$\delta=n-3,\kappa(G)<\delta$的图.
+\end{solution}
+
+\begin{remark}{\textbf{点连通度}}  \label{remark:conn}
+
+  有同学使用反证法这样写道:
+  
+  ''假设$\kappa(G) = t < \delta(G) \Rightarrow \exists V' \subseteq V,
+  G-V'$包含两个连通分支''.之后在此基础上对度数做数量分析.
+  
+  对于点割集来说，删去点,得到的不一定就是两个连通分支,有可能会是任意多个连通分支.这一点与边割集来说是不同的.切记.
+\end{remark}
+--------------------------------------------------------------------------------
+
+\begin{problem}{\textbf{2-边连通图}}  \label{ps:2_edge_conn}
+
+  证明:$G$是2-边连通图  $\iff$ $G$中任意两个顶点之间至少有两条不含公共边的通路.
+\end{problem}
+
+\begin{solution}{\textbf{2-边连通图}}  \label{solution:2_edge_conn}
+
+  \begin{description}
+    \item[$\Leftarrow:$] 易见.
+    \item[$\Rightarrow:$] 归纳法.对$d(u,v)$做归纳.
+      \begin{description}
+        \item[基本步:] $d(u,v) = 1$.$(u,v) \in
+        E$，$G$是2-边连通图,故除$(u,v)$外,$u,v$见还有通路.
+        \item[归纳假设:] 假设命题对$d(u,v) = k$成立.
+        \item[归纳证明:] $d(u,v) = k + 1$.设此最短路径为$u =
+        v_0,v_1,\cdots,v_k,v$.$d(u,v_k)=k$，由归纳假设,$u,v_k$之间至少有两条不含公共边的通路$P,Q$.这两条通路构成一个圈$C$.
+        $(v_k v)$不是割边,所以其必在某个圈中,该圈若与$C$只相交于$v_k$，则得证;若该圈与$C$相交与其他点，假设$w$是相交的第一点,
+        则$u \leadsto w \leadsto v$与$u \leadsto v_k \leadsto
+        v$构成$u,v$间两条不含公共边的通路.
+      \end{description}
+  \end{description}
+\end{solution}
+--------------------------------------------------------------------------------
+\begin{problem}{\textbf{k-边连通图}}  \label{ps:k_edge_conn}
+
+  证明: 设$G$是$k$边连通图,从$G$中任意删除$k$条边,最多的到2个连通分支.
+\end{problem}
+
+\begin{solution}{\textbf{k-边连通图}}  \label{solution:k_edge_conn}
+
+  $G$是k-边连通图,则删除$k-1$边，图仍连通;再删除一条边，最多得到2个连通分支.得证.
+  
+  本题亦可用反证法证明.假设得到了3个或更多个连通分支,则可以说明图$G$的边割集大小小于k.
+\end{solution}
+
+\begin{remark}{\textbf{k-边连通图}}  \label{remark:k_edge_conn}
+
+  注意这与点连通图的不同.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

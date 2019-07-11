@@ -1,0 +1,6 @@
+{0,1,2,3,4,5,6,7,8,9,a,b,c,G,J,K}
+{7,8,a,b,d,e,f,g,h,j,k,l,n,o,p,q,r,s,t,u,w,y,z,A,B,C,D,F,G,H,I,J,K,L,M,N,O,P,S,T,U,V,X,Y,Z}
+{7,8,a,b,G,J,K}
+{0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,j,k,l,n,o,p,q,r,s,t,u,w,y,z,A,B,C,D,F,G,H,I,J,K,L,M,N,O,P,S,T,U,V,X,Y,Z}
+{0,1,2,3,4,5,6,9,c}
+{d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,H,I,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}

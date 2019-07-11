@@ -1,0 +1,3 @@
+not semigroup
+not monoid
+not group

@@ -1,0 +1,1967 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+\usepackage{color}
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{alg}[theorem]{Algorithm}
+% \newtheorem{proof}{proof}[section]
+% \newtheorem{solution}[theorem]{Solution}
+
+
+%%%%%%%%%%
+%\input{format}
+%insert macros here to avoid loading my own format file
+%Author : Zhu Yin @ Nanjing University
+\newtheoremstyle{problem}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{problem}
+\newtheorem{problem}{ }
+
+\newtheoremstyle{solution}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{solution}
+\newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(Graph Theory)}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{2011年02月至2011年06月  图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\tableofcontents
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Topic 1: Degrees \& Connectivity}
+
+\subsection{常见图总结}  \label{subsection:class_of_graph}
+下面是一些常见类型的图.
+\begin{enumerate}
+  \item 空图 $N_n$: 有$n$个顶点，但是无边.
+  \item 路径 $P_n$.
+  \item 圈 $C_n$.
+  \item 轮 $W_n$: 见图 \ref{fig:wheel}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/wheel.png}
+	  \caption[labelInTOC]{Wheel}
+	  \label{fig:wheel}
+	\end{center}
+	\end{figure}
+  \item 树 $tree$:见图 \ref{fig:tree}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/tree.png}
+	  \caption[labelInTOC]{Tree}
+	  \label{fig:tree}
+	\end{center}
+	\end{figure}
+  \item 完全图 $K_n$: 见图 \ref{fig:k5}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K5.png}
+	  \caption[labelInTOC]{$K_5$}
+	  \label{fig:k5}
+	\end{center}
+	\end{figure}
+  \item 完全二部图 $K_{m,n}$: 见图 \ref{fig:k33}.
+  \item 正则图 $k-\textrm{regular}$: 见图 \ref{fig:petersen}.
+  \item 立方体 $Q_3$: 见图 \ref{fig:cube}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/cube.png}
+	  \caption[labelInTOC]{Cube}
+	  \label{fig:cube}
+	\end{center}
+	\end{figure}
+  \item 超立方体 $Q_n = Q_{n-1} \times K_2$:
+\end{enumerate}
+
+下面给出一些在图论中占有重要地位的有名的图.
+\begin{enumerate}
+  \item $Peterson$ 图:
+  见图\ref{fig:petersen},图\ref{fig:petersen_coloring},图\ref{fig:petersen_hamil}以及图\ref{fig:petersen_unit}.
+
+   ``Peterson 图是许多关于一般图的性质的乐观猜测的重要反例.''
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_1.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_coloring.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_coloring}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_hamil.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_hamil}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_unit.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_unit}
+	\end{center}
+	\end{figure}
+
+  \item \label{graph:harary}$Harary$ 图:
+  \item $David$ 图:
+  \item $Utility$图:  见图\ref{fig:k33}和图.(gas, water, and electricity)
+    %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K33.png}
+	  \caption[labelInTOC]{$K_{3,3}$(Utility graph)}
+	  \label{fig:k33}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K33(utility).png}
+	  \caption[labelInTOC]{$K_{3,3}$(Utility graph)}
+	  \label{fig:k33(utility)}
+	\end{center}
+	\end{figure}
+  \item $Friendship$图: 见图\ref{fig:friendship}.
+  	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/friendship.png}
+	  \caption[labelInTOC]{Friendship graph}
+	  \label{fig:friendship}
+	\end{center}
+	\end{figure}
+\end{enumerate}
+
+更多``named graphs''请看这里:\url{http://en.wikipedia.org/wiki/Gallery_of_named_graphs}.
+%\emph{$http://en.wikipedia.org/wiki/Gallery_of_named_graphs$}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{顶点度数专题}  \label{subsection:degree}
+\emph{注:若非特别说明,$G$仅表示简单无向图.}
+
+我们使用$d(v)$表示顶点$v$的度数,分别使用$\delta(G)$和$\Delta(G)$表示$G$的最小度和最大度.
+
+\begin{observation}
+  \[
+    \forall v \in G. 0 \leq \delta(G) \leq d(v) \leq \Delta(G) \leq n-1.
+  \]
+\end{observation}
+
+\begin{theorem}{(The First Theorem of Graph Theory)}  \label{thm:first}
+
+  如果图$G$有$m$条边，则
+  \[
+    \sum_{v \in V(G)} d(v) = 2m.
+  \]
+\end{theorem}
+
+\begin{corollary}  \label{cor:deg_odd_even}
+
+  任何图中,奇度顶点的个数是偶数.
+\end{corollary}
+
+对于有着$m$条边的二部图$G$，点集的划分为$U = \set{u_1,u_2, \cdots, u_s},W = \set{w_1,w_2, \cdots, w_s}$，每一条边
+关联着$U$和$W$中的各一个点,所以我们有,
+\begin{corollary}  \label{cor:deg_bipart}
+
+  $\sum_{i=1}^{s} d(u_i) = \sum_{j=1}^{t} d(w_j)= m.$
+\end{corollary}
+
+图的顶点的度数可以为我们了解图的特性提供很多信息.比如，从直觉上来讲，每个点的度数越大，达到一定程度，就可以保证(迫使)
+图是连通的。这涉及到图的连通性，我们放到专题 \ref{subsection:connectivity}中再做介绍.下面我们重点介绍度序列和可图化的度序列
+的概念.
+
+给出某图$G$的度序列是件不必费神的事。现在，我们的问题是，给定某度序列$s$，如何判断$s$是否是某个图的度序列，也就是问$s$是否
+是\emph{可简单图化(graphical)}的?
+
+如果将\emph{可简单图化}的条件放松，仅仅要求可图化，那么我们会得到定理\ref{thm:graphical_1}.
+\begin{theorem}  \label{thm:graphical_1}
+
+  非负度序列$s:d_1,d_2,\cdots,d_n$是可图化的当且仅当 $\sum_{i=1}^{n} d_i$ 为偶数.
+\end{theorem}
+
+\begin{remark}{构造性证明}  \label{remark:constructive}
+
+  定理\ref{thm:graphical_1}的证明虽然简单，但是却使用了一种图论中经常使用的证明方法，也就是\emph{构造性证明}.在涉及对``可行性'',
+  ''存在性''等证明时,一般可采用三种方法:
+  \begin{inparaenum}[\itshape a \upshape)]
+    \item 构造性证明.即显式地将符合条件的对象构造出来.
+    \item 反证法. 即假设该类对象不存在，然后找出矛盾来.
+    \item 概率法. 即通过概率分析，计算出某类对象存在的概率大于0.
+  \end{inparaenum}
+  对于本课程内容而言，前两种方法会经常碰到.
+\end{remark}
+
+对于\emph{可简单图化},我们有定理\ref{thm:havel}.
+\begin{theorem}{$Havel-Hakimi$定理}  \label{thm:havel}
+
+  非负整数、非递增度序列$s:d_1,d_2,\cdots,d_n(n \geq 2)$是可简单图化的当且仅当度序列
+  \[
+    s_1:d_2-1,d_3 -1,\cdots,d_{d_1+1} -1, d_{d_1+2}, \cdots,d_n
+  \]
+  是可简单图化的.
+\end{theorem}
+\begin{proof}
+
+  \begin{itemize}
+    \item \textbf{$\Leftarrow$方向:}
+      该证明简单.只需为$s_1$所对应的图$G$添加顶点$v_1$和$d_1$条边($v_1v_i, \forall i, 2 \leq i \leq d_1 + 1$)即可.
+    \item \textbf{$\Rightarrow$方向:}
+      该证明稍有困难，其中使用了图论证明中又会经常用到的方法.
+
+      受$\Leftarrow$方向证明的启发(或者说是诱惑),我们希望$s$图化所对应的图$G$具有如下特性: 顶点度数为$d_1$的顶点(注:也就是拥有最大度
+      的顶点,记为$u$)所邻接(adjacent)的顶点恰好具有度序列$d_2,d_3,\cdots,d_{d_1+1}$.如果上述特性成立，那么$G-\set{u}$所对应的
+      度序列即为$s_1$.得证.
+
+      但是，上述特性看起来好像要求太强，但是，因为当判定某度序列是否可简单图化的时候，我们仅需要考虑存在性.所以，我们只需要能证明
+      $s$所对应的图($s$是可简单图化的)中必存在某图$H$，$H$是满足上述特性的.下面，我们用反证法来说明$H$的存在性.
+
+      假设不存在这样的图.在所有具有度序列$s$的图中，取$G$为$V(G) = \set{v_1,v_2,\cdots,v_n}$,$d(v_i) = d_i, \forall 1 \leq i \leq n$,
+      并且与$v_1$相邻的那些顶点的度数之和尽可能大(在所有图中).$v_1$的邻接顶点不全包含于$v_2,v_3, \cdots, v_{d_1+1}$(因为$G$不
+      具有上述特性),则$v_1$必与$v_s$相邻，不与$d_r$相邻，而$d_r < d_s$.又因为$d_r > d_s$，所以必存在点$v_t$,$v_r$与$v_t$邻接，
+      但是$v_s$不与$v_t$邻接.我们考虑图$G' = G - \set{v_1v_s} + \set{v_1v_r} - \set{v_rv_t} + \set{v_sv_t}$.该图$G'$是由图
+      $G$\emph{变换}而来，重要的一点是，该变换保持了原图的度序列，也就是说图$G'$也具有度序列$s$.然而，图$G'$中与$v_1$邻接的顶点
+      的度数之和大于图$G$中与$v_1$邻接的顶点的度数之和.矛盾.
+  \end{itemize}
+\end{proof}
+
+\begin{remark}  \label{remark:transform}
+
+  定理\ref{thm:havel}的证明过程使用了两种图论中常见的方法.一种是在前面\ref{remark:constructive}中提到的用反证法来证明存在性的技巧.
+  另外一种就是这里要说明的，就是图的转换.图的转化可以涉及边的删除与添加(如本定理证明过程)，顶点的删除与添加.在图的转换中，重要的一点是，
+  转换过程一般需要在保持某种不变量(比如本定理证明过程中的度序列)的同时,在其它某变量上有所变化(一般又是朝着某种优化的方向转变,比如本
+  定理中的度数之和变大).有时，该转换可以一直持续下去，这就相当于一个迭代过程，直到达到某个不动点(比如最大，最小等).如此，可以用来
+  证明某一类图(也就是符合不变量的所有图.比如本题证明过程中，即为所有具有度序列$s$的图集合)具有某种特殊的性质或者存在某图具有某种特殊性质.
+\end{remark}
+
+\begin{remark}  \label{remark:havel_alg}
+
+  定理\ref{thm:havel}实际上提供了一种判断某度序列$s$是否可简单图化的算法，并且在可简单图化的情况下提供了如何构造符合条件的图的
+  算法.有兴趣的同学可以考虑将其实现出来.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{图的连通性专题}  \label{subsection:connectivity}
+图的连通性所涉及到的关于各种``路径''的定义在术语方面有着不同的版本.我们与教材保持一致.
+
+请大家回顾这些术语: 通路，简单通路(边各异),初级通路或路径(顶点各异).相对应的有，回路，简单回路，初级回路或圈.
+
+关于图的通路有一条基本的定理，我们简单罗列如下.
+\begin{theorem}  \label{thm:walk}
+
+  若图$G$中含长度为$l$的$u-v$通路，则$G$中必含长度不大于$l$的$u-v$初级通路(路径).
+\end{theorem}
+``在涉及路径和圈的构造性证明中''，\emph{极大路径法}是常用的一种证明技巧.书中提供了这样的一道例题\ref{ex:extremal_path}.
+\begin{example}{极大路径法}  \label{ex:extremal_path}
+
+  设$G$为$n(n \geq 4)$阶无向简单图,$\delta(G) \geq 3$，证明$G$中存在长度大于或等于4的圈.
+\end{example}
+\begin{remark}  \label{remark:extremal_path}
+
+  本题的证明关键在于选择一条极大路径$u-v$，也就是无法再向两侧延伸的路径。然后再根据$\delta(G)$的要求可知该路径的端点$u$(或$v$)
+  必和该路径上的$\delta(G)-1$个点相邻，从而构成长度$l \geq \delta(G)$的圈.
+
+  该类题目的证明可以使用图\ref{fig:extremal_path}来说明.
+  %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/extremal_path}
+	  \caption[labelInTOC]{极大路径法图示}
+	  \label{fig:extremal_path}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+图的连通分支可以从集合的等价关系的角度来理解,即可达关系：
+\[
+  uRv \iff \exists u-v \textrm{ path}.
+\]
+关于图$G$与其补图$\bar{G}$，我们有定理 .
+\begin{theorem}  \label{thm:conn_complement}
+
+  某图$G$与其补图$\bar{G}$中，至少有一个是连通图.
+\end{theorem}
+\begin{remark}  \label{remark:conn_complement}
+
+  该题的证明参见课件.本命题要证明的形式为$A \cup B$成立,我们可以采取的证明策略为$A \cup B, \neg A \Rightarrow B$.
+  大家可以回忆一下，这正是我们在逻辑中所介绍的\emph{析取三段论}.
+\end{remark}
+
+在习题\ref{ps:sufficient}和习题\ref{ps:necessary}中我们实际上给出了3阶或更高阶图为连通图的一个
+\emph{充要条件(necessary and sufficient condition)}.
+
+在顶点度数专题\ref{subsection:degree}中，我们提到了一个和图的连通性相关的一个问题，那就是，当图的顶点的度数大到怎样的程度
+时，就可以保证(迫使)该图是连通的? 显然的一点是，当所有顶点都具有$n-1$度时，图是连通的。然而，我们更关心的是\emph{界限}.即，
+当一旦超过这个界限，图就是连通的；低于这个界限，图就不一定是连通的。换言之，我们对涉及``extremal''的命题更感兴趣.
+
+下面所给出的定理\ref{thm:degree+conn}虽不能说是``extremal graph''的例子，但是还是有一点``extremal''的含义的.
+\begin{theorem}{度数与图的连通性}  \label{thm:degree+conn}
+
+  $G$为$n$阶图.证明如果
+  \[
+    \forall u,v \in V(G). (u,v) \notin E(G) \land d(u) + d(v) \geq n-1.
+  \]
+  成立，则$G$是连通图，并且
+  \[
+    \forall s,t \in V(G). (u-v) \Rightarrow d(u-v) \leq 2.
+  \]
+\end{theorem}
+\begin{proof}  \label{proof:degree+conn}
+
+
+\end{proof}
+习题\ref{ps:degree+conn}让你说明$n-1$这个``bound''是紧的(sharp).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{正则图专题}  \label{subsection:regular}
+常见的3正则图包括$K_4,K_{3,3},Q_3,\textrm{Peterson graph}$.
+
+本专题主要考虑正则图的存在性问题.
+
+根据握手定理(即图论第一定理)\ref{thm:first},易知命题\ref{cor:regular_odd}成立.
+\begin{corollary}  \label{cor:regular_odd}
+
+  如果$n$和$r$都为奇数(odd),不存在$n$阶$r$正则图$G$.
+\end{corollary}
+现在的问题是，如果将此情况$n,r \textrm{ are odd}$排除，也就是说$r,n$至少有一个为偶数(even)的时候，又是什么情况呢?定理
+\ref{thm:regular_existence}表明在这种条件下，必存在$n$阶$r$正则图.
+\begin{theorem}{正则图的存在性}  \label{thm:regular_existence}
+
+  $0 \leq r \leq n-1 \land r,n \textrm{ 至少一个为偶数}$, 则必存在$n$阶$r$正则图.
+\end{theorem}
+\begin{proof}  \label{proof:regular_existence}
+
+  \textbf{构造性证明.}
+  我们构造$n$阶正则图$H_{r,n}$.
+
+  如果$r$是偶数$r = 2k \leq n-1$.对于每个顶点$i$，我们添加$v_i$到$v_{i+1},v_{i+2}, \cdots, v_{i+k}$
+
+  和$v_{i-1},v_{i-2}, \cdots,v_{i-k}$(可以将各顶点想象成按照圈排列)的共计$2k$条边.如此构造得到的$H_{r,n}$为符合条件的正则图.
+
+  如果$r$是奇数$r = 2k+1 \leq n-1$,那么$n$必为偶数.我们仍然先按照$r$为偶数的情况为每个顶点$v_i$添加$2k$条边.因为$n$为偶数，所以我们
+  可以再为每个顶点$v_i$添加到$v_{i+\frac{n}{2}}$的边(你仍然可以将各顶点想象成按照圈排列,则$v_i$与$v_{i+\frac{n}{2}}$互为 opposite vetex).
+  如此构造得到的$H_{r,n}$为符合条件的正则图.
+\end{proof}
+\begin{remark}  \label{remark:regular_existence}
+  本定理证明过程中所构造的图即为$Harary$ graph,见\ref{graph:harary}.它是以$Frank Harary$命名的.
+\end{remark}
+关于正则图的存在性，我们还要考虑这样一个问题，即给定一个非正则图$G$，是否存在$r$正则图$H$，而$G$是$H$的诱导子图(即,导出的子图).
+很显然的一点是，$H$存在的一个显见的必要条件是$r \geq \Delta(G)$.那么，这个必要条件是否是充分条件呢?回答是肯定的，大家可以停下来试着
+自己构造这样的图$H$.
+
+\begin{theorem}  \label{thm:regular_induced}
+
+  对于任意的图$G$和整数$r \geq \Delta(G)$，必存在$r$正则图$H$，而$G$是$H$的诱导子图.
+\end{theorem}
+\begin{proof}  \label{proof:regular_induced}
+
+  我们仍然采用\textbf{构造性证明方法}.
+
+  假设非正则图$G$的阶为$n$，顶点集合为$V(G) = \set{v_1,v_2, \cdots, v_n}$.$G'$是$G$的一个拷贝，只是将其顶点重新标定(与$G$中顶点相对应)
+  为$\set{v_1',v_2', \cdots, v_n'}$.现在，我们构造图$G_1$:对于每个顶点$v_i$,$d(v_i) < r$,则连接$v_i$与$v_i'$形成一条边.显然,$G$
+  是图$G_1$的诱导子图,并且$\delta(G_1) = \delta(G)+1$.如果$G_1$为$r$正则图，则$H = G_1$即为所求.否则，继续上述过程.经过$k = r-\delta(G)$
+  次上述操作，便会得到$G_k$，而$G_k$即为所求.
+\end{proof}
+\begin{remark}  \label{remark:regular_induced}
+
+  该证明由$Den\acute{e}s K\ddot{o}nig$给出.他写了第一本图论专著.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Problem Set}
+\begin{problem}{\textbf{可简单图化}}  \label{ps:graphical}
+
+  $S = \set{2,6,7}$，定义$S^{k}= 2,2,\cdots,2,6,6,\cdots,6,7,7,\cdots,7$,其中元素重复次数均为$k$.证明存在整数$k$，使得以$S^{k}$
+  为度序列的序列是可简单图化的，给出最小的符合条件的$k$值.
+\end{problem}
+
+\begin{problem}{\textbf{图的连通性(充分条件)}}  \label{ps:sufficient}
+
+  $G$是阶为3或更高阶的图.如果$G$中包含两个相异顶点$u,v$,使得$G-\set{u},G-\set{v}$都是连通图，请证明$G$本身也是连通图.
+\end{problem}
+
+\begin{problem}{\textbf{图的连通性(必要条件)}}  \label{ps:necessary}
+
+  $G$是阶为3或更高阶的连通图.请证明,$G$中必存在两个相异顶点$u,v$，使得$G-\set{u},G-\set{v}$都是连通图.
+\end{problem}
+
+\begin{problem}{\textbf{顶点度数与图的连通性}}  \label{ps:degree+conn}
+  请说明定理\ref{thm:degree+conn}中的$n-1$的 bound 是紧的(sharpness).也就是说，当我们放松该条件,比如改为$n-2$时，请给出
+  满足度数条件但是不连通的图的例子.
+\end{problem}
+
+\begin{problem}{\textbf{正则图}}  \label{ps:regular}
+  \begin{enumerate}
+    \item 请证明:如果$G$是$n$阶图,则$\delta(G) + \delta(\bar{G}) \leq n-1$.
+    \item 请证明:如果$G$是$n$阶图,则$G$是正则图 $\iff$ $\delta(G) + \delta(\bar{G}) = n-1$.
+  \end{enumerate}
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}
+%\subsection{竞赛图(Tournaments)}
+\subsubsection{与``聚会''有关的图论知识}
+图论应用广泛,在下次聚会中，你可以验证下面的定理.
+\begin{theorem}{The Party Theorem}  \label{thm:party_same}
+
+  在任何一次聚会中，总存在两个人，他们拥有相同数量的朋友(聚会中的人).
+\end{theorem}
+\begin{remark}  \label{remark:party_same}
+
+  注意:这里所说的朋友是双向的。比如，$A$是$B$的朋友，那么$B$也一定是$A$的朋友.反之亦然.我们不考虑$A$对$B$
+  无话不谈而$B$却对$A$无话可说的情况.下同.
+\end{remark}
+\begin{proof}  \label{proof:party_same}
+
+  用顶点表示人,用边表示朋友关系.所谓相同数量，即使顶点度数相同.\emph{反设} 不存在度数相同的点,那么顶点度数
+  只能分别是$0,1,2, \cdots, n-1$.而$n-1$表示与所有其他顶点都相邻，那么就不可能存在度数为0的顶点.矛盾.
+\end{proof}
+\begin{theorem}{Ramsey Theorem}  \label{thm:ramsey}
+
+  六个人的聚会中，必存在三个人彼此认识或者彼此不相识.
+\end{theorem}
+\begin{proof}  \label{proof:ramsey}
+
+  关于该定理的证明请参见这里: \url{http://en.wikipedia.org/wiki/Theorem_on_friends_and_strangers}.
+\end{proof}
+
+下面我们不加证明地给出另一个有关聚会的定理.
+\begin{theorem}{Friendship Theorem}  \label{thm:friend}
+
+  在任何一次聚会中(人数任意但是是有限的，这和现实生活相吻合),如果任意两个人都有且仅有一个共同好友(想想人人网站吧),那么
+  必存在一个人，他和其他所有人都是好友.
+\end{theorem}
+\begin{remark}  \label{remark:friend}
+
+  是的，你猜对了。这就是上文所提到的 friendship graph, 见图\ref{fig:friendship}.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Topic 2: Connectivity}
+\subsection{Connectivity}
+上一讲中，我们介绍了图的连通性。图的连通性主要关注一个图(我们这里只关注无向图,下同)是否是连通的.但是，我们可以很
+直观地感到有些图``很连通'',而有些图就显得那么脆弱，``不够连通''. 要更准确地表达我们这种感觉，就需要引入``连通度''
+的概念。``连通度''就是度量图有``多连通''的指标.
+
+\begin{definition}{\textbf{图的点连通度}}  \label{def:kappa_g}
+
+  图$G$的点连通度$\kappa(G) = \min \set{ \vert T \vert \mid T \textrm{ 为 } G
+  \textrm{ 的点割集}}$.
+\end{definition}
+
+\begin{definition}{\textbf{图的边连通度}}  \label{def:lambda_g}
+
+  图$G$的边连通度$\lambda(G) = \min \set{ \vert S \vert \mid S \textrm{ 为 } G \textrm{
+  的边割集}}$.
+\end{definition}
+
+\begin{remark}{\textbf{连通度}}  \label{remark:conn}
+
+  $\kappa(G)(\lambda(G))$是为产生一个不连通图或平凡图所需要移去的点(边)的 \emph{最少} 数目.
+
+  一般而言，这种方式的定义都不太好处理，它对于求解和分析都会带来一定困难.一方面，它要求最优化(\emph{最少})，另一
+  方面，它处理的又是离散的对象. 这便会带来组合问题.这与对某个连续函数求极值有着很大不同.
+
+  那么为什么要考虑``图的连通度''呢?实际上，它在计算机科学中有着很重要的应用.比如，我们要铺设计算机网络，使用图论的
+  语言，我们可以将单台计算机建模为图的顶点，将两台计算机之间的连接建模为图的边.那么，我们就想知道该网络有多健壮.
+  如果一台计算机失效了，整个网络会不会断成几个``孤岛''?如果是一条连接出现通讯故障，又会怎么样呢?为了增加网络的健壮性，
+  我们需要做些什么?
+\end{remark}
+
+\begin{theorem}{\textbf{完全图的边连通度}}  \label{thm:lambda_kn}
+
+  证明: $\lambda(K_n) = n - 1.$
+\end{theorem}
+
+\begin{proof}{\textbf{完全图的边连通度}}
+
+  \begin{enumerate}
+    \item 根据定义，$\lambda(K_1) = 0$. 下面仅考虑$n \geq 2$的情况.
+    \item $K_n$每个顶点度数均为$n-1$，删除$v$的这$n-1$条邻接边可以导致图不连通.故，$\lambda(K_n) \leq n-1$.
+    \item
+    记$X$为$G$的最小边割集.\emph{$G-X$恰有两个连通分支,分别记为$G_1,G_2$}.记$G_1$的阶为$k$,则$G_2$的阶为$n-k$.
+    因为$G$是完全图,所以$\vert X \vert = k(n-k)$.又，$k \geq 1, n-k \geq 1, \Rightarrow
+    (k-1)(n-k-1) \geq 0 \Rightarrow (k-1)(n-k-1) = k(n-k)-n+1 \geq 0 \Rightarrow
+    \lambda(G) = \vert X \vert = k(n-k) \geq n - 1.$
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}($Whitney(1932)$)}
+\label{thm:kappa_lambda_delta}
+
+  对于任意图，下式成立:
+  \[
+    \kappa(G) \leq \lambda(G) \leq \delta(G) \leq \lfloor \frac{2m}{n} \rfloor
+  \]
+  其中，$m,n$分别为图$G$的边数和顶点数.
+\end{theorem}
+
+\begin{proof}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{proof:kappa_lambda_delta}
+
+  课堂上已经给出了$\kappa(G) \leq \lambda(G)$的归纳法证明.下面我们给出另外一种更直观的证明.
+
+  \begin{enumerate}
+    \item 若图为非连通图或为平凡图,则$\kappa(G) = \lambda(G) = 0$.
+    \item 若图为$K_n$,则$\kappa(G) = \lambda(G) = n - 1$.
+    \item 下面假设$G$为阶大于等于3的连通、非完全图.
+
+      我们打算从边割集$X$(显然，$\vert X \vert = \lambda(G) \leq n - 2$)构造出点割集$U$.
+      一个很直观的想法是，对于边割集$X$中的每一条边$e$，需要选择$e$的一个顶点 作为点割集的一个元素.
+      问题在于，如何才能保证$\vert X \vert$次选择能够构成点割集?
+
+      $G-X$恰有两个连通分支,记为$G_1,G_2$，其中$G_1$阶为$k$，则$G_2$阶为$n-k$.
+      \begin{itemize}
+        \item \textit{在$G$中,$G_1$中的每个顶点均与$G_2$中的每个顶点相邻接.}
+
+          若为该种情况，则根据定理\ref{thm:lambda_kn}的推理，可以得出$\lambda(G) \geq n-1$.矛盾.
+          \item \textit{在$G$中，$\exists u \in G_1, \exists v \in G_2$,$u,v$不邻接.}
+
+            下面我们构造点割集$U$:主要思想是，我们要破坏$u,v$之间的通路.现在，我们已经说明了，$u,v$
+            不邻接.那么下一个目标就是破坏$u,v$之间的间接连通通路.那么这些通路是如何构成的呢? 一共有三种情况：
+            \begin{inparaenum}[\itshape a\upshape)]
+              \item $u \leadsto u' \to v' \leadsto v$(取$u'$)
+              \item $u \leadsto u' \to v$(取$u'$)
+              \item $u \to v' \leadsto v$(取$v'$)
+            \end{inparaenum}
+            (其中,$u' \in G_1, v' \in G_2, \leadsto \textrm{ 表示通路}, \to
+            \textrm{表示有边相连}$)
+
+            显然,$\vert U \vert \leq \vert X \vert$，且$u,v \notin
+            U$.根据$U$的构造方法，$G-U$中不存在$u-v$通路.故,$\kappa(G) \leq \vert U \vert \leq
+            \vert X \vert = \lambda(G)$.
+      \end{itemize}
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{remark:kappa_lambda_delta}
+
+  关于$\kappa(G) \leq \lambda(G) \leq \delta(G)$的证明，在课堂上已经给出.而
+  $\frac{2m}{n}$实际上为图的平均度数，故有$\delta(G) \leq \lfloor \frac{2m}{n} \rfloor$.
+
+  习题\ref{ps:kappa_lambda_delta}要求你分别给出满足该定理公式不同特例的图例.
+\end{remark}
+
+下面我们看一道关于具体类型图的点连通度和边连通度关系的定理，主要目的是为了让大家体会图论中的证明方法.
+
+\begin{theorem}{\textbf{3正则图的点连通度和边连通度}}  \label{thm:3regular}
+
+  如果$G$是3正则图,请证明,$\kappa(G) = \lambda(G)$.
+\end{theorem}
+
+\begin{proof}{\textbf{3正则图的点连通度和边连通度}}  \label{proof:3regular}
+
+  假设$U$是最小点割集，即$\vert U \vert = \kappa(G)$.因为$\lambda(G) \geq
+  \kappa(G)$，故只需证明$\lambda(G) \leq \kappa(G)$，要证明该结论，我们又只需构造一个边割集$X$，$\vert X
+  \vert = \vert U \vert$。这提醒我们需要根据点割集来构造边割集，最好的情况就是在这种构造方法中，点割集中的一个点
+  能对应边割集中的一条边.(注意，在定理\ref{thm:kappa_lambda_delta}的证明中我们也使用了这种技巧，只不是是从边割集
+  构造点割集.)
+
+  取$G_1,G_2$为$G-U$的两个连通分支.因为$U$是最小点割集，所以$U$中的每一个顶点$u$在$G_1$与$G_2$中都有邻接顶点.
+  又因为$G$是3正则图,所以$u$不可能在$G_1,G_2$中都有两个邻接顶点.\textit{取边$us$，如果$s$是$G_1,G_2$中与$u$邻接
+  的唯一顶点}.%特殊的情况是,如果出现如图 所示的情况,我们取边$uu'$和边$vv'$.
+
+  \textcolor{red}{思考:但是，这里存在一种特殊情况，你能找到它吗?}
+
+  这样，我们就构造了大小为$U$的边集,且为边割集.得证.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Problem Set}
+\begin{problem}{\textbf{图的连通度}}  \label{ps:conn}
+
+  计算下列类型的$\kappa(G),\lambda(G)$参数值:
+  \[
+    K_{m,n}, \textrm{Petersen}, C_n, W_n,S_n,P_n,K_n.
+  \]
+\end{problem}
+
+\begin{solution}{\textbf{解答:图的连通度}}  \label{solution:conn}
+
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{ps:kappa_lambda_delta}
+
+  \begin{enumerate}
+    \item 请给出满足 $\kappa(G) < \lambda(G)$的例子.
+    \item 请给出满足 $\kappa(G) = \lambda(G)$的例子.
+    \item 请给出满足 $\kappa(G) < \lambda(G) < \delta(G)$的例子.
+    \item 请给出满足 $\kappa(G) = \delta(G)$的例子.
+    \item 请给出满足 $\lambda(G) = \delta(G)$的例子.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}{\textbf{解答:$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{solution:kappa_lambda_delta}
+
+  \begin{enumerate}
+    \item
+    \item
+    \item
+    \item 课堂上给出了一个例子 $\delta(G) \geq n - 2 \Rightarrow \kappa(G) =
+    \delta(G)$.(请证明该结论)
+    \item 课堂上给出了一个例子 $\delta(G) \geq \frac{n}{2} \Rightarrow \lambda(G) =
+    \delta(G)$.(该命题由$Chartrand$于1966年给出.该命题的证明是通过数量关系完成的，其关键的数量关系为
+    ``$G_1$中顶点的次数之和不大于$\vert G_1 \vert$阶完全图的次数之和加上被删除的边数$X$''.)
+  \end{enumerate}
+\end{solution}
+
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{非割点的存在性}}  \label{ps:non_cv}
+
+  如果$G$为非平凡连通图，$u \in V(G)$,$v$是距离$u$最远的点，请证明$v$不是$G$的割点.
+\end{problem}
+
+\begin{solution}{\textbf{解答:非割点的存在性}}  \label{solution:non_cv}
+
+
+\end{solution}
+
+\begin{remark}{\textbf{非割点的存在性}}  \label{remark:non_cv}
+
+  习题\ref{ps:non_cv}实际上说明了在非平凡连通图中至少存在两个割点(\textcolor{red}{讨论:请思考为什么?}).反过来说，
+  不存在某个非平凡连通图，所有的点都是割点。但是，对于割边来说，该情况是可能出现的。也就说，存在某个非平凡连通图，
+  它的所有边都是割边(\textcolor{red}{讨论:请举出这样的图例}).
+\end{remark}
+
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{对2连通图的等价刻画}}  \label{ps:2conn}
+
+  设$G$为阶不小于3的连通图，请证明以下各点等价:
+  \begin{enumerate}
+    \item $G$无割点.
+    \item 图是2点连通的.
+    \item $\kappa(G) \geq 2$.
+    \item \textbf{任意两点总在某个圈上}.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}{\textbf{解答:对2连通图的等价刻画}}  \label{solution:2conn}
+
+  前三点的等价证明是很容易的。我们着重证明下面的定理:
+  \begin{theorem}{\textbf{对2连通图的等价刻画}}  \label{thm:2conn}
+
+    图$G$是不含割点的阶大于3的连通图 $\Leftrightarrow$ $G$中任意两点总在某个圈上.
+  \end{theorem}
+
+  \begin{proof}{\textbf{对2连通图的等价刻画}}  \label{proof:2conn}
+
+    \begin{enumerate}
+      \item ``$\Leftarrow:$''该证明请自行完成.
+      \item
+      ``$\Rightarrow:$''反设存在顶点对不在某个共同圈上.\textbf{取所有这样的顶点对中满足$d(u,v)$最小的顶点对}.
+      如果$d(u,v) = 1$，则$u,v$必在同一个圈上(否则，图$G$含有割点).故可假设$d(u,v) = k \geq 2$.
+
+      $P: u = v_0,v_1, \cdots,v_{k-1},v_k = v$是长度为$k$的$u,v$路径.因为$d(u,v_{k-1})=
+      k-1 < k$，所以，存在圈$C$包含$u$和$v_{k-1}$,而不包含$v$.又，$v_{k-1}$不是割点，所以，
+      存在不包含$v_{k-1}$ 的 $v-u$路径$Q$.$u$在$C$上，记$x$为$Q$与$C$相交的第一个顶点.那么$v_k = v \to
+      v_{k-1} \leadsto u \leadsto x \leadsto v_k = v$构成圈.矛盾.
+    \end{enumerate}
+  \end{proof}
+\end{solution}
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}
+
+
+{
+  \large
+  \begin{quote}
+    ``Graph theory starts with \emph{graph} and ends with \emph{theory}.''
+  \end{quote}
+}
+
+\section{Topic 3: Eulerian Graph}
+
+\subsection{Eulerian Graph}
+\begin{quote}
+  ``Read Euler, read Euler, he is our teacher in all
+  things.''($\textrm{Pierre-Simon Laplace}$)
+
+%   Euler(15 April 1707 $\sim$ 18 September 1783)出生于瑞士巴塞尔(Basel).
+\end{quote}
+
+\begin{definition}{\textbf{Eulerian graph}}  \label{def:eulerian}
+
+  若$G$为无向图，则包含$G$中每条边的简单通路$\tau$(边各异，顶点不一定各异)称为欧拉通路.
+
+  若$\tau$又是回路，则称$\tau$为欧拉回路.
+
+  $G$若有欧拉通路，则称为半欧拉图;$G$若有欧拉回路，则称为欧拉图.
+\end{definition}
+\begin{remark}{\textbf{Eulerian graph}}  \label{remark:eulerian}
+
+  欧拉图来源于\emph{$\textrm{Seven Bridge of K}\ddot{o} \textrm{igsberg}$}问题.
+\end{remark}
+
+关于欧拉图,我们有如下两个问题:
+\begin{enumerate}
+  \item 给定无向图$G$,如何判断该图是否是欧拉图?
+  \item 给定欧拉图$G$,如何给出欧拉回路?
+\end{enumerate}
+下面我们就分别来探讨这两个问题.
+\begin{theorem}{欧拉图判定的充要条件}  \label{thm:eulerian}
+
+  无向图$G$是欧拉图 $\iff$ $G$是连通图且其所有顶点均为偶度顶点.
+\end{theorem}
+我们称所有顶点均为偶度顶点的图为偶图.
+\begin{proof}{欧拉图判定的充要条件}  \label{proof:eulerian}
+  \begin{enumerate}
+    \item ``$\Rightarrow:$'' 该结论显然成立. ``有进必有出,头尾合一'',故所有顶点必为偶度顶点.
+    \item ``$\Leftarrow:$'' 实际上,我们可以证明:
+      \begin{enumerate}
+        \item \label{lemma:cycle} $G$可以拆分为若干个边不重的圈之并.
+        \item \label{lemma:combine} 这些圈可以串成一个欧拉回路.
+      \end{enumerate}
+      关于第一个结论\ref{lemma:cycle}, 我们可以通过对边数作归纳来完成.完成该归纳法的关键在于如何先找到一个圈,然后
+      通过将该圈上的边删除得到规模(边数)较小的偶图. 圈的存在性可以通过极大路径法来证明($\delta(G) \geq 2$).圈用去
+      了所关联到的每个顶点的两度.所以,删除该圈上的边之后可得到规模较小的偶图.
+
+      关于第二个结论\ref{lemma:combine}, 我们注意到图是连通的,所以两个圈之间必有共同点.这些共同点就是将圈串成一个
+      欧拉回路的``切合点''.
+
+      图\ref{fig:euler_proof}形象地说明该证明方法.
+		%\usepackage{graphics} is needed for \includegraphics
+		\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.8]{figure/euler_proof}
+		  \caption[labelInTOC]{欧拉图可表为若干边不重的圈之并}
+		  \label{fig:euler_proof}
+		\end{center}
+		\end{figure}
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{欧拉图判定的充要条件}  \label{remark:eulerian}
+
+  如定理\ref{thm:eulerian}和其证明\ref{proof:eulerian}所表明的那样,我们可以通过两种方式来刻画欧拉图.
+  \begin{enumerate}
+    \item 连通的偶图
+    \item 连通的,且是若干个边不重的圈之并.
+  \end{enumerate}
+  这两种方式同样重要.在这里,我们尤其需要强调第二种刻画方式.一是因为大家对其重视不足;二是因为该刻画实际上蕴含了一种
+  给出欧拉回路的算法.对该算法的介绍,我们将在\ref{alg:euler}中给出.
+\end{remark}
+
+\begin{alg}{求欧拉回路的算法}  \label{alg:euler}
+
+  根据证明过程\ref{proof:eulerian},我们可以得到一种求欧拉回路的算法.该算法过程可描述如下:
+  \begin{enumerate}
+    \item 任意选择一个点作为起始点$s$.
+    \item 随机(可沿着边一直走,在顶点处随机选择出边)找到一个以$s$点为始点和终点的圈,记为$c$,将其上之边做上标记,
+      表示已经访问过.
+    \item 如果$c$上包含了所有的边,则算法结束.否则,必存在一条未被标记的边,该边与圈$c$有一共同点$t$,以该点为始点和
+      终点再随机找到一个圈$c'$.将圈$c$与$c'$合并成一个新的更大的以$s$为始点和终点的圈.
+    \item 重复以上过程.
+  \end{enumerate}
+\end{alg}
+
+\begin{example}{求欧拉回路的算法}  \label{example:euler}
+
+  \begin{enumerate}
+    \item 题目:请给出欧拉图\ref{fig:euler_example(0)}的一条欧拉回路.
+    \item 在图\ref{fig:euler_example(1)}中选取点$y$为起始点,找到一个圈$(y,x,z,a,y)$.
+    \item
+    在图\ref{fig:euler_example(3)}中选取点$x$为起始点,找到一个圈$(x,w,b,a,x)$,并将其与上一个圈合并成一个更大的圈
+      $(y,x,w,b,a,x,z,a,y)$.
+    \item 在图\ref{fig:euler_example(4)}中继续以上过程.
+    \item
+    在图\ref{fig:euler_example(5)}中得到欧拉回路$(y,x,e,d,c,a,w,v,x,w,b,a,x,z,a,y)$.
+  \end{enumerate}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(0)}
+	  \label{fig:euler_example(0)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(1)}
+	  \label{fig:euler_example(1)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(3)}
+	  \label{fig:euler_example(3)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(4)}
+	  \label{fig:euler_example(4)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.5]{figure/euler_example(5)}
+	  \label{fig:euler_example(5)}
+	\end{center}
+	\end{figure}
+	
+\end{example}
+
+\subsection{Eulerian Digraph}
+本小节,我们关注有向图的欧拉路径问题.
+
+\begin{definition}{\textbf{Eulerian Digraph}}
+\label{definition:eulerian_digraph}
+
+  有向图上的欧拉通路指的是,有向图上遍历所有边(沿边的方向)一次且仅一次的通路.
+
+  有向图上的欧拉回路指的是,有向图上遍历所有边(沿边的方向)一次且仅一次的回路.
+\end{definition}
+
+与无向图一样,我们也有一个与顶点度数有关的用来刻画有向图欧拉回路的充要条件.在以定理的形式介绍该充要条件之前,
+我们来介绍一下极大路径法在有向图中的一个应用.
+
+\begin{lemma}{极大路径法在有向图中的应用}  \label{lemma:maximal_path_digraph}
+
+  如果有向图$G$满足$\delta^{+}(G) \geq 1$,那么该图$G$包含圈(回路)(有向图意义下).
+
+  同样地,如果有向图$G$满足$\delta^{-}(G) \geq 1$,那么该图$G$包含圈(回路).
+\end{lemma}
+
+\begin{proof}{极大路径法在有向图中的应用}  \label{proof:maximal_path_digraph}
+
+  设$P$是有向图$G$中的极大路径,\emph{$u$}是$P$的最后一个顶点.因为$P$为极大路径,不能再扩展,所以$u$的所有后继
+  都必须在$P$上.$\deg^{+}(u) \geq 1$,所以$u$具有后继.设$u$在$P$上的后继顶点为$v$,则$v \leadsto u \to
+  v$构成圈.该证明过程可用图\ref{fig:maximal_path_digraph}来表示.
+\end{proof}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/maximal_path_digraph}
+	  \caption[labelInTOC]{极大路径法在有向图中的应用}
+	  \label{fig:maximal_path_digraph}
+	\end{center}
+	\end{figure}
+\begin{remark}{极大路径法在有向图中的应用}  \label{remark:maximal_path_digraph}
+
+  同学们需要注意极大路径法在有向图中的应用与其在无向图中的应用的一个不同之处,也就是,在这里我们是使用最后面的顶点
+  $u$来推导出圈的存在的.而在无向图中,我们使用的是路径的第一个顶点(也可以用最后面的顶点,在无向图中两个端点是对称
+  的,但是在有向图中则不对称).
+\end{remark}
+
+下面我们就给出有向图中欧拉回路的充要条件.大家会发现,该定理与定理\ref{thm:eulerian}极为相似,甚至连证明过程也极为
+相似.
+
+\begin{theorem}{有向欧拉图的充要条件}  \label{thm:eulerian_digraph}
+
+  有向图$G$是欧拉图(即具有欧拉回路) $\iff$ $\forall v \in V(G), deg^{+}(v) = deg^{-}(v)$
+  并且图$G$的底图(忽略有向图边上的方向所得到的无向图)是连通的.
+\end{theorem}
+
+\begin{proof}{有向欧拉图的充要条件}  \label{proof:eulerian_digraph}
+
+  \begin{description}
+    \item[$\Rightarrow:$] 显然成立. 同无向图的情况一样,``有进必有出,头尾合一''.
+    \item[$\Leftarrow:$] 同无向图的情况类似.使用与无向图中类似的数学归纳法即可.其中引理\ref{lemma:maximal_path_digraph}
+     在归纳证明中起到了与无向图中类似的作用.具体证明过程不再赘述.
+  \end{description}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Problem Set}
+欧拉图部分不安排习题.我们重点讲解有向欧拉图的一个应用\ref{subsection:app_dbs}.
+
+本节课的习题部分内容为讲解前几次图论作业题目.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}  \label{section:app}
+
+\subsubsection{Chinese Postman Problem}  \label{subsection:app_cpp}
+关于无向欧拉图在``中国邮递员问题''中的应用,课件中已有介绍,这里不再重述.若大家对此问题感兴趣,可以阅读相关文献.
+对``中国邮递员问题''的介绍,可以参见这里:\url{http://eie507.eie.polyu.edu.hk/ss-submission/B7a/};
+文献``Matching, Euler tours and the Chinese postman''
+(\url{http://www.springerlink.com/content/m13073156441m47x/}) 利用匹配理论解决该问题.
+
+\subsubsection{de Bruijn Sequence}  \label{subsection:app_dbs}
+我们重点通过该例子来介绍有向图中欧拉回路的应用.
+
+我们现在有这样一个问题,该问题具有电信行业的应用背景.
+\begin{problem}{滚筒问题}  \label{ps:rotating_drum}
+
+  一个滚筒有\emph{16个}不同的扇片.滚筒当然可以滚动,滚筒每滚过一个扇片,其位置就有所不同.问题是,我们能否不直接
+  观察该滚筒就能确定它的位置?
+
+  一种方法是在某些扇片上放置导电材料,而在另外的一些扇片上放置非导电材料.把\emph{4个}
+  电极相邻地放置到滚筒旁,使得在滚筒的任意位置中,电极都邻接4个连续的扇片.如果电极邻接有导电材料的扇片,它就会被触发,
+  比如说电极会发光,如图\ref{fig:rotating_drum}.
+
+  我们希望通过选择在哪些扇片上放置导电材料和非导电材料,来使得触发的和未触发的电极模式能告知我们这个滚筒的位置.
+\end{problem}
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/rotating_drum}
+	  \caption[labelInTOC]{The problem of rotating drum}
+	  \label{fig:rotating_drum}
+	\end{center}
+	\end{figure}
+更``数学''一点的描述可以这样来得到:
+
+导电和非导电,可以分别用1和0来表示.16个扇片,那就构成了长度为16的0,1比特串.4个连续的电极,可以用来读取该比特串的连续
+4位.那么如果我们想通过这4位字串来确定扇片的位置,我们就需要使得所有的这样的4位连续字串(一共有16个)都是各个不同的!
+图\ref{fig:rotating_drum}实际上给出了一种解法(0,1比特的一种圆形排列).
+
+\begin{solution}{de Brujin graph}  \label{solution:de Brujin}
+
+  实际上对应图\ref{fig:rotating_drum},我们定义一个有向图.而该有向图的边使用0,1比特来标识,有向图的欧拉回路便对应
+  着图\ref{fig:rotating_drum}的0,1比特排列方式.该类有向图就是``de Brujin graph''. 这里，我们考虑更一般的情形，
+  也就是有$2^n$个扇片,对应着长度为$2^n$的0,1比特串,我们要考察的便是连续的长度为$n$的字串,这样的子串共有$2^n$个.
+
+  如下构造``de Brujin graph''$D_n$:
+  \begin{description}  \label{solution:construction}
+    \item[顶点:] 所有的长度为$n-1$的0,1比特串.
+    \item[$a \to b$有向边:] 如果$a$的最后$n-2$位与$b$的最初$n-2$位相同,则定义一条有向边$a \to
+    b$.并且使用$b$的最后一位(0或1)来标识该有向边.
+  \end{description}
+  对应于图\ref{fig:rotating_drum}的``de Brujin graph''$D_4$如图\ref{fig:de Brujin}所示.
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.8]{figure/de_Brujin}
+	  \caption[labelInTOC]{de Brujin graph $D_4$}
+	  \label{fig:de Brujin}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+下面,我们需要证明该构造过程\ref{solution:construction}所得到的有向图是欧拉图,并且其欧拉回路具有我们想要的圆形
+排列性质(即,$n$位连续子串的唯一性).
+
+\begin{theorem}{de Brujin graph 是欧拉图}  \label{thm:de_Brujin_eulerian}
+
+  如\ref{solution:construction}所构造得到的``de Brujin graph''$D_n$是欧拉图(有向图意义下).
+
+  更重要的是,$D_n$的任一欧拉回路的边的标记组成了$2^n$位0,1比特串,该比特串的$2^n$个$n$位连续子串是互异的.
+\end{theorem}
+
+\begin{proof}{de Brujin graph 是欧拉图}  \label{thm:de_Brujin_eulerian}
+
+  \begin{description}
+    \item[de Brujin graph 是欧拉图:] 根据定理\ref{thm:eulerian_digraph},只需证明以下两点:
+      \begin{description}
+        \item[$\deg^{+}(v) = \deg^{-}(v):$] 由构造\ref{solution:construction}知,
+        $\forall v \in V(D_n), \deg^{+}(v) = \deg^{-}(v) = 2$(请思考,为什么?).
+        \item[基图连通:]
+        实际上图$D_n$是强连通的.从任一点到达$b=\set{b_1,\cdots,b_{n-1}}$,可以依次通过边$b_1,\cdots,b_{n-1}$.
+      \end{description}
+    \item[$D_n$具有圆形排列性质:] $2^{n-1}$个顶点是互异的,每个顶点的出边上的标记是互异的(0和1),在欧拉回路$C$中
+      我们遍历了每一个顶点的每一条边(仅一次).而某顶点$a=(a_1,\cdots,a_{n-1}$与其某一出边0或1实际上构成了$n$位
+      连续子串(不太容易说得清楚,请大家结合图例仔细体会).
+  \end{description}
+\end{proof}
+
+\begin{remark}{Extension to extention}  \label{remark:de_Brujin_graph_extension}
+
+  ``de Brujin graph''有很多有意思的性质.比如,它有很多的顶点但是只有很少的边($n$个顶点,$2n$条边),然而该图还是
+  强连通的.关于该类图的应用和更有意思的性质，可参见这里:\url{http://en.wikipedia.org/wiki/De_bruijn_graph}.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Topic 4: Hamiltonian Graph}
+
+\subsection{Hamiltonian Graph}
+\begin{definition}{哈密顿图}  \label{def:hamilton}
+
+  经过图$G$中所有点恰一次的通路称为$G$的哈密顿通路.
+
+  经过图$G$中所有点恰一次的回路称为$G$的哈密顿回路.
+\end{definition}
+
+和欧拉图的情况不同,对于哈密顿图,人们至今仍未找到便于判断的充要条件.在这种现状下,我们主要研究以下三点:
+\begin{enumerate}
+  \item 研究某些特殊类型的图是否是哈密顿图.
+  \item 给出哈密顿图的某些必要条件.必要条件可以用来确定某个图\emph{不是}哈密顿图.
+  \item 给出哈密顿图的某些充分条件.充分条件可以用来确定某个图\emph{是}哈密顿图.
+\end{enumerate}
+
+\begin{remark}{哈密顿回路的一些特点}  \label{remark:hcycle}
+若某图$G$是哈密顿图,则其哈密顿回路是原图$G$的一个生成子图.
+
+在哈密顿回路中,原图的每个顶点都用去了两度.所以,如果图$G$
+中存在顶点$v,deg(v)=2$,那么该顶点的两条边必然在哈密顿回路中.使用该条件,
+我们可以判断某些简单的图不是哈密顿图\ref{example:non_hamilton}.
+
+哈密顿回路不含有比其小的圈作为子图.
+\end{remark}
+
+\begin{example}{非哈密顿图}  \label{example:non_hamilton}
+
+  请说明图\ref{fig:non_hamilton}不是哈密顿图.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/non_hamilton}
+	  \caption[labelInTOC]{非哈密顿图}
+	  \label{fig:non_hamilton}
+	\end{center}
+	\end{figure}
+\end{example}
+
+\begin{theorem}{Petersen图不是哈密顿图}  \label{thm:petersen}
+
+  Peterson图不是哈密顿图.
+\end{theorem}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/Petersen_1}
+	  \caption[labelInTOC]{Peterson图不是哈密顿图}
+	  \label{fig:petersen}
+	\end{center}
+	\end{figure}
+	
+\begin{proof}{Petersen图不是哈密顿图}  \label{proof:petersen}
+
+  \textbf{使用反证法.}
+
+  我们先给Petersen图一些记号.我们采用如图\ref{fig:petersen}所示的方式标记Petersen图的顶点.
+  用$C'$表示外部的圈$u_1,u_2,u_3,u_4,u_5$,用$C''$表示内部的圈$v_1,v_2,v_3,v_4,v_5$.
+  当然,连接外部和内部圈相应顶点的边为$u_i v_i$.
+
+  反设Petersen图是哈密顿图，则其有哈密顿回路$C$.回路$C$包含10条边.$u_i v_i$边共有5条.所以,至少还有5条边属于
+  $C'$或$C''$.根据鸽笼原理,不妨设$C$中至少包含$C'$中的3条边.又因为$C$中不可能含有$C'$中的全部的5条边($C$不应当
+  包含子圈),所以$C$中只可能包含$C'$中的3条边或者4条边.
+
+  \begin{description}
+    \item [Case 1:] 如果$C$中恰包含$C'$中的4条边.根据对称性,不妨设这四条边为$u_4u_5, u_5u_1, u_1u_2,
+    u_2u_3$,.则连接外部和内部圈的边$u_5v_5,u_1v_1,u_2v_2$不属于$C$(因为每个顶点只能有两条边属于$C$),
+    如图\ref{fig:Case 1(a)}.
+    则边$u_4v_4,u_3v_3,v_1v_3,v_1v_4$属于$C$(因为每个顶点必有两条边属于$C$),如图\ref{fig:Case
+    1(b)}.但是,这意味着$C$包含了一个 大小为8的圈.矛盾(哈密顿回路不可能包含子圈).
+    \item [Case 2:] 如果$C$中恰包含$C'$中的3条边.
+      \begin{description}
+        \item[Subcase 1:] 这3条边在$C'$中相邻. 如图\ref{fig:Case 2(a)}
+        所示,$C$包含$C'$中的3条边$u_4u_5,u_3u_4,u_2u_3$.
+        这导致最多只有一条边($u_1v_1$)与顶点$u_1$关联.矛盾.
+        \item[Subcase 2:] 这3条边在$C'$中不相邻. 如图\ref{fig:Case 2(b)}
+        所示,$C$包含$C'$中的3条边$u_5u_1,u_1u_2,u_3u_4$.则$u_4v_4,u_3v_3,v_1v_4,v_1v_3$必包含于$C$,但是
+        这四条边构成了一个大小为4的圈. 矛盾.
+      \end{description}
+  \end{description}
+\end{proof}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen4(a)}
+	  \caption[labelInTOC]{Case 1(a)}
+	  \label{fig:Case 1(a)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen4(b)}
+	  \caption[labelInTOC]{Case 1(b)}
+	  \label{fig:Case 1(b)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen3(a)}
+	  \caption[labelInTOC]{Case 2(a)}
+	  \label{fig:Case 2(a)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen3(b)}
+	  \caption[labelInTOC]{Case 2(b)}
+	  \label{fig:Case 2(b)}
+	\end{center}
+	\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tournaments}  \label{subsection:tournament}
+
+\begin{definition}{\textbf{竞赛图(tournament)}}  \label{definition:tournament}
+
+  底图是完全图的有向图是竞赛图.
+\end{definition}
+
+\begin{remark}{\textbf{竞赛图(tournament)}}  \label{remark:tournament}
+
+  之所以称为竞赛题,是因为我们可以用比赛的术语来描述该类图.竞赛图建模了循环赛(round-robin),在该种赛制中,每两个参赛队员之间都要
+进行一场且仅一场比赛.底图是完全图$K_n$是显然的.如果队员$x$赢得了与队员$y$的比赛,则有向边$(x,y) \in E(K_n)$.
+
+  在课堂上,我们学习了根据竞赛图给各个队员排名.最简单的一种排名方式是按照队员相对应的顶点的出度(outdegree)的大小排名.
+  由于具有最大出度的顶点很可能不止一个,如图\ref{fig:tournament}所示,所以可能没有明显的第一名.但是,尽管如此,我们却可以找到这样
+  的一个队员$x$:
+  对于其他所有队员$z$,要么$x$赢得了与$z$的比赛,要么$x$赢得了与$y$的比赛而$y$赢得了与$z$的比赛．我们把这样的队员称为
+  ``king'' !
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/tournament}
+	  \caption[labelInTOC]{tournament with many vertices holding maximum outdegree}
+	  \label{fig:tournament}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+\begin{definition}{\textbf{king}}  \label{definition:king}
+
+  在有向图中(该定义不局限于竞赛图),king 指的是顶点$x$,如果其它所有的顶点都可从$x$通过长度不大于2的路径(path)可达.
+\end{definition}
+
+我们以习题的形式给出关于``竞赛图中必定含有king''的定理.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Problem Set}
+\begin{problem}{\textbf{$P_{306}$(15)}}  \label{ps:material}
+
+  某工厂生产由6种颜色的纱织成的双色布.已知在一批双色布中,每种颜色至少与其他3种颜色相搭配.证明可以从这批双色布
+  中挑出3种,它们由6种不同颜色的纱织成.
+\end{problem}
+*******************************************************************
+\begin{problem}{\textbf{竞赛图中必有 king}}  \label{ps:king}
+
+  证明:竞赛图中必有 king.
+\end{problem}
+
+\begin{solution}{\textbf{竞赛图中必有 king}}  \label{solution:king}
+
+  证明过程可以使用图 来说明.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/king_proof}
+	  \caption[labelInTOC]{proof of king}
+	  \label{fig:king_proof}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+\begin{remark}{\textbf{竞赛图中必有 king}}  \label{remark:king}
+
+  该定理的证明过程实际上隐含了``求竞赛图中的king''的算法.请仔细体会.
+
+  该定理的证明过程在图论中是比较有代表性的,即以某种方式将问题推到``绝境'',``迫使''具有某种特性的对象出现.也请仔细体会.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Topic 5: Tree}  \label{section:topics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{树(Tree)}  \label{subsection:tree}
+
+树,即连通无圈之图.
+
+树有几个等价定义.这可能会让一些同学心生畏惧.实际上，一个概念有多个等价定义，往往是件好事情，
+因为这通常意味着我们对该概念的了解已经比较深入，可以从不同角度来阐释该概念。在解题或寻求新的定理时，我们可以
+先通过一种定义证明某图是树，然后就可以将其余的等价定义看作树的性质来使用.
+
+在给出树的其它等价定义之前，我们先介绍树的一个性质.该性质虽然简单,但是却为关于树的归纳证明提供了基础.
+
+\begin{lemma}{\textbf{树的归纳性质}}  \label{lemma:tree_inductive}
+
+  \begin{enumerate}
+    \item $n \geq 2$的树至少有两个叶节点;
+    \item 对于$n \geq 2$的树,删除任一叶节点,所得图是大小为$n-1$的树.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}{\textbf{树的归纳性质}}  \label{proof:tree_inductive}
+
+  \begin{enumerate}
+    \item 极大路径法.任取某极大路径$u \leadsto v$,则两端点$u,v$即为叶节点(即,度数为1.因为无圈).
+    \item 设原树为$T$,删除叶节点$v$($deg(v)=1$),得到新图$T'$.$T$为树,故无圈,删除一个顶点不会造成圈，
+      故$T'$无圈;$deg(v)=1$,故$T$中任意两点$x,y$之间的路径不经过$v$，故$x,y$在$T'$中仍然连通.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{\textbf{树的归纳性质}}  \label{remark:tree_inductive}
+
+  引理\ref{lemma:tree_inductive}说明我们可以从大小为$n$的树通过添加叶节点来构造大小为$n+1$的树.在我们使用数学归纳法
+  证明与树相关的定理时，该引理提供了一种从$n+1$推到$n$的方法,从而可以使用归纳假设.
+\end{remark}
+
+\begin{theorem}{\textbf{树的等价定义}}  \label{thm:tree}
+
+  对于$n$阶图$G$，以下各点等价(都刻画了$n$阶树):
+  \begin{enumerate}
+    \item \label{thm:tree_1} $G$连通,无圈;
+    \item \label{thm:tree_2} $G$连通,边数$m=n-1$;
+    \item \label{thm:tree_3} $G$边数$m=n-1$,无圈;
+    \item \label{thm:tree_4} $G$无环,任意两点之间存在唯一路径.
+  \end{enumerate}
+\end{theorem}
+
+下面只给出证明的原理和思路，具体证明过程从略.
+
+\begin{proof}{\textbf{树的等价定义}}  \label{proof:tree}
+
+  注意到,定理\ref{thm:tree}中的前三点\ref{thm:tree_1},\ref{thm:tree_2},\ref{thm:tree_3}实际上说明了:
+  ``连通'',``无圈''和``边数$m=n-1$''这三个条件中,如果任知其中两个成立,则可以推出另一个条件成立.
+
+  \begin{description}
+    \item[连通+无圈 $\Rightarrow$ 边数$m=n-1$:] \label{proof:tree_edge}
+    采用数学归纳法.对顶点数$n$做归纳.该数学归纳法即用到了引理\ref{lemma:tree_inductive}.
+    \item[连通+边数$m=n-1$ $\Rightarrow$ 无圈:] \label{proof:tree_acyclic}
+      ``破圈法''.
+    \item[无圈+边数$m=n-1$ $\Rightarrow$ 连通:]  \label{proof:tree_conn}
+      反证法.对每个连通分支的边数计数.
+  \end{description}
+  关于定理第\ref{thm:tree_4}点的证明不再赘述.
+\end{proof}
+
+\begin{remark}{\textbf{树的等价等价}}  \label{remark:tree}
+
+  实际上,对定理第\ref{thm:tree_2}点的证明过程``破圈法''\ref{proof:tree_acyclic}说明了每个连通图必有
+  生成树\ref{cor:tree_property}(构造性证明).下一接我们就将重点放在生成树上\ref{subsection:spanning_tree}.
+
+  我们用伪码来描述求生成树的破圈法\ref{fig:st_break_cycle}(引自宋方敏老师讲义):
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/st_break_cycle}
+	  \caption[labelInTOC]{求生成树的破圈法}
+	  \label{fig:st_break_cycle}
+	\end{center}
+	\end{figure}
+	
+  与此相对应,还有一种求生成树的算法,称之为``避圈法''\ref{fig:st_avoid_cycle}(同样引自宋方敏老师讲义)
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/st_avoid_cycle}
+	  \caption[labelInTOC]{求生成树的避圈法}
+	  \label{fig:st_avoid_cycle}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+我们不加证明地列出树的一些简单性质.它们都可以容易地从定理\ref{thm:tree}的证明过程中得到.
+\begin{corollary}{\textbf{树的性质}}  \label{cor:tree_property}
+
+  \begin{enumerate}
+    \item 树的每一条边都是割边.
+    \item 往树中添加一条边,将会形成唯一的圈.
+    \item 每一个连通图都有生成树.
+  \end{enumerate}
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{生成树(Spanning Tree)}  \label{subsection:spanning_tree}
+关于生成树,我们关心如下问题:
+\begin{enumerate}
+  \item \label{st_question_1} 任给连通图$G$，存在生成树吗? 此即存在性问题(existence).
+  \item \label{st_question_2} 如果生成树存在,唯一吗? 如果不唯一, 有多少个? 此即计数问题(Counting).
+  \item \label{st_question_3} 如果图$G$是带权图,最小生成树唯一吗?
+  \item \label{st_question_4} 如何求最小生成树?
+\end{enumerate}
+
+其中问题\ref{st_question_1}已经有了肯定回答\ref{thm:tree_2},并且在\ref{proof:tree_acyclic}中给出了构造性的证明
+(也就是提供了一种算法).
+
+在回答下面的问题之前，我们先来介绍一个与生成树对(pairs of spanning trees)相关的命题.该命题在许多和生成树相关尤其是与最小生成树
+相关的证明中都会用到.
+
+我们以习题的形式给出该命题,见习题\ref{ps:pairs_st}.
+
+\subsubsection{生成树的计数问题(Counting)}  \label{subsubsection:counting}
+
+下面我们考虑生成树的计数问题(问题\ref{st_question_2}).
+
+需要说明的是，在本计数问题中，我们考虑的是带标记的树.在带标记的情况下,路径$P_1:a --- b --- c$(也是树)与路径
+$P_2:a --- c --- b$是不同构的.当然$a --- b ---- c$与$c --- b --- a$是同构的.
+
+我们先考虑一类特殊的图的生成树计数问题,也就是完全图$K_n$的生成树有多少?换言之,即大小为$n$的带标记的树有多少种?
+
+\begin{example}{\textbf{带标记的树计数}}  \label{example:counting}
+
+  将大小为$n$的带标记的树的个数记为$T(n)$.对于较小的$n$，我们有(如图\ref{fig:cayley_small}所示):
+
+  $T(1)=1;T(2)=1;T(3)=3;T(4)=16=4 \textrm{ star} + 12 \textrm{ path}; T(5)=125$
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/cayley_small}
+	  \caption[labelInTOC]{cayley's formula with small size}
+	  \label{fig:cayley_small}
+	\end{center}
+	\end{figure}
+\end{example}
+
+Cayley 公式给出了一个简单的计数公式:
+\begin{theorem}{Cayley 公式$\lbrack 1889 \rbrack$}  \label{thm:cayley}
+
+  大小为$n$的带标记的树的个数为$n^{n-2}$.
+\end{theorem}
+
+\begin{proof}{\textbf{带标记的树计数}}  \label{proof:counting}
+  下面,我们假定该$n$个顶点分别标记为$1,2,\cdots,n$,顶点的集合记为$\lbrack V \rbrack$.
+
+  本定理有不少证明.其中一些证明还很精彩.实际上,该定理及其证明已被收录在``Proofs from THE BOOK''\ref{fig:the_book}
+  一书中.所谓的``THE BOOK''，有``圣经''之意，也就是说这些证明如此精美,被认为是上帝所为.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/the_book}
+	  \caption[labelInTOC]{``Proofs from THE BOOK''}
+	  \label{fig:the_book}
+	\end{center}
+	\end{figure}
+
+  不过，我们介绍的该证明方法在``THE BOOK''\ref{fig:the_book}中被一笔带过,其理由是它在一般的图论书中即可见到.该证明的主要思想
+  是对生成树进行编码,编码成长度为$n-2$的数字串,其中每一位$i \in \set{1,2, \cdots,
+  n}$.显然,后者(数字串)的个数为$n^{n-2}$.所以，问题的关键在于寻找一种编码方法,在生成树与数字串之间建立一一对应关系!
+
+  \begin{definition}{\textbf{$Pr\ddot{u}fer$ 编码}}  \label{definition:prufer}
+    顶点集合为$V$的标记树$T$的$Pr\ddot{u}fer$编码记为$f(T)=(a_1,a_2,\cdots,a_{n-2})$.编码过程为:
+    在第$i$步,删除剩余的树中最小的叶节点$v$(顶点用数字标记),$a_i$等于$v$的邻接顶点.
+  \end{definition}
+
+  \begin{example}{\textbf{$Pr\ddot{u}fer$ 编码}}  \label{example:prufer}
+
+    如图\ref{fig:prufer_spanningtree}所示的标记树,其$Pr\ddot{u}fer$ 编码为$f=(744171)$.
+  \end{example}
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/prufer}
+	  \caption[labelInTOC]{labeled spanning tree}
+	  \label{fig:prufer_spanningtree}
+	\end{center}
+	\end{figure}
+
+  要证明编码与带标记树之间的一一对应关系,即证明$f(T)$是带标记树集合与数字串集合之间的双射函数.根据编码方式,一个带标记树
+  产生一个编码是显然的,也就是该编码函数是单射的;要证明其为满射,需要说明对于任意一个长度为$n-2$的数字串,都至少有一个带标记
+  树与之对应,也就是说我们需要从编码逆推出带标记树.
+
+  关于为何该编码与带标记树是一一对应的具体细节，感兴趣的同学可到\url{http://en.wikipedia.org/wiki/Main_Page}{Wiki网站}
+  中查看$Pr\ddot{u}fer$ sequence 词条和 Cayley's formula 词条.
+\end{proof}
+
+定理\ref{thm:cayley}解决了$K_n$的生成树的计数问题.那么对于更一般的图的生成树的计数问题呢? 一般图不像$K_n$那样具有很好的
+对称性,所以对计数会带来困难.但是,该问题也是有很高效的解决方法的.一种方法采用了递归的思想,这也是比较自然的;另一种方法就非常
+巧妙,它利用了线性代数的知识.我们介绍第一种方法.
+
+\begin{example}{\textbf{生成树的计数问题(general)}}  \label{example:counting_general}
+
+  图\ref{fig:counting_general}显示了我们在试图以某种系统的方式来计数生成树.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/counting_general}
+	  \caption[labelInTOC]{contains the diagonal edge or not}
+	  \label{fig:counting_general}
+	\end{center}
+	\end{figure}
+
+  要想使用递归思想,就需要找到一种方法来将问题分解成若干更小规模的子问题,同时还要怎么通过合并这些小问题的解合来得到原问题的解.
+  这也就是``分而治之''的思想.在这里,很显然,我们针对某条边$e$来分解问题:图$G$的生成树个数 = 不包含边$e$的生成树的个数 + 包含边
+  $e$的生成树的个数．现在的问题是，``包含边$e$的生成树的个数该怎么求,这似乎并不是一个比原问题规模更小的子问题.但是,实际上,它
+  确实是的,只是我们需要一步转换.
+\end{example}
+
+
+\begin{definition}{\textbf{边的收缩(Contraction)}}  \label{definition:contraction}
+
+  在图$G$中,将边$e=(u,v)$收缩是指,用单个顶点$w$替代$u,v$两点,同时将图$G$中与$u$或$v$相邻接的顶点(除$u,v$外)邻接到新顶点$w$上.
+  经过此操作得到的新图记为$G \cdot e$.
+
+  需要注意的是,在很多应用中,重边是不考虑的,这也是大家在图论的基本概念一节中就学习的定义,如图\ref{fig:contraction_single}所示.
+  但是,在这里,我们需要考虑重边.考虑了重边的边收缩操作如图\ref{fig:contraction_multiple}所示.
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/contraction_single}
+	  \caption[labelInTOC]{edge contraction(ignore multiple edges)}
+	  \label{fig:contraction_single}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/contraction_multiple}
+	  \caption[labelInTOC]{edge contraction(with multiple edges)}
+	  \label{fig:contraction_multiple}
+	\end{center}
+	\end{figure}
+\end{definition}
+
+\begin{remark}{\textbf{边的收缩(Contraction)}}  \label{remark:contraction}
+
+  经过定义\ref{definition:contraction}所描述的边的收缩操作,\emph{$G \cdot
+  e$比$G$少一条边!}所以,我们得到了一个规模更小的子问题.
+
+  另外,定义\ref{definition:contraction}对重边的特殊规定是必要的，请思考为什么?你可以举出一个反例,在该例中,不考虑重边则会导致
+  错误的计数结果.
+\end{remark}
+
+虽然,我们通过定义保证了``含边$e$的生成树的个数''是一个比原问题规模更小(小1)的子问题.但是,定义本身并不能说明该种转化
+(将求``含边$e$的生成树的个数''问题规约为求``$G \cdot e$的生成树的个数''问题)是正确的.我们需要证明这一点.要想证明这一点,
+即需要证明``含边$e$的生成树''与``$G \cdot e$的生成树''之间具有一一对应关系.我们不加证明地给出该定理.
+
+\begin{theorem}{\textbf{$G \cdot e$的生成树}}  \label{thm:g_e}
+
+  ``含边$e$的生成树''与``$G \cdot e$的生成树''之间具有一一对应关系.
+\end{theorem}
+
+有了上面的铺垫,我们很容易就可以得到计算一般图(general)的生成树的算法:
+
+\begin{proposition}{\textbf{一般图生成树计数}}  \label{prop:counting_general}
+
+  一般图$G$的生成树记为$\tau(G)$,则有:
+  如果$e \in E(G)$且\emph{不是环(loop)},
+  \[
+    \tau(G) = \tau(G - e) + \tau(G \cdot e)
+  \]
+\end{proposition}
+
+\begin{example}{\textbf{一般图的生成树计数}}  \label{example:counting_general}
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/counting_general_example}
+	  \caption[labelInTOC]{example for recursive formula}
+	  \label{fig:counting_general_example}
+	\end{center}
+	\end{figure}
+\end{example}
+
+在本小节末尾,我们给出另一个更为简便的一般图的生成树的计数方法.正如一开始就提到的，该定理及其证明使用了线性代数的知识.定理的应用
+虽然很方便，但是要准确地描述该定理并给出证明却是一件比较困难的事情.我们只能提一下它的名字:``Matrix Tree Theorem''.感兴趣的同学
+可以查看这里:\url{http://en.wikipedia.org/wiki/Matrix_tree_theorem}{Matrix Tree
+Theorem}, 或者大家在学习了线性代数的知识之后可以回过头来了解该定理,如果那时你还记得自己跟该定理曾经有过这样的约定.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{最小生成树(Minimum Spanning Tree)}  \label{subsubsection:mst}
+
+定理\ref{thm:tree_2}已经告诉我们,任何连通图必含有生成树.既然如此,在带权图(边的权值为正整数)的情况下,也必定含有最小生成树
+(某整数序列必有最小值).
+
+求最小生成树的算法同cayley公式的证明一样，也有多种.同学们在课堂上学习了Kruskal(Joseph Bernard Kruskal, Jr.
+(January 29, 1928 – September 19,
+2010))算法,其余算法可以参见\url{http://en.wikipedia.org/wiki/Minimum_spanning_tree}{Minimum
+Spanning Tree}.
+Kruskal算法属于避圈法,同求生成树的避圈法\ref{fig:st_avoid_cycle}的思想是类似的.但是,由于这里需要求的是最小生成树,
+实际上是个优化问题,所以,我们需要证明该算法得到的确实是最优的生成树．
+
+Kruskal算法的基本步骤是：将边按照权值排序(升序),按次序考虑所有边,如果将该边加入生成树中不会产生圈,则添加;否则略过该边考虑
+下一条边.算法的伪码可描述如下\ref{fig:kruskal}:(引自宋方敏老师讲义)
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/kruskal_example}
+	  \caption[labelInTOC]{Kruskal's algorithm}
+	  \label{fig:kruskal}
+	\end{center}
+\end{figure}
+
+\begin{example}{\textbf{Kruskal算法}}  \label{example:kruskal}
+
+  Kruskal算法的一个实例如图 所示.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/kruskal}
+	  \caption[labelInTOC]{illustration of kruskal's algorithm}
+	  \label{fig:kruskal}
+	\end{center}
+	\end{figure}
+\end{example}
+
+\begin{theorem}{\textbf{Kruskal算法的正确性}}  \label{thm:kruskal_correctness}
+
+  对于无向连通图$G$,Kruskal算法构造了其最小生成树.
+\end{theorem}
+
+\begin{proof}{\textbf{Kruskal算法的正确性}}  \label{proof:kruskal_correctness}
+
+  \begin{description}
+    \item[Kruskal算法得到了树:]
+    Kruskal是避圈法,故所得子图无圈;又若所得图不连通,则必有边可选(原图连通),也就是算法不会终止.故所得图连通.
+    \item[Kruskal算法得到了最小生成树:]
+    该命题的证明需要用到与生成树对相关的定理\ref{ps:pairs_st}.
+
+    由Kruskal算法得到的生成树记为$T$,图$G$的最小生成树记为$T'$.
+    \begin{itemize}
+      \item 如果$T=T'$或者$w(T)=w(T')$，则得证;
+      \item 如果$T \neq T' \land w(T) \neq w(T')$.
+
+      考察算法的执行过程,记$e$为第一条选择加入$T$而没有加入$T'$的边.$T'+e$构成圈,而$T$中无圈,故必存在$e' \in
+      E(T')-E(T)$,满足$T'+e-e'$.
+
+      根据Kruskal算法,在面临$e,e'$时,该算法选择了$e$，这说明$w(e) \leq w(e')$,则$w(T'+e-e') \leq
+      w(T')$.如果$w(T'+e-e') < w(T')$,则导致矛盾;否则,重复上述讨论，由于$w(T) \neq w(T')$，必会导致矛盾.
+    \end{itemize}
+  \end{description}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Problem Set}
+\begin{problem}{\textbf{生成树对(pairs of spanning trees)}} \label{ps:pairs_st}
+
+  如果$T,T'$是连通图$G$的两个不同的生成树,边$e \in E(T)-E(T')$,那么必存在边$e' \in E(T')-E(T)$满足
+  $T-e+e'$是$G$的生成树.
+\end{problem}
+
+\begin{solution}{\textbf{生成树对(pairs of spanning trees)}}
+\label{solution:pairs_st}
+
+  见图例\ref{fig:pairs_of_sts}.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/pairs_of_sts}
+	  \caption[labelInTOC]{pairs of spanning trees}
+	  \label{fig:pairs_of_sts}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+\begin{remark}{\textbf{生成树对(pairs of spanning trees)}}
+\label{remark:pairs_st}
+
+  该习题实际上涉及到了图的一种转化操作.而转化操作在涉及优化(比如Kruskal算法的证明过程\ref{proof:kruskal_correctness})，
+  寻求特殊结构等问题中往往至关重要.所以希望大家能理解该命题.记住并理解定理的一种方法就是领会它的证明过程，在图论中,
+  大家可以记住定理及其证明过程中所使用的图例.
+\end{remark}
+
+***********************************************************************
+
+\begin{problem}{\textbf{生成树计数}}  \label{ps:necessary}
+
+  求$\tau(K_{2,3})$,即$K_{2,3}$的带标记的生成树的个数．
+\end{problem}
+
+***********************************************************************
+
+\begin{problem}{\textbf{最小生成树的唯一性}}  \label{ps:mst_unique}
+
+  请证明:如果无向连通图$G$的每条边的权值都不同，则最小生成树是唯一的.
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}
+证明过程 \ref{proof:tree_acyclic} 说明了连通图必有生成树,而且生成树不唯一(with high probability).习题
+\ref{ps:pairs_st} 告诉了我们生成树对所具有的非常重要的一个性质.现在,我们要通过一个游戏来说明生成树的应用.
+
+先来定义 ``co-spanning trees'', 它是指彼此无公共边(edge-disjoint)的生成树.与图的连通度类似,如果一个连通图
+具有 ``co-spanning trees'', 则我们可以想象该图也具有比较好的连通性.
+
+\begin{definition}{\textbf{游戏 Bridg-it}}  \label{definition:bridg_it}
+
+  ``Bridg-it'' 是双人游戏.游戏的配置如图 \ref{fig:bridg_it} 所示.为方便起见,我们称该配置图为
+  ``board''.该 ``board'' 由四行五列黑色顶点与五行四列白色顶点交叉排列而成. 黑色顶点属于 player 1,
+  白色顶点属于 player 2. 玩家1的目标是每次连接相邻的两个黑色顶点,直到在最左边一列黑色顶点与最右边一列黑色顶点
+  之间构造起一条路径; 玩家2的目标与之对称,每次连接相邻的两个白色顶点,直到在最上边一行的白色顶点与最下边一行的
+  白色顶点之间构造起一条路径. 玩家1先走,即为先手.注意: 两玩家的连线不能交叉.所以该游戏是个有攻有防的竞赛类游戏.
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/bridg_it}
+	  \caption[labelInTOC]{Graph game: Bridg-it}
+	  \label{fig:bridg_it}
+	\end{center}
+	\end{figure}
+\end{definition}
+
+\begin{remark}{\textbf{游戏 Bridg-it}}  \label{remark:bridg_it}
+
+  我们先从大局上分析该游戏:
+  \begin{enumerate}
+    \item \label{bridg_it:both_win} 每一条从左到右的路径与每一条从上到下的路径都是交叉的.所以,两人不可能都赢得比赛.
+    \item \label{bridg_it:one_win}  该游戏结束时,必有一方获胜.
+    \item
+    \label{bridg_it:winning_2}
+      该游戏配置是对称的,而玩家1是先手,所以玩家2不可能有必胜策略.所以某玩家有必胜策略是指,\emph{不管对方怎么进行},
+    该玩家都可以通过遵循某种策略取得胜利.
+    \item \label{bridg_it:winning_1} 我们\emph{断言}玩家1有必胜策略.即该游戏是先手必胜游戏.
+  \end{enumerate}
+
+  通过对游戏的分析,我们已经得出玩家1有必胜策略的结论.现在,我们的目标就是为玩家1找到一种必胜的策略.
+\end{remark}
+
+\begin{theorem}{\textbf{游戏 Bridg-it}}  \label{thm:bridg_it}
+
+  ``Bridg-it''游戏中,玩家1有必胜策略.
+\end{theorem}
+
+\begin{proof}{\textbf{游戏 Bridg-it}}  \label{proof:bridg_it}
+
+  我们显示地给出玩家1的必胜策略.
+
+  我们先为玩家1构造一幅可能的连接图,见图\ref{fig:bridg_it_player1}.注意我们现在关注的是从左边到右边的通过黑色顶点的连接.
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/bridg_it_player1}
+	  \caption[labelInTOC]{玩家1的连接图}
+	  \label{fig:bridg_it_player1}
+	\end{center}
+	\end{figure}
+	
+  对该图\ref{fig:bridg_it_player1}需要做几点解释:
+  \begin{enumerate}
+    \item 我们现在是在寻求玩家1的必胜策略,所以考虑黑色顶点的所有可能连接情况(包括虚线与实线).
+    \item 玩家1的目标是连接左右两栏,与具体顶点无关,所以左右两栏均可等价看作一个点,称为辅助点.
+    \item 连接辅助点,得到一条辅助线.
+    \item 虚线和实线分别构成了生成树.并且这两个生成树为 ``co-spanning trees''.
+  \end{enumerate}
+
+  辅助线实际是不存在的,可以让玩家2先cut掉该边,这也就相当于是玩家1先走.玩家2每走一步,就等于cut掉图中的一条边,也就是删除某一个
+  生成树中的一条边$e$,从而使该生成树断成两个连通分支,由习题\ref{ps:pairs_st}知,在另一个生成树中必存在一条边$e$可以连接这两
+  个连通分支.我们让玩家1走这条边,也就是使得该边成为``double edge''.已走的边是不能被割断的,也就是说``double edge''是不可被
+  cut的.走这条边的效果是,仍然存在两个无公共边的生成树.
+
+  在游戏过程中,玩家1总是可以维护两个无公共边的生成树.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Topic 6: Planar Graphs}
+
+\subsection{Planar Graphs}
+\begin{definition}{\textbf{平面图}}  \label{definition:planar}
+
+  存在\emph{平面嵌入}的无向图称为平面图.
+\end{definition}
+
+$K_5,K_{3,3}$均为非平面图,参见习题\ref{ps:k5_k33}.
+
+\begin{definition}{\textbf{对偶图}}  \label{definition:dual}
+
+
+\end{definition}
+
+\begin{remark}{\textbf{对偶图}}  \label{remark:dual}
+
+  我们知道某平面图可能有几种不同的平面嵌入.同一平面图的不同平面嵌入可能会产生不同构的对偶图,
+  如 所示(教材中亦有类似图例).但是,如果平面图$G$是连通的,则$(G^{\star})^{\star} \cong G$.
+\end{remark}
+
+\begin{theorem}{\textbf{对偶图的对偶图}}  \label{thm:dual_dual}
+
+  如果平面图$G$是连通的,则$(G^{\star})^{\star} \cong G$.
+\end{theorem}
+
+\begin{proof}{\textbf{对偶图的对偶图}}  \label{proof:dual_dual}
+
+  我们只给出证明的思路和证明的要点提示.
+  \begin{enumerate}
+    \item 平面图$G$(不论是否为连通图)的对偶图$G^{\star}$是连通图.(提示:考虑$G^{\star}$中顶点的构造.)
+    \item 如果$G$是连通图,则$G^{\star}$的每一个面(face)都包含且仅包含$G$的一个顶点.
+    \item 综合以上两点,即可证明 $(G^{\star})^{\star} \cong G \iff G \textrm{ is
+    connected}$.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{\textbf{对偶图的对偶图}}  \label{remark:dual_dual}
+
+  如果将``求对偶''看作一种运算,那么定理 \ref{thm:dual_dual} 则说明连续进行两次该操作会得到原对象.
+  这便是对偶一词的由来.$G$与其对偶图$G^{\star}$之间存在多处对偶关系,比如
+  \begin{enumerate}
+    \item 环(loop) $\leftrightarrow$ 桥(bridge)
+    \item $n^{\star} = r; m^{\star} = m; r^{\star} = n$
+    \item 圈(cycle) $\leftrightarrow$ 极小边割集(minimal edge cut),
+    见习题\ref{ps:cycle_bond_dual}.
+  \end{enumerate}
+\end{remark}
+
+下面直接给出平面图的判定定理,其证明比较复杂,不做介绍.有兴趣的同学可以查看 Douglas B.West 所著 ``Introduction to Graph
+Theory''.
+\begin{theorem}{\textbf{平面图判定定理(Kuratowski theorem)}}  \label{thm:kuratowski}
+
+  图$G$是平面图 $\iff$ $G$中既不含与$K_5$同胚的子图,也不含与$K_{3,3}$同胚的子图 $\iff$
+  $G$中既没有可以收缩到$K_5$的子图,也没有可以收缩到$K_{3,3}$的子图.
+\end{theorem}
+
+\begin{remark}{\textbf{平面图判定定理(Kuratowski theorem)}}  \label{thm:kuratowski}
+
+  Kasimir Kuratowski 有一次问 Frank Harary(图论先驱) $K_5,K_{3,3}$ 记号的由来,Harary
+  回答说,$K_5$中的$K$表示 Kasimir, $K_{3,3}$中的$K$表示 Kuratowski.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Euler's Formula}  \label{subsection:euler_formula}
+
+\begin{theorem}{\textbf{欧拉公式(Euler's formula)}}  \label{thm:euler_formula}
+
+  $n$顶点,$e$条边,$f$个面的\emph{连通平面图}$G$满足公式:
+  \[
+   n - e + f = 2.
+  \]
+\end{theorem}
+
+\begin{remark}{\textbf{欧拉公式(Euler's formula)}}  \label{remark:euler_formula}
+
+  欧拉公式是平面图中计数的基本工具.
+
+  欧拉公式在多面体上的示例如图\ref{fig:euler_formula}所示.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/euler_formula}
+	  \caption[labelInTOC]{Euler's formula}
+	  \label{fig:euler_formula}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+根据欧拉公式可以推导出极大平面图的一些特征.教材中已经给出,这里只是整理出这些结论.
+\begin{proposition}{\textbf{极大平面图(maximal planar graph)}} \label{prop:mpg}
+
+  对于$n$阶的简单平面图$G$,以下三点等价:
+  \begin{enumerate}
+    \item $m = 3n-6$;
+    \item $G$ 的每个面$f$的长度都为3(该特点也称为 triangulation);
+    \item $G$ 是极大平面图.
+  \end{enumerate}
+\end{proposition}
+
+由欧拉公式推导的一个重要结论是,正多面体(regular polyhedra)有且仅有五种!
+所谓正多面体,是指它的所有面都是边数相等的正多边形,而且每个顶点所我们将该定理留作习题,见习题 .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Problem Set}
+
+\begin{problem}{\textbf{$K_5,K_{3,3}$均为非平面图}}  \label{ps:k5_k33}
+
+  证明:$K_5,K_{3,3}$均为非平面图.
+\end{problem}
+
+\begin{solution}{\textbf{$K_5,K_{3,3}$均为非平面图}}  \label{solution:k5_k33}
+
+  对于$K_5,K_{3,3}$的非平面性,可以直接证明.也可以按照教材上的做法由欧拉公式推导出来.
+  以$K_5$为例,见图\ref{fig:k5}.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/k5}
+	  \caption[labelInTOC]{$K_5$ is not planar graph}
+	  \label{fig:k5}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+**********************************************************************
+\begin{problem}{\textbf{对偶图}}  \label{ps:sufficient}
+
+  分别给出$K_4$和$Q_3$的对偶图,并指出它们各自是什么图?
+\end{problem}
+**********************************************************************
+\begin{problem}{\textbf{圈与极小边割集对偶}}  \label{ps:cycle_bond_dual}
+
+  平面图$G$中$E(G)$的子集$D$构成圈  $\iff$ $G^{\star}$中$D$所对应的对偶边构成极小边割集.
+\end{problem}
+
+\begin{solution}{\textbf{圈与极小边割集对偶}}  \label{solution:cycle_bond_dual}
+
+
+\end{solution}
+**********************************************************************
+
+\begin{problem}{\textbf{正多面体(regular polyhedra)}}  \label{ps:regular_polyhedra}
+
+  请使用欧拉公式证明: 正多面体有且仅有五种.
+\end{problem}
+
+\begin{solution}{\textbf{正多面体(regular polyhedra)}}
+\label{solution:regular_polyhedra}
+
+  正多面体可以投影到平面上,形成正则平面图.设顶点度数为$k$,所有的面由$l$条边组成,$n$个顶点,$e$条边,$f$个面.
+  联立握手定理$kn=2e=lf$和欧拉公式$n+f-e=2$,推导过程如下:
+
+  $e(\frac{2}{k}-1+\frac{2}{l})=2 \Rightarrow \frac{2}{k}+\frac{2}{l}>1
+  \Rightarrow 2l+2k>kl \Rightarrow (k-2)(l-2)<4$
+
+  符合条件的$(k,l)$对只可能有$(3,3),(3,4),(3,5),(4,3),(5,3)$.对应的正多面体见图\ref{fig:regular_polyhedra_kl}.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/regular_polyhedra_kl}
+	  \caption[labelInTOC]{regular polyhedra with values of k and l}
+	  \label{fig:regular_polyhedra_kl}
+	\end{center}
+	\end{figure}
+\end{solution}
+**********************************************************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Application and Extension}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Topic 7: Coloring}
+暂缺.
+\section{Topic 8: Matching }
+暂缺.
+
+\section{Review}
+
+图论内容适合以专题形式讲解.在每个专题中,往往都会有较为常见的一类证明方法.我们称之为证明模式.在多个专题之间,
+模式与模式之间又自有其关联.以此为重点和线索,可以将我们在这学期内学习的图论知识总结为图\ref{fig:proofpattern}
+(原图太大,不适合在本文档中显示,请参见文件夹 figure/proofpattern.png).
+
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.20]{figure/proofpattern}
+	  \caption[labelInTOC]{图论中常见的证明模式}
+	  \label{fig:proofpattern}
+	\end{center}
+	\end{figure}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\HandPencilLeft 由魏恒峰(hengxin0912@gmail.com)编辑.
+
+若发现错误或有任何建议,请与我联系.谢谢.
+
+本讲义参考了宋方敏老师课程讲义,特此说明并致谢.
+
+\textcolor{red}{联系方式：hengxin0912@gmail.com}
+
+
+\end{document}
+
+

@@ -1,0 +1,6 @@
+abcde
+bcdea
+cdeab
+deabc
+eabcd
+abcde

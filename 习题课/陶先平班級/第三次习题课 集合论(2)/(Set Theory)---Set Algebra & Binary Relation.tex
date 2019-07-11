@@ -1,0 +1,888 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,blue]{beamer}
+\mode<presentation>
+
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+\usepackage{algorithmic}
+
+%\usepackage{mathdots}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{CJK*}{GBK}{kai}
+
+\title{离散数学习题解析}
+\subtitle{集合论(2)}
+\author{魏恒峰 \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science and Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame{
+	\titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\scriptsize
+
+\section{Review}
+
+\subsection{Binary Relation}
+\subsubsection{Closure}
+
+\frame
+{
+  \frametitle{Closure}
+
+  \begin{center}
+    闭包是一个很重要也很常见的概念。
+  \end{center}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{description}
+        \item[集合] 有序对集合，即二元关系
+        \item[性质] 传递性
+        \item[闭包] 添加有序对，扩充集合使其满足传递性
+      \end{description}
+    \column{0.5\textwidth}
+      \begin{description}
+        \item[集合] 整数
+        \item[运算] 除法
+        \item[闭包] 扩充为有理数，使其对于除法操作封闭
+      \end{description}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Closure}
+
+  \begin{columns}[c]
+    \column{0.6\textwidth}
+      $R$为关系，$R$的自反(对称或传递)闭包是关系$R'$ \footnote{The way to prove...}:
+      \vspace{0.20cm}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.20cm}
+        \item $R'$是自反的(对称或传递的)
+        \item $R \subseteq R'.$
+        \item \textcolor{blue}{$R'$具有最小性}
+      \end{enumerate}
+    \column{0.4\textwidth}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.20cm}
+        \item $r(R) = R \cup R^{0}$
+        \item $s(R) = R \cup R^{-1}$
+        \item $t(R) = R \cup R^{2} \cup R^{3} \cup \cdots$
+      \end{enumerate}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Computing Closure}
+
+  \begin{center}
+    也可以通过关系矩阵和关系图求取闭包:
+  \end{center}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+      \textbf{关系矩阵求取法:}
+      \begin{description}
+        \setlength{\itemsep}{0.20cm}
+        \item [自反] $M_r = M + E$
+        \item [对称] $M_s = M + M'$
+        \item [传递] $M_t = M + M^2 + M^3 + \cdots$
+      \end{description}
+    \column{0.5\textwidth}
+      \textbf{关系图求取法:}
+      \begin{description}
+        \setlength{\itemsep}{0.20cm}
+        \item[自反] 添加环
+        \item[对称] 添加反向边
+        \item[传递] 添加间接路径
+      \end{description}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Property of Closure}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.20cm}
+        \item $R[ref] \Leftrightarrow R = r(R)$
+        \item $R[sym] \Leftrightarrow R = s(R)$
+        \item $R[tra] \Leftrightarrow R = t(R)$
+      \end{enumerate}
+    \column{0.5\textwidth}
+      \textbf{$R_1 \subseteq R_2$,}
+      \begin{enumerate}
+        \setlength{\itemsep}{0.20cm}
+        \item $r(R_1) \subseteq r(R_2)$
+        \item $s(R_1) \subseteq s(R_2)$
+        \item $t(R_1) \subseteq t(R_2)$
+      \end{enumerate}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Property of Closure}
+
+  \begin{columns}
+
+
+  \column{0.6\textwidth}
+  \textbf{闭包运算对于关系性质的保持:}
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item $R[ref] \Rightarrow s(R)[ref] \& t(R)[ref]$
+      \item $R[sym] \Rightarrow r(R)[sym] \& R^n[sym] \& t(R)[sym]$
+      \item $R[tra] \Rightarrow r(R)[ref]$
+    \end{enumerate}
+
+    \column{0.4\textwidth}
+  \textbf{复合闭包:}
+  \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+    \item $rs(R)=sr(R)$
+    \item $st(R) \subseteq ts(R)$
+    \item $rt(R) = tr(R)$
+  \end{enumerate}
+
+  \vspace{0.40cm}
+  \textbf{Note:}  \\
+  前两个命题的证明参见陶老师课件, \\
+  第三个命题的证明以及第二个命题的另一种证明留待Problem Set部分介绍。
+
+  \end{columns}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Partial Order Set}
+
+\frame
+{
+  \frametitle{Partial Order Relation}
+  如果集合$A$上的非空关系$R$具有自反性，反对称性和传递性，则称$R$为\textit{偏序关系}，记作 $\preceq$。
+  $\langle A,\preceq \rangle$为\textit{偏序集}(poset)。
+  \vspace{0.40cm}
+
+  偏序集的表示：哈斯图(Hasse Diagram).
+  \vspace{0.40cm}
+
+  偏序集中的特殊元素：
+  \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+    \item 最大元，最小元，极大元，极小元。
+    \item 上界，下界，最小上界，最大下界。
+    \item 有穷集合一定有极大元和极小元且不一定唯一。某元素可能既是极大元又是极小元。
+    \item 最大元和最小元不一定存在。若存在则必唯一。若存在，则最元同时也是极元。
+  \end{enumerate}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Function}
+\subsubsection{Function}
+
+\frame
+{
+  \frametitle{Function}
+
+  函数是一种特殊的二元关系。  \\
+  \vspace{0.20cm}
+
+  定义：二元关系$F$可被称为函数，如果$\forall x \in dom(F), \exists! y \in ran(F) \land xFy.$  \\
+  \vspace{0.40cm}
+
+  函数也是集合: $Function \to \textrm{Binary Relation} \to \textrm{Ordered Pair} \to Set.$  \\
+  \vspace{0.40cm}
+}
+
+\frame
+{
+  \frametitle{Function}
+
+  \textbf{函数的性质: } $f : A \to B,$
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+    \item[单射(Injective)] $(\forall x_1,x_2 \in A)(f(x_1) = f(x_2) \leftrightarrow x_1 = x_2)$
+    \item[满射(Surjective)] $(\forall y \in B)(\exists x \in A, f(x) = y)$
+    \item[双射(Bijective)] $\textrm{Injective } + \textrm{Surjective}$
+  \end{description}
+
+  \vspace{0.30cm}
+  \textbf{函数的复合:}
+  设$F,G,H$为函数，则
+  \begin{itemize}
+    \item $(F \circ G) \circ H)$ 与 $F \circ (G \circ H)$都是函数。
+    \item $(F \circ G) \circ H) = F \circ (G \circ H)$
+  \end{itemize}
+
+  \vspace{0.30cm}
+  \textbf{反函数:} \\
+  \vspace{0.15cm}
+  对于双射函数$f: A \to B$, $f^{-1}: B \to A$是它的反函数。
+}
+%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Cardinality of Set}
+\frame
+{
+  \frametitle{Cardinality of Set}
+
+  \textbf{有限集合与大数}
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item 据不少非洲探险家证实，在某些原始部落里，不存在比\textbf{3}大的数词。
+      \item 国际象棋。$2^{64} - 1 = \textrm{全世界在2000年内所生产的全部小麦}.$
+      \item 汉诺塔问题。$2^{64} - 1 = \textrm{5800亿年}.$
+      \item 莎士比亚作品自动印刷机。
+    \end{enumerate}
+
+  \vspace{0.30cm}
+  \alert{如何比较无穷集合的大小?} \\
+  \vspace{0.15cm}
+  \textbf{集合等势:}  \\
+  $A \approx B \Leftrightarrow \exists f: A \to B, f \textrm{ is bijective}.$  \\
+  \vspace{0.20cm}
+  \textbf{集合优势:}  \\
+  $A \preceq \cdot B \Leftrightarrow \exists f: A \to B, f \textrm{ is injective}.$  \\
+  \vspace{0.20cm}
+  $A \preceq \cdot B \land B \preceq \cdot A \Rightarrow A \approx B.$
+}
+
+
+\frame
+{
+  \frametitle{Cardinality of Set}
+
+  \textbf{重要的等势集合的例子:}  \\
+  \vspace{0.20cm}
+  \textcolor{red}{与自然数集合$\mathbf{N}$等势的集合都是可数集(Countable)[$\aleph_0$]。}
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+    \item[$N \approx N^{(2)}$]
+      \[
+        f(x) = x^{2}.
+      \]
+    \item[$Z \approx N$]
+      \begin{displaymath}
+        f(x) = \left\{ \begin{array}{ll}
+                       2x & x \ge 0\\
+                       -2x-1 & x < 0
+                     \end{array} \right.
+      \end{displaymath}
+    \item[$N \times N \approx N$] Cantor Pairing Function(coding):
+    %(\href{http://en.wikipedia.org/wiki/Cantor_pairing_function#Cantor_pairing_function})
+    \[
+      f \langle m,n \rangle = \frac{(m+n+1)(m+n)}{2}+m.
+    \]
+    \item[$Q \approx N$]
+    Cantor: \\
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.30]{figure/rational}
+      %\caption{}\label{}
+    \end{figure}
+  \end{description}
+}
+
+\frame
+{
+  \frametitle{Cardinality of Set}
+
+  \textbf{重要的等势集合的例子:}  \\
+  \vspace{0.20cm}
+  \textcolor{red}{与实数集合$\mathbf{R}$等势的集合[$\aleph$]。}
+  \vspace{0.20cm}
+
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+    \item[$(0,1) \approx R$]
+      \[
+        f(x) = \tan \pi \frac{2x-1}{2}.
+      \]
+    \item[$\lbrack 0,1 \rbrack \approx (0,1)$]
+      \begin{displaymath}
+        f(x) = \left\{ \begin{array}{ll}
+                       \frac{1}{2},      &   x=0     \\
+                       \frac{1}{2^2},    &   x=1     \\
+                       \frac{1}{2^{n+2}},&   x=\frac{1}{2^n}  \\
+                       x,                &   \textrm{o.w}
+                     \end{array} \right.
+      \end{displaymath}
+    \item[$\lbrack 0,1 \rbrack \approx \lbrack a,b \rbrack$]
+      \[
+        f(x) = (b-a)x + a.
+      \]
+    \item[$\lbrack 0,1 \rbrack \approx \Box$] (Note:)
+      \begin{figure}
+        % Requires \usepackage{graphicx}
+        \includegraphics[scale=0.30]{figure/box}\\
+        %\caption{}\label{}
+      \end{figure}
+  \end{description}
+}
+
+\frame
+{
+  \frametitle{Cardinality of Set}
+
+  \textbf{重要的等势集合的例子:}  \\
+  \vspace{0.20cm}
+  \textcolor{red}{与实数集合$\mathbf{R}$等势的集合[$\aleph$]。}
+  \vspace{0.20cm}
+
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+    \item[$\lbrace 0,1 \rbrace ^{N} \approx \lbrack 0,1 \rfloor$]
+      $f: \lbrack 0,1 \rfloor \to \lbrace 0,1 \rbrace ^{N}:$  \\
+      \vspace{0.20cm}
+      $\forall x \in \lbrack 0,1 \rfloor, x = 0.x_1x_2\cdots$
+      \[
+      f(x)=t_x, t_x: N \to \lbrace 0,1 \rbrace, t_x(n) = x_{n+1}, n=0,1,2,\cdots)
+      \]
+      \vspace{0.20cm}
+      $g: \lbrace 0,1 \rbrace ^{N} \to \lbrack 0,1 \rfloor:$
+      \[
+        (\forall t \in \lbrace 0,1 \rbrace ^{N}, t: N \to \lbrace 0,1 \rbrace, g(t) = 0.x_1x_2\cdots, x_{n+1} = t(n).)
+      \]
+    \item[$\lbrace 0,1 \rbrace ^{N} \approx P(N)$]
+      \textcolor{gray}{More generally,}
+      \[
+        f: P(A) \to \lbrace 0,1 \rbrace ^{A}, f(A') = \chi_{A'}, \forall A' \in P(A).
+      \]
+  \end{description}
+}
+
+\frame
+{
+  \frametitle{Cardinality of Set(Optional)}
+
+  \textbf{重要成果:}  \\
+  \vspace{0.20cm}
+  \begin{description}
+    \item[Cantor Theorem $N \asymp R$]
+      Cantor's Diagonal:
+      \begin{figure}
+        % Requires \usepackage{graphicx}
+        \includegraphics[scale=0.30]{figure/dia}\\
+        %\caption{}\label{}
+      \end{figure}
+    \item[$A \asymp P(A)$]
+      \[
+        g: A \to P(A).
+      \]
+      \[
+        B = \lbrace x \vert x \in A \land x \notin g(x) \rbrace.
+      \]
+  \end{description}
+}
+
+\frame
+{
+  \frametitle{Cardinality of Set}
+
+  \textbf{连续统假设:}
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.30]{figure/zero2infinity}
+      %\caption{}\label{}
+    \end{figure}
+
+    \vspace{0.20cm}
+    \[
+      \textrm{card}N = \aleph_0, \textrm{card}R = \aleph = \textrm{card}2^{N} = 2^{\aleph_0} = \mathbf{C}.
+    \]
+    \textcolor{red}{是否存在某个无限势$\lambda$,使得$\aleph_0 < \lambda < \aleph?$}  \\
+    \vspace{0.20cm}
+    \textcolor{blue}{Cantor猜想: \textbf{不存在。}}
+}
+
+\subsection{Abstract Algebra}
+
+\subsubsection{Algebraic Structure}
+\frame
+{
+  \frametitle{Binary Operations and Properties}
+
+  \begin{columns}[c]
+  \column{0.3\textwidth}
+  \textbf{二元运算:}  \\
+  $f: S \times S \to S.$  \\
+  \vspace{0.40cm}
+  \textbf{Note:}
+  \begin{itemize}
+    \setlength{\itemsep}{0.20cm}
+    \item $f$为函数
+    \item closed.
+  \end{itemize}
+  \vspace{0.40cm}
+  \textbf{Examples:}
+  \begin{itemize}
+    \setlength{\itemsep}{0.20cm}
+    \item $(P(S),\cap).$
+    \item $(S^S, \circ).$
+  \end{itemize}
+
+  \column{0.3\textwidth}
+    \textbf{二元运算的性质:}
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item 交换律
+      \item 结合律
+      \item 幂等律
+      \item 分配律
+      \item 吸收律
+      \item 消去律
+    \end{enumerate}
+
+  \column{0.4\textwidth}
+    \textbf{特殊元素:}
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item 单位元($e_l = e_r = e$)
+      \item 零元($\theta_l = \theta_r = \theta$)
+      \item 逆元($\circ \textrm{ is associative, } \Rightarrow y_l = y_r = y$)
+    \end{enumerate}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Algebra}
+
+  \textbf{代数系统:}  \\
+  \[
+    \langle S, f_1, f_2, \cdots, f_k \rangle.
+  \]
+  \vspace{0.30cm}
+  \textbf{重要的代数系统:}
+  \[
+    \langle P(B), \cup, \cap, \sim,{\O},B \rangle.
+  \]
+  \[
+    \langle \mathbf{Z_n}, \bigoplus,\bigotimes \rangle.
+  \]
+  \[
+    \langle R, + ,\cdot, -, 0, 1 \rangle.
+  \]
+
+  \begin{quote}
+    ``从代数系统的构成成分和遵从的算律出发，将代数系统分类，然后研究每一类代数系统的基本方法，并将研究的结果运用到
+    具体的代数系统中去。这种方法就是抽象代数的基本方法，也是代数结构课程的主要内容。''
+  \end{quote}
+}
+
+\frame
+{
+  \frametitle{Homomorphism and Isomorphism}
+
+  \textbf{同态(Homomorphism):}  \\
+  \vspace{0.20cm}
+  设$V_1 = \langle A, \circ \rangle$ 和 $V_2 = \langle B,\ast \rangle$是同类型的代数系统，  \\
+  $f: A \to B,$  \\
+
+  \[
+    \forall x,y \in A, f(x \circ y) = f(x) \ast f(y)
+  \]
+  称$f$为$V_1$到$V_2$的同态映射。
+  \vspace{0.30cm}
+  \normalsize
+  \begin{quote}
+    \textcolor{red}{``运算之像等于像之运算。''}
+  \end{quote}
+  \vspace{0.30cm}
+  \scriptsize
+  \begin{itemize}
+    \vspace{0.20cm}
+    \item 单同态
+    \item 满同态
+    \item \textbf{同构(Isomorphism)}
+    \item 自同态，单自同态，满自同态，自同构
+  \end{itemize}
+
+}
+
+\frame
+{
+  \frametitle{Homomorphism and Isomorphism}
+
+  \textbf{满同态对运算性质的保持:}  \\
+  \begin{enumerate}
+    \setlength{\itemsep}{0.30cm}
+    \item 交换律，结合律，幂等律
+    \item 单位元($f(e_1) = e_2.$); 零元($f(\theta_1) = \theta_2.$)
+    \item 逆元($f(x^{-1}) = f(x)^{-1}.$)
+  \end{enumerate}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Set}
+
+\subsubsection{Homework}
+\frame
+{
+  \frametitle{Homework(3)}
+\normalsize
+  本次习题解析参见文件《离散数学习题解析 第三周(二元关系)》。  \\
+  该文件已上传至教学网站。
+}
+
+\frame
+{
+  \frametitle{Homework(4)}
+\normalsize
+  本次习题解析参见文件《离散数学习题解析 第四周(二元关系+函数)》。  \\
+  该文件已上传至教学网站。
+}
+
+
+\frame
+{
+  \frametitle{Homework(5)}
+\normalsize
+  本次习题解析参见文件《离散数学习题解析 第五周(集合基数+代数系统)》。  \\
+  该文件已上传至教学网站。
+}
+
+\subsubsection{Closure}
+\frame
+{
+  \frametitle{Closure}
+
+    \textbf{复合闭包:}  \\
+    \vspace{0.20cm}
+    证明: $A \textrm{ is finite set,} R \subseteq A \times A \Rightarrow rt(R) = tr(R).$  \\
+    \vspace{0.20cm}
+    \textbf{提示:}  \\
+    $(I_A \cup R)^n = I_A \cup R \cup R^2 \cup \cdots \cup R^n = I_A \cup (\cup_{i=1}^{n}R^i)$  \\
+    \vspace{0.20cm}
+    \textbf{解答:}  \\
+    \pause
+  \normalsize
+    \begin{equation*}
+        \begin{array}{rcl}
+            tr(R) & = & t(I_A \cup R)  \\
+                  & = & \cup_{i=1}^{n}(I_A \cup R)^{i}  \\
+                  & = & (I_A \cup R) \cup (I_A \cup R)^2 \cup \cdots \cup (I_A \cup R)^n  \\
+                  & = & (I_A \cup R) \cup (I_A \cup (\cup_{i=1}^{2}R^i)) \cup \cdots \cup (I_A \cup (\cup_{i=1}^{n}R^i))  \\
+                  & = & I_A \cup R \cup R^2 \cup \cdots \cup R^n  \\
+                  & = & I_A \cup (\cup_{i=1}^{n}R^i)  \\
+                  & = & I_A \cup t(R)  \\
+                  & = & r(t(R))  \\
+                  & = & rt(R)
+        \end{array}
+    \end{equation*}
+}
+
+\frame
+{
+  \frametitle{Closure}
+
+    \textbf{复合闭包:}  \\
+    \vspace{0.20cm}
+    \textbf{证明}: $R \subseteq A \times A \Rightarrow st(R) \subseteq ts(R).$  \\
+    \vspace{0.40cm}
+    \textbf{解答:}  \\
+
+%  \normalsize
+    \begin{equation*}
+        \begin{array}{rcl}
+            R\subseteq s(R)
+                  & \Rightarrow & t(R) \subseteq t(s(R))  \\
+                  & \Rightarrow & st(R) \subseteq \textcolor{red}{sts(R) = ts(R)}
+        \end{array}
+    \end{equation*}
+
+    \vspace{0.30cm}
+    $s(R)[sym] \Rightarrow ts(R)[sym] \Rightarrow sts(R) = ts(R).$
+}
+
+%\subsubsection{Partial Order Set}
+
+\subsubsection{Function}
+
+\frame
+{
+  \frametitle{Function}
+
+    \textbf{概念辨析:}  \\
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item $A = {\O}, B = {\O} \Rightarrow B^{A} = {\O}^{{\O}} = \lbrace {\O} \rbrace$
+      \item $A = {\O}, B \ne {\O} \Rightarrow B^{A} = B^{{\O}} = \lbrace {\O} \rbrace$
+      \item $A \ne {\O}, B = {\O} \Rightarrow B^{A} = {\O}^{A} = {\O}$
+    \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Function}
+
+  \begin{columns}
+  \column{0.5\textwidth}
+  \textbf{交集与并集的函数像:}  \\
+  \begin{enumerate}
+    \setlength{\itemsep}{0.40cm}
+    \item \textbf{$P_{162}\textrm{第12题}$}  \\
+      说明$f(A \cap B) = f(A) \cap f(B)$不是永远为真的。
+    \item 设$f: A \to B, B_1 \subseteq B.$试证明:  \\
+      $f(A \cap f^{-1}(B_1)) = f(A) \cap B_1.$
+  \end{enumerate}
+  \column{0.5\textwidth}
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.40]{figure/image}\\
+      %\caption{}\label{}
+    \end{figure}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Function}
+
+  \begin{columns}
+    \column{0.4\textwidth}
+      \textbf{企图证明$f(A \cap B) = f(A) \cap f(B)$:}
+      \vspace{0.40cm}
+      $y \in f(A \cap B)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow \exists x (x \in A \land x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow \exists x (x \in A \land xfy \land x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\textcolor{red}{\Leftrightarrow} \exists x (x \in A \land xfy) \land (x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow y \in f(A) \land y \in f(B)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow y \in (f(A) \cap f(B))$
+    \column{0.6\textwidth}
+    \textbf{$f(A \cap f^{-1}(B_1)) = f(A) \cap B_1.$}  \\
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.25]{figure/image_2}
+      %\caption{}\label{}
+    \end{figure}
+
+  \end{columns}
+}
+
+\subsection{Abstract Algebra}
+\subsubsection{Algebraic Structure}
+\frame
+{
+  \frametitle{Homomorphism and Isomorphism}
+\normalsize  
+  \textbf{$P_{180} \textrm{第18题}$}  \\
+  \vspace{0.20cm}
+  $V_1 = \langle Z, +, \cdot \rangle,V_2 = \langle Z_n,\oplus,\otimes \rangle.$  \\
+    \vspace{0.20cm}
+  令$f:Z \to Z_n, f(x) = (x) \textrm{ mod } n.$  \\
+    \vspace{0.20cm}
+  证明,$f$为$V_1$到$V_2$的满同态映射。
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application and Extension(Optional)}
+
+\subsection{Inside the Warshall's algorithm(Wait Until Code Exercise)}
+\frame
+{
+  \frametitle{Inside the Warshall's algorithm}
+
+  \begin{center}
+    我们以二元关系的传递闭包为例。  \\
+    \textcolor{blue}{问题驱动:} 给定某有向图，问存在从$u$到$v$的可达路径吗?
+  \end{center}
+
+%\tiny
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{algorithmic}
+        \STATE \COMMENT {\textcolor{red}{For pair of edges $S_{i}S_{j}$ and $S_{j}S_{k}$, we add $S_{i}S_{j}$.}}
+
+        \WHILE {$\textrm{Any new edges are added}$}
+          \FORALL {$i = 1 \to n$}
+            \FORALL {$j = 1 \to n$}
+              \FORALL {$k = 1 \to n$}
+                \STATE $R_{ij} = R_{ij} \lor (R_{ik} \land R_{kj})$
+              \ENDFOR
+            \ENDFOR
+          \ENDFOR
+        \ENDWHILE
+      \end{algorithmic}
+    \column{0.5\textwidth}
+      \begin{algorithmic}
+        \STATE \COMMENT {$\textrm{Warshall's Algorithm}$}
+          \FORALL {$k = 1 \to n$}
+            \FORALL {$i = 1 \to n$}
+              \FORALL {$j = 1 \to n$}
+                \STATE $R_{ij} = R_{ij} \lor (R_{ik} \land R_{kj})$
+              \ENDFOR
+            \ENDFOR
+          \ENDFOR
+      \end{algorithmic}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Inside the Warshall's algorithm(Wait Until Code Exercise))}
+\normalsize
+  \textbf{具体的例子以及分析参见$PPT$.}
+}
+
+
+\subsection{Modeling of Concurrency}
+
+\frame
+{
+  \frametitle{Modeling of Concurrency}
+
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.30]{figure/model}
+%  \caption{}\label{}
+\end{figure}
+\begin{figure}
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.30]{figure/ind}
+%  \caption{}\label{}
+\end{figure}
+}
+
+\frame
+{
+  \frametitle{Modeling of Concurrency}
+
+  \begin{figure}
+    % Requires \usepackage{graphicx}
+    \includegraphics[scale=0.40]{figure/poset}\\
+    %  \caption{}\label{}
+  \end{figure}
+}
+
+\frame
+{
+  \frametitle{The Next Week}
+
+  \textbf{Part of the Plan for the Next Week:}
+
+  \begin{enumerate}
+  \setlength{\itemsep}{0.25cm}
+    \item Dilworth's Theorem
+    \item 复习集合论(?)
+    \item 群论
+  \end{enumerate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{}
+\frame
+{
+  \huge \center \textbf{That's the end. Thank you.}
+  \begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{figure/question}
+    \caption{Bring Up a Question}
+  \end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{CJK*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document} 

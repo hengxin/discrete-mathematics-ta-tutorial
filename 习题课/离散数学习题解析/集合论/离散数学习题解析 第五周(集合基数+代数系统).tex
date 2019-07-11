@@ -1,0 +1,110 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{第五周(集合的基数+代数系统)}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{习题八 \hspace{0.15cm} 函数}
+\begin{enumerate}
+  \setlength{\itemsep}{0.20cm}
+  \item \textbf{($P_{164}\textrm{ 第34题}:$)} \\
+    设$A,B,C,D$是集合，$A \approx C, B \approx D, \textrm{ 证明: }A \times B \approx C \times D.$  \\
+    \vspace{0.30cm}
+    \textbf{提示:}  \\
+    存在双射函数$f: A \to C, g: B \to D,$   \\
+    构造$h: A \times B \to C \times D, h(\langle a,b \rangle) = \langle f(a),g(b) \rangle.$   \\
+    只需证明$h$为双射函数。
+  \item \textbf{($P_{164}\textrm{ 第39题(1)}:$)} \\
+    $\textrm{设 }A,B \textrm{ 为可数集。证明,} A \cup B \textrm{ 是可数集。}$  \\
+    \textbf{解答:}  \\
+    假设$A \cap B = {\O}.$  \\
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item $A,B$均为有穷集。$card(A \cup B) = n+m \le \aleph_0.$
+      \item $A = \lbrace a_0,a_1, \cdots, a_{n-1} \rbrace, card(B)=\aleph_0.$ \\
+        构造双射函数$h: A\cup B \to N.$
+      \begin{displaymath}
+      h(x) = \left \{ \begin{array}{ll}
+      i    & x \in A, x=a_i \\
+      j+n  & x \in B, x=b_j
+    \end{array} \right.
+    \end{displaymath}
+      \item $card(A) = card(B) = \aleph_0.$  \\
+        存在双射函数$f:A \to N, g: B \to N$, 构造双射函数
+    \begin{displaymath}
+      h(x) = \left \{ \begin{array}{ll}
+      2i    & x \in A \land f(x) = i \\
+      2j+1  & x \in B \land g(x) = j
+    \end{array} \right.
+    \end{displaymath}
+\end{enumerate}
+
+  \item \textbf{($P_{164}\textrm{ 第39题(2)}:$)} \\
+    $\textrm{设 }A,B \textrm{ 为可数集。证明,} A \times B \textrm{ 是可数集。}$  \\
+    \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+      \item $A,B$均为有穷集。$card(A \times B) = mn \le \aleph_0.$
+      \item $A = \lbrace a_0,a_1, \cdots, a_{n-1} \rbrace, card(B)=\aleph_0.$ \\
+        构造双射函数$h: A \times B \to N. h(\langle a_i,b_j \rangle) = i + jn.$
+%        \begin{figure}
+%          % Requires \usepackage{graphicx}
+%          \includegraphics[scale=0.30]{figure/card}
+%          %\caption{}\label{}
+%        \end{figure}
+
+      \item $card(A) = card(B) = \aleph_0.$  \\
+        存在双射函数$f:A \to N, g: B \to N$,构造双射函数:
+        \[
+          h(\langle x,y \rangle) = \frac{(i+j+1)(i+j)}{2} + i. \textrm{ 其中 }f(x) = i,g(y)=j.
+        \]
+    \end{enumerate}
+\end{enumerate}
+
+\section{习题九 \hspace{0.15cm} 代数系统}
+本章习题较为简单。故略去。若有疑问，请单独询问。
+
+
+\end{document}
+

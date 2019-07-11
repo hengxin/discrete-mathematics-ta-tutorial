@@ -1,0 +1,750 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,green]{beamer}
+\mode<presentation>
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+
+%\usepackage{mathdots}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{CJK*}{GBK}{kai}
+
+\title{Group Theory(1)}
+\subtitle{ {\tiny Group,Subgroup,Lagrange Theorem, and Cyclic Group}}
+%\subtitle{集合论(1) \\ 集合代数\&二元关系 }
+\author{Hengfeng Wei \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science and Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame
+{
+  \titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\small
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Review}
+\subsection{Concept of Group}
+\begin{frame}{From the Particular $\cdots$}
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figure/rubik}
+		  \caption{Rubik success in twenty-six steps.}
+		\end{center}
+	  \end{figure}
+    \column{0.50\textwidth}
+      \textbf{Basic Move:}
+      \[
+        L,R,U,D,F,B
+      \]
+      \textbf{General Move:}  \\
+      $M$: any sequence of these 6 basic moves  \\
+      \vspace{0.20cm}
+      \textbf{One Move After Another:}  \\
+      $M_1 \ast M_2$  \\
+      \vspace{0.20cm}
+      \textcolor{red}{Q: Is set of moves under $\ast$ a group?}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{From the Particular $\cdots$}
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figure/rubik}
+		  \caption{Rubik success in twenty-six steps.}
+		\end{center}
+	  \end{figure}
+    \column{0.50\textwidth}
+      \textbf{Focus on moves involving $D$ and $F$:}  \\
+      \textcolor{red}{Q: Is it a subgroup ?  \\ What are its cosets?}  \\
+      \vspace{0.20cm}
+
+      \textbf{Keep Moving:}
+      \[
+        R \ast R \ast R \ast R = \mathbf{I}.
+      \]
+      \textcolor{red}{Q: Is it a cyclic group ?}
+  \end{columns}
+  \vspace{0.30cm}
+  \begin{center}
+    \textbf{\textcolor{red}{More and More $\cdots$}}  \\
+    \textcolor{blue}{``Group Theory and the Rubik's Cube'' by Janet Chen.}
+  \end{center}
+\end{frame}
+
+\begin{frame}{$\dots$ to the general}
+  \textbf{群论公理:}  \\
+  $(G, \ast)$为群当且仅当有$e \in G$和$G$上一元运算$(-1)$使得
+  \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+    \item $G \ne {\O}$
+    \item $(\forall x,y \in G) (x \ast y \in G)$
+    \item $(\forall x,y,z \in G) (x \ast (y \ast z) = (x \ast y) \ast z)$
+    \item $(\forall x \in G) (x \ast e = e \ast x = x)$
+    \item $(\forall x \in G) (x \ast x^{-1} = x^{-1} \ast x = e)$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Examples of Group}
+  \textbf{重要群举例:}
+  \begin{columns}
+    \column{0.50\textwidth}
+	  \begin{enumerate}
+	    \setlength{\itemsep}{0.20cm}
+	    \item $\langle \mathbf{Z}^, + \rangle$
+	    \item $\langle \mathbf{Z}_n, \oplus \rangle$
+	    \item $U(m)$关于模$m$乘法构成群  \\
+			$U(m) = \lbrace a \in \mathbf{Z}_m \mid (a,m) = 1 \rbrace$  \\
+			{ \tiny (To Problem Set)}  \\
+            \textcolor{gray}{
+              \textbf{举例:}  \\
+              $m = 10, U(m) = \lbrace 1,3,7,9 \rbrace.$  \\
+              $m = 11, U(m) = \lbrace 1,2,\cdots,9,10 \rbrace.$}
+	  \end{enumerate}
+	\column{0.50\textwidth}
+	  \textbf{Klein 4-group:}  \\
+        { \tiny ($P_{181}(10.2)$)}  \\
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.40]{figurejpg/krec}
+		\end{center}
+	  \end{figure}
+	  \vspace{0.20cm}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.50]{figurejpg/klein}
+		\end{center}
+	  \end{figure}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Property of Group}
+  \textbf{$G$是群,}
+  \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+    \item $G$的单位元唯一
+    \item $G$中每个元素的逆元唯一
+    \item $\forall x \in G, (x^{-1})^{-1} = x.$
+    \item $\forall x,y \in G, (xy)^{-1} = y^{-1}x^{-1}.$
+    \item $\forall x \in G, x^nx^m = a^{n+m}.$
+    \item $\forall x \in G, (a^n)^m = a^{nm}.$
+    \item 在群中消去律成立  \\
+    	$\forall a,b,c \in G, ab = ac \lor ba = ca \to b = c.$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Order of Elements of Group}
+  \textbf{元素的阶:}  \\
+  $a \in G$, 使得等式$a^k=e$成立的最小正整数$k$称为$a$的阶,记为$\vert a \vert = k.$  \\
+  \vspace{0.30cm}
+  \textbf{有限群关于阶的概念的重要结论:}  \\
+  \begin{enumerate}
+%     \setlength{\itemsep}{0.20cm}
+    \item \scriptsize 有限群中不存在无限阶元。
+    \item \small $\forall a \in G, \vert a \vert = \vert a^{-1} \vert$ \tiny ($P_{184}(2)$)
+        \begin{enumerate}
+		  \setlength{\itemsep}{0.10cm}
+          \item \scriptsize 有限群中阶大于2的元素有偶数个。 \small ($a^2 = e \Leftrightarrow a=a^{-1}$)
+          \item \scriptsize 偶数阶群中阶为2的元素为奇数个。{ \tiny ($P_{203}(18)$) }
+        \end{enumerate}
+    \item \textcolor{blue}{\small $\vert a \vert = n, a^m = e \to n \mid m$} \tiny ($P_{184}(1)$)
+    \item \small $\vert ab \vert = \vert ba \vert$ (\textbf{\textcolor{red}{$\vert ab \vert = \infty ?$}})
+    \tiny ($P_{185}(2)$)
+    \item \small $\vert b^{-1}ab \vert = \vert a \vert.$ \tiny ($P_{185}(1)$)
+  \end{enumerate}
+\end{frame}
+
+\subsubsection{Subgroup and Lagrange Theorem}
+
+\begin{frame}{Subgroup}
+  \textbf{通过局部来认识整体,我们需要研究子群。}  \\
+  \vspace{0.20cm}
+  $(G, \ast, e, -1)$为群, $H \subseteq G$, 若
+  \begin{enumerate}
+    \setlength{\itemsep}{0.20cm}
+    \item $(\forall x,y \in H)(x \ast y \in H)$ (\textit{Closure})
+    \item $e \in H$ (\textit{Indentity})
+    \item $(\forall x \in H)(x^{-1} \in H)$ (\textit{Inverses})
+  \end{enumerate}
+  则称$(H, \ast)$是$(G, \ast)$的子群.
+
+  \vspace{0.20cm}
+  \textbf{举例:}
+  \begin{itemize}
+    \item $(\lbrace e \rbrace, \ast)$,$(G, \ast)$
+    \item $(b \mathbf{Z}, +) \leq (\mathbf{Z}, +)$
+    \item $C(G) = \lbrace g \in G \mid gx=xg, \forall x \in G \rbrace$ \scriptsize (center)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Subgroup}
+
+  \textcolor{red}{$Q_1$: 如何判定某子集是否构成子群?}  \\
+  \textcolor{gray}{$Q_2$: 如何求出某给定群的所有子群?}  \\
+  \vspace{0.40cm}
+  \textbf{子群判定定理:}  \\
+  \begin{enumerate}
+    \item
+	\begin{enumerate}
+      \item $H \neq {\O}$
+      \item $(\forall a,b \in H)(ab \in H)$
+      \item $(\forall a \in H)(a^{-1} \in H)$
+    \end{enumerate}
+    \item 	
+    \begin{enumerate}
+      \item $H \neq {\O}$
+      \item $(\forall a,b \in H)(ab^{-1} \in H)$
+    \end{enumerate}
+  \end{enumerate}
+\end{frame}
+
+% \begin{frame}{Subgroup}
+%   \begin{center}
+%   \textbf{两类重要子群:}
+%   \end{center}
+%
+%   \begin{columns}
+%     \column{0.4\textwidth}
+%       \textbf{由元素$a$生成的子群:}  \\
+%       \vspace{0.20cm}
+%       $H = \lbrace a^k \mid k \in \mathbf{Z} \rbrace$
+%
+%     \column{0.6\textwidth}
+%       \textbf{由集合$S$生成的子群:}  \\
+%       \vspace{0.20cm}
+%       $\langle S \rangle = \cap \lbrace H \mid S \subseteq H \land H \leq G \rbrace$
+%
+%       \vspace{0.20cm}
+%       \textbf{性质:}  \\
+%       \begin{itemize}
+%         \item $\langle S \rangle$ 是包含$S$的最小子群。
+%         \item $\langle S \rangle = \lbrace a_1^{l_1}a_2^{l_2} \cdots a_k^{l_k} \mid a_i \in S, l_i = \pm 1, k \in
+%         \mathbf{N} \rbrace$
+%       \end{itemize}
+%   \end{columns}
+% \end{frame}
+
+
+\begin{frame}{Coset}
+  \begin{columns}
+    \column{0.5\textwidth}
+	  \textbf{陪集:}  \\
+	  \vspace{0.20cm}
+	  $H \leq G,a \in G, Ha = \lbrace ha \mid h \in H \rbrace.$  \\
+	  称$Ha$是子群$H$在$G$中的右陪集。
+    \column{0.5\textwidth}
+      \textbf{陪集举例:}  \\
+      \vspace{0.10cm}
+      \scriptsize
+      $(H= \lbrace 0,3 \rbrace, \oplus) \leq (Z_6, \oplus)$  \\
+      \vspace{0.20cm}
+      $H0 = H = H3$  \\
+      $H1 = \lbrace 1,4 \rbrace = H4$  \\
+      $H2 = \lbrace 2,5 \rbrace = H5$
+  \end{columns}
+%   \vspace{0.20cm}
+%   \small
+%   \textbf{初步观察:}  \\
+%   \begin{itemize}
+%     \item $G$的每一个元素都定义了$H$的一个陪集。
+%     \item $H$的陪集不一定是$G$的子群。
+%     \item $G$的两个不同的元素可能生成$H$的同一个右陪集。
+%   \end{itemize}
+
+  \vspace{0.40cm}
+  \textbf{问题:}  \\
+  \begin{itemize}
+    \item 在什么情况下,$H$的一个右陪集$aH$是$G$的子群?
+    \item 在什么条件下,$G$的两个不同的元素$a$和$b$生成同一个右陪集?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coset}
+  \textbf{子群将群分解成陪集。}  \\
+  \vspace{0.20cm}
+  $H \leq G, a,b \in G:$
+  \begin{enumerate}
+    \item $a \in Ha.$
+    \item $Ha=H \Leftrightarrow a \in H.$ \textcolor{gray}{(集合相等!)}
+    \item \textcolor{blue}{$Ha \textrm{ 为子群 } \Leftrightarrow a \in H.$}
+    \item $Ha = Hb \Leftrightarrow a \in Hb \Leftrightarrow b \in Ha \Leftrightarrow ab^{-1} \in H \Leftrightarrow
+    ba^{-1} \in H.$
+    \item $Ha = Hb \lor Ha \cap Hb = {\O}.$
+  \end{enumerate}
+
+  \vspace{0.20cm}
+  \textbf{举例:}  \\
+  $H = \lbrace 3n \mid n \in Z \rbrace, (H,+) \leq (Z,+)$  \\
+  \vspace{0.10cm}
+  $Ha = Hb \Leftrightarrow ab^{-1} \in H \Leftrightarrow a-b \in H \Leftrightarrow a \equiv b(mod 3)$
+\end{frame}
+
+\begin{frame}{Lagrange Theorem}
+  \textbf{子群与陪集之间的阶的关系:}
+  \begin{enumerate}
+    \item $f: Ha \to a^{-1}H.$
+    \item $\vert Ha \vert = \vert Hb \vert = \vert H \vert.$
+  \end{enumerate}
+
+  \textbf{Lagrange 定理:}  \\
+  $(G, \ast)$为有限群,$H \leq G$, 则
+  $\vert G \vert = \vert H \vert \cdot \lbrack G \colon H \rbrack.$
+
+  \vspace{0.10cm}
+  \[
+    \lbrack G \colon H \rbrack = r, G = Ha_1 \cup Ha_2 \cup \cdots \cup Ha_r
+  \]
+\end{frame}
+
+\begin{frame}{Appliaction of Lagrange Theorem}
+  \textbf{Lagrange定理对分析有限群中元素的阶很有用。}  \\
+  \vspace{0.10cm}
+  \begin{enumerate}
+    \item 有限群$G$的子群$H$的阶数及其它在$G$中的指数,都是群$G$的阶数的因子.
+    \item 有限群$G$, $a \in G, \vert a \vert = \vert \langle a \rangle \vert$,均是$\vert G \vert$的因子.
+    \item $\vert G \vert = n, a \in G, a^n = e.$
+    \item 设$G$是素数阶群,则存在$a \in G, G = \langle a \rangle.$
+  \end{enumerate}
+\end{frame}
+
+
+\subsection{Cyclic Group}
+\begin{frame}{Cyclic Group}
+  \textbf{定义:}  \\
+  设$G$是群，如果存在$a \in G, G = \langle a \rangle$, 则称$G$为循环群。  \\
+  \vspace{0.20cm}
+
+  \textbf{举例:}  \\
+  \begin{itemize}
+    \item 整数加群$(\mathbf{Z}, +)$是无限循环群。
+    \item 模$m$整数加群$(\mathbf{Z}_m, \oplus_m)$是$m$阶循环群。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Structure of Cyclic Group}
+  \textbf{循环群的结构定理:}  \\
+  \begin{enumerate}
+    \item 如果$G = \langle a \rangle$是无限循环群, 则 $G \cong (\mathbf{Z}, +);$
+      \[
+        G = \lbrace e,a,a^{-1},a^2,a^{-2},a^3,a^{-3},\cdots \rbrace.
+      \]
+    \item 如果$G = \langle a \rangle$是$n$阶循环群,则 $G \cong (\mathbf{Z}_n, \oplus_n).$
+      \[
+        G = \lbrace e,a,a^2,a^3,\cdots,a^{n-1} \rbrace.
+      \]
+      \textcolor{red}{Q: Where is $a^{-1} ?$}
+  \end{enumerate}
+
+  \textbf{\textcolor{red}{在同构意义下,循环群有且仅有两种!}}
+\end{frame}
+
+\begin{frame}{Generator of Cyclic Group}
+  \begin{enumerate}
+    \item $(\mathbf{Z}, +)$恰有两个生成元,即1与-1;
+    \item $(\mathbf{Z}_n, \oplus_n)$恰有$\varphi(n)$个生成元, $\lbrace i \mid 0 < i \leq n \land (i,n) = 1 \rbrace$ \\ 
+    \textcolor{gray}{
+    例如:
+      \[
+        \mathbf{Z}_{12} \textrm{ 的生成元为: } 1,5,7,11.
+      \]}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Subgroup of Cyclic Group}
+  \begin{enumerate}
+    \item $G = \langle a \rangle$是循环群，则$G$的子群$H$仍是循环群.
+    \item $G = \langle a \rangle$是无限循环群，其子群为
+      \[
+        \lbrace \langle a^d \rangle \mid d = 0,1,2,\cdots \rbrace
+      \]
+      并且除$\lbrace e \rbrace$外，其余子群均为无限循环群.  \\
+      \textcolor{gray}{
+      例如:
+      \[
+        (\mathbf(Z),+) \textrm{ 的子群为: } (n \mathbf{Z}, +).
+      \]}
+    \item $G = \langle a \rangle$是$n$阶循环群,其子群为
+      \[
+        \lbrace \langle a^d \rangle \mid d \textrm{ 为 } n \textrm{ 的正因子} \rbrace.
+      \]
+      \textcolor{gray}{
+      例如:
+      \[
+        \mathbf{Z}_{12} \textrm{ 的子群共6个:} \langle 1 \rangle,\langle 2 \rangle,\langle 3 \rangle,\langle 4 \rangle,
+        \langle 6 \rangle, \langle 12 \rangle.
+      \]}
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Set}
+
+\subsection{Homework}
+\begin{frame}{Homework}
+  本次Homework习题解析已经上传，见``离散数学习题解析 第六周(群论(1))''
+\end{frame}
+
+\subsection{Concept of Group}
+
+\begin{frame}{$(U(m), \otimes_m$)}
+  \textbf{试证明:}  \\
+  设$m$是大于1的正整数,记 $U(m) = \lbrace a \in \mathbf{Z}_m \mid (a,m) = 1 \rbrace$,  \\
+  则$U(m)$关于$\otimes_m$的乘法构成群。
+
+  \vspace{0.20cm}
+  \textbf{举例:}  \\
+  \textcolor{gray}{
+  \[
+    U(15) = \lbrace 1,2,4,7,8,11,13,14 \rbrace
+  \]}
+
+  \vspace{0.20cm}
+  \pause
+  \textbf{数论知识:}  \\
+  在求元素$a \in U(m)$的逆元时，你可能会用到如下数论知识:  \\
+  \textcolor{blue}{$(a,m) = 1 \Leftrightarrow (\exists u,v \in \mathbf{Z})(au + mv = 1).$} 请说明,$u$即是$a$的逆元.  \\
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \pause
+  \begin{itemize}
+    \item \textcolor{red}{运算封闭性}
+    \item 结合律
+    \item 单位元($1 \in U(m)$)
+    \item \textcolor{red}{逆元($au+mv=1, a^{-1} = u.$)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3-order Group}
+  \textbf{试证明:在同构意义下,3阶群只有一种结构，即3阶循环群。}  \\
+  \vspace{0.20cm}
+  \textbf{提示:}
+  \begin{itemize}
+    \item 使用群表。
+    \item 使用Lagrange Theorem。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Order of ab}
+  \textcolor{gray}{一般不能由$a,b$的阶直接得到$ab$的阶。}  \\
+  \vspace{0.20cm}
+  \textbf{证明以下命题:}  \\
+  有限群$G$，$a,b \in G,\vert a \vert = n, \vert b \vert = m, \textcolor{red}{ab=ba} \land (n,m)=1 \Rightarrow \vert ab \vert = nm.$
+
+  \vspace{0.20cm}
+  \textbf{方法:}  \\
+  设$\vert ab \vert = r,$ 则需证:$(mn) \vert r$ 和 $r \vert (mn)$, 也即 $n \vert (rm), m \vert (rn), r \vert (mn)$.  \\
+  还记得关于元素阶的那个重要结论吗?  \\
+  \textcolor{blue}{$\vert a \vert = n, a^m = e \Leftrightarrow n \mid m$}  \\
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \vspace{0.20cm}
+  \pause
+  $a^{rm} = a^{rm} \cdot b^{rm} = (ab)^{rm} = e \Rightarrow n \vert (rm) \Rightarrow n \vert r.$  \\
+  $(ab)^{mn} = e.$
+\end{frame}
+-
+\subsection{Subgroup and Lagrange Theorem}
+\begin{frame}{Application of Lagrange Theorem}
+  \textbf{试证明Fermat小定理:}  \\
+  设$p$为素数,则对任意一个与$p$互素的整数$a$,有$a^{p-1} \equiv 1(\textrm{mod p}).$
+
+  \vspace{0.20cm}
+  \textbf{提示:}  \\
+  已证:
+  \textcolor{blue}{}{
+  \[
+    U(m) = \lbrace a \in \mathbf{Z}_m \mid (a,m) = 1 \rbrace
+  \]}
+  关于$\otimes_m$构成群。  \\
+  \textit{请思考: 当$m$为素数$p$时，$P_{190}$推论1意味着什么?}  \\
+  \vspace{0.40cm}
+  \textbf{解答:}  \\
+  \pause
+  当$m=p$为素数时，$U(p)$的阶为$p-1$.  \\
+  $a$与$p$互素,$\therefore a \in U(p) \Rightarrow a^{(p-1)} = e = 1$
+\end{frame}
+
+\begin{frame}{Application of Lagrange Theorem}
+  \textbf{试证明:在同构意义下,四阶群有且仅有两种.}  \\
+  对于每个四阶群$(G, \ast)$,  \\
+  $(G,\ast) \cong (Z_4,+_4) \textrm{ 或  } (G, \ast) \cong \textrm{ Klein 4-group}.$  \\
+  \vspace{0.20cm}
+  \textbf{提示:}  \\
+  使用Lagrange Theorem分析每个元素的可能的阶。
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \pause
+  设$G= \lbrace e, a, b, c \rbrace.$  \\
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+  \item[Case 1:] $\vert a \vert = 4 \lor \vert b \vert = 4 \lor \vert c \vert = 4$  \\
+    $\Rightarrow G = \langle a \rangle \lor G = \langle b \rangle \lor G = \langle c \rangle.$  \\
+  \item[Case 2:] $\vert a \vert \neq 4 \lor \vert b \vert \neq 4 \lor \vert c \vert \neq 4$
+    $\Rightarrow \vert a \vert = 2 \lor \vert b \vert = 2 \lor \vert c \vert = 2.$
+  \end{description}
+
+  \vspace{0.20cm}
+  \pause
+  \textcolor{red}{Q: $\vert G \vert \leq 6 ?$}
+\end{frame}
+
+\subsection{Cyclic Group}
+
+\begin{frame}{n-th Root of Unity}
+  \textbf{试证明:}  \\
+  全体$n$次单位根组成的集合  \\
+	$U_n = \lbrace x \in \mathbf{C} \mid x^n = 1 \rbrace = \lbrace \cos \frac{2k
+	\pi}{n} + \mathbf{i} \sin \frac{2k \pi}{n} \mid k = 0,1,2, \cdots, n-1
+	\rbrace$  \\
+  关于数的乘法构成$n$阶循环群{\tiny ($P_{202}(6)$)}.  \\
+  并求$U_n$的所有生成元.
+  \vspace{0.20cm}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.60]{figure/6root.png}
+		\end{center}
+	  \end{figure}
+    \column{0.50\textwidth}
+      \textbf{解答:}  \\
+      \pause
+      \begin{enumerate}
+        \item \textcolor{gray}{复数乘法的几何意义.}
+        \item \textcolor{blue}{先说明$U_n$构成群.}
+        \item 令$\omega = \cos \frac {2\pi}{n} + i \sin \frac {2 \pi}{n}$,  \\
+          则$U_n = \langle \omega \rangle = \lbrace 1, \omega, \omega^2, \cdots, \omega^{n-1} \rbrace.$
+        \item $(k,n) = 1, \omega^k$为生成元.
+      \end{enumerate}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Cyclic Grooup}
+  设$f$为群$(G, \ast)$到群$(H, \circ)$的满同态,  \\
+  证明: 若$G$为循环群，则$H$亦为循环群 {\tiny ($P_{204}(27)$}。
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \pause
+  令$G = \langle a \rangle$,则
+  \[
+    H = f(G) = f(\langle a \rangle) = \lbrace f(a^n) \mid n \in Z \rbrace = \lbrace (f(a))^n \mid n \in Z \rbrace =
+    \langle f(a) \rangle.
+  \]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications and Extension(Optional)}
+\subsection{Solitaire and Klein 4-group}
+\begin{frame}{The Game of Solitaire}
+%   \href{http://plus.maths.org/content/power-groups}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{columns}
+    \column{0.50\textwidth}
+	\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/sol}
+		  \caption{{ \tiny Is it easier for ``Anywhere'' than ``Center'' ?}}
+		\end{center}
+	\end{figure}
+	\column{0.50\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/move}
+		\end{center}
+	  \end{figure}
+% 	\column{0.40\textwidth}
+% 	  \begin{figure}[htp]
+% 		\begin{center}
+% 		  \includegraphics[scale=0.30]{figure/sol_group}
+% 		\end{center}
+% 	  \end{figure}
+  \end{columns}
+
+    \begin{columns}
+    \column{0.50\textwidth}
+	\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/sol_k}
+		\end{center}
+	\end{figure}
+	\column{0.50\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/move_k}
+		  \caption{{ \tiny The value of the board does not change during a move!}}
+		\end{center}
+	  \end{figure}
+% 	\column{0.40\textwidth}
+% 	  \begin{figure}[htp]
+% 		\begin{center}
+% 		  \includegraphics[scale=0.30]{figure/sol_group}
+% 		\end{center}
+% 	  \end{figure}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{The Game of Solitaire}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{columns}
+    \column{0.50\textwidth}
+	\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/board_sym}
+		\end{center}
+	\end{figure}
+	\column{0.50\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/board_red}
+		\end{center}
+	  \end{figure}
+% 	\column{0.40\textwidth}
+% 	  \begin{figure}[htp]
+% 		\begin{center}
+% 		  \includegraphics[scale=0.30]{figure/sol_group}
+% 		\end{center}
+% 	  \end{figure}
+  \end{columns}
+
+    \begin{columns}
+    \column{0.50\textwidth}
+	\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/board_red_green}
+		\end{center}
+	\end{figure}
+	\column{0.50\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/board_middles_red}
+		  \caption{{ \tiny $f \ast g = h$, we might as well have jumped into the central hole!}}
+		\end{center}
+	  \end{figure}
+% 	\column{0.40\textwidth}
+% 	  \begin{figure}[htp]
+% 		\begin{center}
+% 		  \includegraphics[scale=0.30]{figure/sol_group}
+% 		\end{center}
+% 	  \end{figure}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+
+\frame
+{
+  \huge \center \textbf{That's the end. Thank you.}
+  \begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{figure/question}
+    \caption{Bring Up a Question}
+  \end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{CJK*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document} 

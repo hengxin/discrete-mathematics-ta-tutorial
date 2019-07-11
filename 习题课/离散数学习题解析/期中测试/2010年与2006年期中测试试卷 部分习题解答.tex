@@ -1,0 +1,243 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+\usepackage[newitem, newenum]{paralist}
+\usepackage{bbding}
+
+
+\theoremstyle{problem}
+\newtheorem{problem}{ }
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{2010与2006年 期中测试试卷 部分习题解答}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt \hfill NJUCS \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{2010年05月05日  期中测试试卷}
+
+\begin{enumerate}
+  \setlength{\itemsep}{0.40cm}
+
+
+  \item \textbf{试证明: $P(\cap_{i \in N} A_i) = \cap_{i \in N}P(A_i).$($P$为幂集符号.)}
+    \textbf{解答:}  \\
+      该题参见习题课习题汇编文档.
+  \item \textbf{证明:实数集不可数.}
+    \textbf{解答:}  \\
+      该题参见教科书. 大家可以借此复习书中介绍的各种无穷集合之间等势与不等势关系的证明。
+  \item \textbf{求欧拉函数的值. 具体题目与解答参见新版教材$P_{91}$例题6.6.}
+    \textbf{解答:}  \\
+      该题参见教科书. 解答的要点和难点在于将集合定义清楚,并且该定义要使得容斥原理的各部分容易计算.集合的
+    定义可能一下子不是很明朗，可以多尝试几次，可以考虑问题的正面和反面.
+  \item \textbf{证明: $st(R) \subseteq ts(R)$($s$表示对称闭包，$t$表示传递闭包.)}
+    \textbf{解答:}  \\
+      我们已经介绍了该题的三种证明方法，分别参见陶老师课件、习题课习题汇编文档和课堂讲解的数学归纳法。需要注意的是，数学归纳法
+      实际上证明了一个更强的结论，请思考为什么.
+  \item \textbf{设$A$是$n$元集合，试求:(1) $A$的自反且对称关系有多少个? (2) $A$上的反对称关系有多少个? (3) $A$上的既不对称
+  又不反对称的关系有多少个?}
+    \textbf{解答:}  \\
+      我没有该题的标准答案。大家可以互相讨论给出答案。
+  \item \textbf{证明: (1) 任何置换总是可以表示为若干对换的复合. (2) 请将以下置换表示成对换的复合.(该置换第一行为1,2,3,4,5,6,7,8;第二行对应为
+  4,3,8,7,6,1,5,2.)}
+    \textbf{解答:}  \\
+      证明见陶老师和吴老师课件.第二问很简单，不再赘述.
+  \item \textbf{证明: 群的中心一定是该群的正规子群.}
+    \textbf{解答:}  \\
+      该题也很常规。关键是大家在证明的时候要条理清晰，证明要有层次感，有节奏。要先证明为群，子群，再说明为正规子群。
+  \item \textbf{证明: 代数系统$G$和$G'$满同态。证明，若$G$是群，则$G'$也是群。若$G'$是群，$G$也是群吗? 请证明.}
+    \textbf{解答:}  \\
+      大家已经做过与该题类似的作业，此处不再赘述.与该题相关的一道题目，我们(二班)在课堂上也已经介绍过，具体请见《离散数学习题解析》相关文档.
+
+\end{enumerate}
+
+\emph{下面两道题目是2010年的期末测试试卷中相关题目.}
+\begin{enumerate}
+  \item \textbf{设$B$是布尔代数，$\forall a,b,c \in B, \textrm{若 } a \leq c, \textrm{则有 } a \lor (b \land c) = (a \lor b)
+  \land c$, 称这个等式为模律。证明布尔代数适合模律.}
+    \textbf{解答:}  \\
+      该题请自行证明.
+  \item \textbf{设$H$是$G$的子群，$x \in G, \textrm{令 } xHx^{-1} = \lbrace xhx^{-1} \mid h \in H \rbrace.$证明，
+  $xHx^{-1}$是群$G$的子群.}
+    \textbf{解答:}  \\
+      该题也属于常规的证明题,请自行证明.
+\end{enumerate}
+
+\section{2006年 期中测试试卷}
+
+
+\begin{problem}{15pts}
+
+    $A,B,C$~为任意集合。判断下列等式是否成立，给出证明或给出反例：
+    \begin{compactenum}
+        \item
+        $C\cap(A\oplus B) = (C\cap A)\oplus (C\cap B)$
+        \item
+        $C\cup(A\oplus B) = (C\cup A)\oplus (C\cup B)$
+    \end{compactenum}
+	\textbf{解答:}  \\
+	  第一个等式是成立的，即$\cap$对$\oplus$的分配律成立,其证明请参见习题课习题汇编文档.  \\
+	  第二个等式不成立,请自行给出反例.
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $\N$~是自然数集。在~$\N\times\N$~上定义关系~$R$~如下：
+    \begin{displaymath}
+        \pair{j,k} \textrm{~R~} \pair{m,n} \textrm{~当且仅当~}
+        \max(j,k) = \max(m,n)
+    \end{displaymath}
+    \begin{compactenum}
+        \item
+            证明~$R$~是等价关系。
+        \item
+            写出其等价类的一般形式。
+        \item
+            是否存在两个不同的等价类等势？说出理由。
+        \item
+            证明：$\N\times\N/R$~与自然数集等势。
+    \end{compactenum}
+    \textbf{解答:}  \\
+    \begin{enumerate}
+      \item 自反，对称，传递，三种性质都很容易证明.
+      \item 我给出的一般形式不够简洁。大家可以讨论给出一个更好的表达形式.一般方法是，先列出一些具体的等价类，然后归纳出一般形式.
+      \item 不存在. 实际上，我们可以计算出各个等价类的基数.
+      \item 即在$N \times N/R$与$N$之间建立双射函数,也就是以某种系统的方式来``数''这些$N \times N/R$.当我们确定$n$为最大值时，实际上
+      也就确定了一个$N/R$中的等价类,也就是说,该题与$N \times N \approx N$相类似.请自行思考，建立双射函数.
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $X$~是至少含两个元素的集合。$X' =
+    \rho(X)-\set{\emptyset}-\set{X}$。
+    \begin{compactenum}
+        \item
+            偏序集~$(X',\subseteq)$~是否有最大元，最小元？
+        \item
+            求：偏序集~$(X',\subseteq)$~的所有极小元的集合
+            ~$X_{\min}$，所有极大元的集合~$X_{\max}$。
+        \item
+            证明：$X_{\min}$~与~$X$~等势。
+    \end{compactenum}
+    \textbf{解答:}  \\
+      该题不是很困难,此处不再赘述．　\\
+      请大家考虑,$X_{\min}$与$X_{\max}$等势吗?为什么?
+\end{problem}
+
+\begin{problem}{15pts}
+
+    给定函数~$f:A\to B$，若~$Y\subseteq B$，定义~$f^1(Y) =
+    \set{x~|~~x\in A, f(x)\in Y}$。证明：对~$B$~的任意非空
+    子集~$Y$，$f^1(Y)$~非空的充分必要条件是~$f$~是满射。  \\
+    \textbf{解答:}  \\
+      证明的时候，请注意条件``对$B$的任意非空子集$Y$''的任意二字.
+\end{problem}
+
+
+\begin{problem}{15pts}
+
+    证明：随于任意正整数~$n$，模~$n$~的整数加群~$(\Z_n,+_n)$~
+    是整数加群~$(\Z,+)$~的商群。  \\
+
+    \emph{二班同学请特别注意:}  \\
+      在课堂上时，我们简单说了该题的解答思路，但是$\cdots$，我说错了。向大家道歉。现给出该题的解答.  \\
+    \textbf{解答:}  \\
+      先说明一下，对于模$n$整数加群有两种定义,在不同的书籍，不同环境下可能会采用不同的定义。第一种定义
+      是$(\Z_n, +_n) = (\set{0,1,2,\cdots,n-1},+_n)$, 这也是教材上采用的定义;第二种定义是$(\Z_n, +_n) = (\set{\lbrack 0 \rbrack, \cdots,
+      \lbrack n-1 \rbrack},+_n)$,这里,$\lbrack a \rbrack$表示$a$的模$n$同余类.因为商群本质上是集合的集合，所以这里需要采用第二种定义.
+      如果你对模加法和同余类的概念不清楚，请参见这里:  \ref{http://en.wikipedia.org/wiki/Modular_arithmetic}.\\
+      要证明某群$Q$是群$G$的商群，需要寻找群$G$的某正规子群$N$, 然后证明$G/N = Q$或者$G/N \cong Q$.  \\
+      令$nZ = \lbrace nz \mid z \in Z \rbrace$, 易见$(n\Z,+) \triangleleft (\Z,+)$.  \\
+      $\Z/n\Z = \set{(n\Z)z \mid z \in \Z}$,$n \Z$为陪集, 只有$\lbrack 0 \rbrack = (n\Z)0, \lbrack 1 \rbrack = (n \Z)1,
+      \cdots, \lbrack n-1 \rbrack = (n \Z)(n-1)$。其上运算为$\lbrack i \rbrack + \lbrack j \rbrack = \lbrack i + nj \rbrack$.
+      从而商群$(\Z/n\Z,+) = (\set{\lbrack 0 \rbrack,\cdots, \lbrack n-1 \rbrack},+)$.  \\
+
+      \emph{二班同学请再次特别注意:}  \\
+      在群论的第二次习题课上，介绍群同态基本定理时，我们提供了两个例子。一个是涉及到模$n$加法的，一个是几何表示.第一个例子，我们
+      当时没有讲清楚，现将题目和解答书写如下:  \\
+      $n > 1, n \in \Z$, $\phi: \Z \to \Z_n, a \mapsto \bar{a}$($\bar{a}$表示$a$的同余类.)  \\
+      \begin{enumerate}
+        \item 显然$\phi$为映射.
+        \item 满射易证.
+        \item 满同态易证.
+        \item 求同态核: $Ker \phi = \set{x \in \Z \mid \phi(x) = \bar{0}} = \set{x \in \Z \mid \bar{x} = \bar{0}} = \set{x
+        \in \Z \mid n \vert x} = \langle n \rangle.$
+        \item 由同态基本定义得,$\Z/\langle n \rangle \cong \Z_n$.
+      \end{enumerate}
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $G$~是奇数阶有限群。证明：对任意~$x\in G$，存在唯一的
+    ~$y\in G$，满足：$x = y^2$。  \\
+    \textbf{解答:}  \\
+      \begin{itemize}
+        \item 存在性. $x^{2k+1} = e \Rightarrow x^{2k+2} = x \Rightarrow (x^{k+1})^2 = x$, 即$y = x^{k+1}$满足$x = y^2$.
+        \item 唯一性. 假设存在$y_1,y_2, x=y_1^{2}= y_2^{2}$,又$y_1^{2k+1}= y_2^{2k+1} = e$,$y_1^{2k+2} = y_2^{2k+1}y_1 \Rightarrow
+          (y_1^2)^{k+1} = y_2^{2k+1}y_1 \Rightarrow (y_2^2)^{k+1} = y_2^{2k+1}y_1 \Rightarrow y_2^{2k+2} = y_2^{2k+1}y_1
+          \Rightarrow y_1 = y_2.$
+      \end{itemize}
+\end{problem}
+
+
+\begin{problem}{10pts}
+
+    用~$1,2,3$~三个数字组成~$n(n\ge
+    3)$~位数，数字可以重复，且在每个~$n$~位数中每个数字至少出现
+    一次。利用容斥原理求满足上述条件的~$n$~位数有多少个。  \\
+    \textbf{解答:}  \\
+    设集合$A_i$表示$i$一次也不出现.那么要求的就是$\vert \bar{A_1} \cap \bar{A_2} \cap \bar{A_3} \vert$.
+    接下来就是使用容斥原理的常规步骤，请自行完成.  \\
+    这就是从容斥原理的否定形式出发给问题建模的。
+\end{problem}
+
+\HandPencilLeft Compiled by hengxin0912@gmail.com  \\
+You can also contact me (QQ: 245552163) if you have any questions or find some errors in this document.
+
+\end{document}
+
+

@@ -1,0 +1,6 @@
+abcde
+cbcae
+abade
+abcae
+aecde
+accde

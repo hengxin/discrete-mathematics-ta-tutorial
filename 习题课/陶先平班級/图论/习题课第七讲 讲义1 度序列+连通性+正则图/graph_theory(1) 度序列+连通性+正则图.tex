@@ -1,0 +1,545 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+% \newtheorem{proof}{proof}[section]
+% \newtheorem{solution}[theorem]{Solution}
+
+
+%%%%%%%%%%
+%\input{format}
+%insert macros here to avoid loading my own format file
+%Author : Zhu Yin @ Nanjing University
+\newtheoremstyle{problem}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{problem}
+\newtheorem{problem}{ }
+
+\newtheoremstyle{solution}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{solution}
+\newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(1) 图论基本概念(Degrees \& Connectivity)}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special Topics}
+\subsection{常见图总结}  \label{subsection:class_of_graph}
+下面是一些常见类型的图.
+\begin{enumerate}
+  \item 空图 $N_n$: 有$n$个顶点，但是无边.
+  \item 路径 $P_n$.
+  \item 圈 $C_n$.
+  \item 轮 $W_n$: 见图 \ref{fig:wheel}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/wheel.png}
+	  \caption[labelInTOC]{Wheel}
+	  \label{fig:wheel}
+	\end{center}
+	\end{figure}
+  \item 树 $tree$:见图 \ref{fig:tree}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/tree.png}
+	  \caption[labelInTOC]{Tree}
+	  \label{fig:tree}
+	\end{center}
+	\end{figure}
+  \item 完全图 $K_n$: 见图 \ref{fig:k5}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K5.png}
+	  \caption[labelInTOC]{$K_5$}
+	  \label{fig:k5}
+	\end{center}
+	\end{figure}
+  \item 完全二部图 $K_{m,n}$: 见图 \ref{fig:k33}.
+  \item 正则图 $k-\textrm{regular}$: 见图 \ref{fig:petersen}.
+  \item 立方体 $Q_3$: 见图 \ref{fig:cube}.
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/cube.png}
+	  \caption[labelInTOC]{Cube}
+	  \label{fig:cube}
+	\end{center}
+	\end{figure}
+  \item 超立方体 $Q_n = Q_{n-1} \times K_2$:
+\end{enumerate}
+
+下面给出一些在图论中占有重要地位的有名的图.
+\begin{enumerate}
+  \item $Peterson$ 图:
+  见图\ref{fig:petersen},图\ref{fig:petersen_coloring},图\ref{fig:petersen_hamil}以及图\ref{fig:petersen_unit}.
+
+   ``Peterson 图是许多关于一般图的性质的乐观猜测的重要反例.''
+    \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_1.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_coloring.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_coloring}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_hamil.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_hamil}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/Petersen_unit.png}
+	  \caption[labelInTOC]{Petersen graph}
+	  \label{fig:petersen_unit}
+	\end{center}
+	\end{figure}
+
+  \item \label{graph:harary}$Harary$ 图:
+  \item $David$ 图:
+  \item $Utility$图:  见图\ref{fig:k33}和图.(gas, water, and electricity)
+    %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K33.png}
+	  \caption[labelInTOC]{$K_{3,3}$(Utility graph)}
+	  \label{fig:k33}
+	\end{center}
+	\end{figure}
+
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/K33(utility).png}
+	  \caption[labelInTOC]{$K_{3,3}$(Utility graph)}
+	  \label{fig:k33(utility)}
+	\end{center}
+	\end{figure}
+  \item $Friendship$图: 见图\ref{fig:friendship}.
+  	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/friendship.png}
+	  \caption[labelInTOC]{Friendship graph}
+	  \label{fig:friendship}
+	\end{center}
+	\end{figure}
+\end{enumerate}
+
+更多``named graphs''请看这里:\url{http://en.wikipedia.org/wiki/Gallery_of_named_graphs}.
+%\emph{$http://en.wikipedia.org/wiki/Gallery_of_named_graphs$}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{顶点度数专题}  \label{subsection:degree}
+\emph{注:若非特别说明,$G$仅表示简单无向图.}
+
+我们使用$d(v)$表示顶点$v$的度数,分别使用$\delta(G)$和$\Delta(G)$表示$G$的最小度和最大度.
+
+\begin{observation}
+  \[
+    \forall v \in G. 0 \leq \delta(G) \leq d(v) \leq \Delta(G) \leq n-1.
+  \]
+\end{observation}
+
+\begin{theorem}{(The First Theorem of Graph Theory)}  \label{thm:first}
+
+  如果图$G$有$m$条边，则
+  \[
+    \sum_{v \in V(G)} d(v) = 2m.
+  \]
+\end{theorem}
+
+\begin{corollary}  \label{cor:deg_odd_even}
+
+  任何图中,奇度顶点的个数是偶数.
+\end{corollary}
+
+对于有着$m$条边的二部图$G$，点集的划分为$U = \set{u_1,u_2, \cdots, u_s},W = \set{w_1,w_2, \cdots, w_s}$，每一条边
+关联着$U$和$W$中的各一个点,所以我们有,
+\begin{corollary}  \label{cor:deg_bipart}
+
+  $\sum_{i=1}^{s} d(u_i) = \sum_{j=1}^{t} d(w_j)= m.$
+\end{corollary}
+
+图的顶点的度数可以为我们了解图的特性提供很多信息.比如，从直觉上来讲，每个点的度数越大，达到一定程度，就可以保证(迫使)
+图是连通的。这涉及到图的连通性，我们放到专题 \ref{subsection:connectivity}中再做介绍.下面我们重点介绍度序列和可图化的度序列
+的概念.
+
+给出某图$G$的度序列是件不必费神的事。现在，我们的问题是，给定某度序列$s$，如何判断$s$是否是某个图的度序列，也就是问$s$是否
+是\emph{可简单图化(graphical)}的?
+
+如果将\emph{可简单图化}的条件放松，仅仅要求可图化，那么我们会得到定理\ref{thm:graphical_1}.
+\begin{theorem}  \label{thm:graphical_1}
+
+  非负度序列$s:d_1,d_2,\cdots,d_n$是可图化的当且仅当 $\sum_{i=1}^{n} d_i$ 为偶数.
+\end{theorem}
+
+\begin{remark}{构造性证明}  \label{remark:constructive}
+
+  定理\ref{thm:graphical_1}的证明虽然简单，但是却使用了一种图论中经常使用的证明方法，也就是\emph{构造性证明}.在涉及对``可行性'',
+  ''存在性''等证明时,一般可采用三种方法:
+  \begin{inparaenum}[\itshape a \upshape)]
+    \item 构造性证明.即显式地将符合条件的对象构造出来.
+    \item 反证法. 即假设该类对象不存在，然后找出矛盾来.
+    \item 概率法. 即通过概率分析，计算出某类对象存在的概率大于0.
+  \end{inparaenum}
+  对于本课程内容而言，前两种方法会经常碰到.
+\end{remark}
+
+对于\emph{可简单图化},我们有定理\ref{thm:havel}.
+\begin{theorem}{$Havel-Hakimi$定理}  \label{thm:havel}
+
+  非负整数、非递增度序列$s:d_1,d_2,\cdots,d_n(n \geq 2)$是可简单图化的当且仅当度序列
+  \[
+    s_1:d_2-1,d_3 -1,\cdots,d_{d_1+1} -1, d_{d_1+2}, \cdots,d_n
+  \]
+  是可简单图化的.
+\end{theorem}
+\begin{proof}
+
+  \begin{itemize}
+    \item \textbf{$\Leftarrow$方向:}
+      该证明简单.只需为$s_1$所对应的图$G$添加顶点$v_1$和$d_1$条边($v_1v_i, \forall i, 2 \leq i \leq d_1 + 1$)即可.
+    \item \textbf{$\Rightarrow$方向:}
+      该证明稍有困难，其中使用了图论证明中又会经常用到的方法.
+
+      受$\Leftarrow$方向证明的启发(或者说是诱惑),我们希望$s$图化所对应的图$G$具有如下特性: 顶点度数为$d_1$的顶点(注:也就是拥有最大度
+      的顶点,记为$u$)所邻接(adjacent)的顶点恰好具有度序列$d_2,d_3,\cdots,d_{d_1+1}$.如果上述特性成立，那么$G-\set{u}$所对应的
+      度序列即为$s_1$.得证.
+
+      但是，上述特性看起来好像要求太强，但是，因为当判定某度序列是否可简单图化的时候，我们仅需要考虑存在性.所以，我们只需要能证明
+      $s$所对应的图($s$是可简单图化的)中必存在某图$H$，$H$是满足上述特性的.下面，我们用反证法来说明$H$的存在性.
+
+      假设不存在这样的图.在所有具有度序列$s$的图中，取$G$为$V(G) = \set{v_1,v_2,\cdots,v_n}$,$d(v_i) = d_i, \forall 1 \leq i \leq n$,
+      并且与$v_1$相邻的那些顶点的度数之和尽可能大(在所有图中).$v_1$的邻接顶点不全包含于$v_2,v_3, \cdots, v_{d_1+1}$(因为$G$不
+      具有上述特性),则$v_1$必与$v_s$相邻，不与$d_r$相邻，而$d_r < d_s$.又因为$d_r > d_s$，所以必存在点$v_t$,$v_r$与$v_t$邻接，
+      但是$v_s$不与$v_t$邻接.我们考虑图$G' = G - \set{v_1v_s} + \set{v_1v_r} - \set{v_rv_t} + \set{v_sv_t}$.该图$G'$是由图
+      $G$\emph{变换}而来，重要的一点是，该变换保持了原图的度序列，也就是说图$G'$也具有度序列$s$.然而，图$G'$中与$v_1$邻接的顶点
+      的度数之和大于图$G$中与$v_1$邻接的顶点的度数之和.矛盾.
+  \end{itemize}
+\end{proof}
+
+\begin{remark}  \label{remark:transform}
+
+  定理\ref{thm:havel}的证明过程使用了两种图论中常见的方法.一种是在前面\ref{remark:constructive}中提到的用反证法来证明存在性的技巧.
+  另外一种就是这里要说明的，就是图的转换.图的转化可以涉及边的删除与添加(如本定理证明过程)，顶点的删除与添加.在图的转换中，重要的一点是，
+  转换过程一般需要在保持某种不变量(比如本定理证明过程中的度序列)的同时,在其它某变量上有所变化(一般又是朝着某种优化的方向转变,比如本
+  定理中的度数之和变大).有时，该转换可以一直持续下去，这就相当于一个迭代过程，直到达到某个不动点(比如最大，最小等).如此，可以用来
+  证明某一类图(也就是符合不变量的所有图.比如本题证明过程中，即为所有具有度序列$s$的图集合)具有某种特殊的性质或者存在某图具有某种特殊性质.
+\end{remark}
+
+\begin{remark}  \label{remark:havel_alg}
+
+  定理\ref{thm:havel}实际上提供了一种判断某度序列$s$是否可简单图化的算法，并且在可简单图化的情况下提供了如何构造符合条件的图的
+  算法.有兴趣的同学可以考虑将其实现出来.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{图的连通性专题}  \label{subsection:connectivity}
+图的连通性所涉及到的关于各种``路径''的定义在术语方面有着不同的版本.我们与教材保持一致.
+
+请大家回顾这些术语: 通路，简单通路(边各异),初级通路或路径(顶点各异).相对应的有，回路，简单回路，初级回路或圈.
+
+关于图的通路有一条基本的定理，我们简单罗列如下.
+\begin{theorem}  \label{thm:walk}
+
+  若图$G$中含长度为$l$的$u-v$通路，则$G$中必含长度不大于$l$的$u-v$初级通路(路径).
+\end{theorem}
+``在涉及路径和圈的构造性证明中''，\emph{极大路径法}是常用的一种证明技巧.书中提供了这样的一道例题\ref{ex:extremal_path}.
+\begin{example}{极大路径法}  \label{ex:extremal_path}
+
+  设$G$为$n(n \geq 4)$阶无向简单图,$\delta(G) \geq 3$，证明$G$中存在长度大于或等于4的圈.
+\end{example}
+\begin{remark}  \label{remark:extremal_path}
+
+  本题的证明关键在于选择一条极大路径$u-v$，也就是无法再向两侧延伸的路径。然后再根据$\delta(G)$的要求可知该路径的端点$u$(或$v$)
+  必和该路径上的$\delta(G)-1$个点相邻，从而构成长度$l \geq \delta(G)$的圈.
+
+  该类题目的证明可以使用图\ref{fig:extremal_path}来说明.
+  %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/extremal_path}
+	  \caption[labelInTOC]{极大路径法图示}
+	  \label{fig:extremal_path}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+图的连通分支可以从集合的等价关系的角度来理解,即可达关系：
+\[
+  uRv \iff \exists u-v \textrm{ path}.
+\]
+关于图$G$与其补图$\bar{G}$，我们有定理 .
+\begin{theorem}  \label{thm:conn_complement}
+
+  某图$G$与其补图$\bar{G}$中，至少有一个是连通图.
+\end{theorem}
+\begin{remark}  \label{remark:conn_complement}
+
+  该题的证明参见课件.本命题要证明的形式为$A \cup B$成立,我们可以采取的证明策略为$A \cup B, \neg A \Rightarrow B$.
+  大家可以回忆一下，这正是我们在逻辑中所介绍的\emph{析取三段论}.
+\end{remark}
+
+在习题\ref{ps:sufficient}和习题\ref{ps:necessary}中我们实际上给出了3阶或更高阶图为连通图的一个
+\emph{充要条件(necessary and sufficient condition)}.
+
+在顶点度数专题\ref{subsection:degree}中，我们提到了一个和图的连通性相关的一个问题，那就是，当图的顶点的度数大到怎样的程度
+时，就可以保证(迫使)该图是连通的? 显然的一点是，当所有顶点都具有$n-1$度时，图是连通的。然而，我们更关心的是\emph{界限}.即，
+当一旦超过这个界限，图就是连通的；低于这个界限，图就不一定是连通的。换言之，我们对涉及``extremal''的命题更感兴趣.
+
+下面所给出的定理\ref{thm:degree+conn}虽不能说是``extremal graph''的例子，但是还是有一点``extremal''的含义的.
+\begin{theorem}{度数与图的连通性}  \label{thm:degree+conn}
+
+  $G$为$n$阶图.证明如果
+  \[
+    \forall u,v \in V(G). (u,v) \notin E(G) \land d(u) + d(v) \geq n-1.
+  \]
+  成立，则$G$是连通图，并且
+  \[
+    \forall s,t \in V(G). (u-v) \Rightarrow d(u-v) \leq 2.
+  \]
+\end{theorem}
+\begin{proof}  \label{proof:degree+conn}
+
+
+\end{proof}
+习题\ref{ps:degree+conn}让你说明$n-1$这个``bound''是紧的(sharp).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{正则图专题}  \label{subsection:regular}
+常见的3正则图包括$K_4,K_{3,3},Q_3,\textrm{Peterson graph}$.
+
+本专题主要考虑正则图的存在性问题.
+
+根据握手定理(即图论第一定理)\ref{thm:first},易知命题\ref{cor:regular_odd}成立.
+\begin{corollary}  \label{cor:regular_odd}
+
+  如果$n$和$r$都为奇数(odd),不存在$n$阶$r$正则图$G$.
+\end{corollary}
+现在的问题是，如果将此情况$n,r \textrm{ are odd}$排除，也就是说$r,n$至少有一个为偶数(even)的时候，又是什么情况呢?定理
+\ref{thm:regular_existence}表明在这种条件下，必存在$n$阶$r$正则图.
+\begin{theorem}{正则图的存在性}  \label{thm:regular_existence}
+
+  $0 \leq r \leq n-1 \land r,n \textrm{ 至少一个为偶数}$, 则必存在$n$阶$r$正则图.
+\end{theorem}
+\begin{proof}  \label{proof:regular_existence}
+
+  \textbf{构造性证明.}
+  我们构造$n$阶正则图$H_{r,n}$.
+
+  如果$r$是偶数$r = 2k \leq n-1$.对于每个顶点$i$，我们添加$v_i$到$v_{i+1},v_{i+2}, \cdots, v_{i+k}$
+
+  和$v_{i-1},v_{i-2}, \cdots,v_{i-k}$(可以将各顶点想象成按照圈排列)的共计$2k$条边.如此构造得到的$H_{r,n}$为符合条件的正则图.
+
+  如果$r$是奇数$r = 2k+1 \leq n-1$,那么$n$必为偶数.我们仍然先按照$r$为偶数的情况为每个顶点$v_i$添加$2k$条边.因为$n$为偶数，所以我们
+  可以再为每个顶点$v_i$添加到$v_{i+\frac{n}{2}}$的边(你仍然可以将各顶点想象成按照圈排列,则$v_i$与$v_{i+\frac{n}{2}}$互为 opposite vetex).
+  如此构造得到的$H_{r,n}$为符合条件的正则图.
+\end{proof}
+\begin{remark}  \label{remark:regular_existence}
+  本定理证明过程中所构造的图即为$Harary$ graph,见\ref{graph:harary}.它是以$Frank Harary$命名的.
+\end{remark}
+关于正则图的存在性，我们还要考虑这样一个问题，即给定一个非正则图$G$，是否存在$r$正则图$H$，而$G$是$H$的诱导子图(即,导出的子图).
+很显然的一点是，$H$存在的一个显见的必要条件是$r \geq \Delta(G)$.那么，这个必要条件是否是充分条件呢?回答是肯定的，大家可以停下来试着
+自己构造这样的图$H$.
+
+\begin{theorem}  \label{thm:regular_induced}
+
+  对于任意的图$G$和整数$r \geq \Delta(G)$，必存在$r$正则图$H$，而$G$是$H$的诱导子图.
+\end{theorem}
+\begin{proof}  \label{proof:regular_induced}
+
+  我们仍然采用\textbf{构造性证明方法}.
+
+  假设非正则图$G$的阶为$n$，顶点集合为$V(G) = \set{v_1,v_2, \cdots, v_n}$.$G'$是$G$的一个拷贝，只是将其顶点重新标定(与$G$中顶点相对应)
+  为$\set{v_1',v_2', \cdots, v_n'}$.现在，我们构造图$G_1$:对于每个顶点$v_i$,$d(v_i) < r$,则连接$v_i$与$v_i'$形成一条边.显然,$G$
+  是图$G_1$的诱导子图,并且$\delta(G_1) = \delta(G)+1$.如果$G_1$为$r$正则图，则$H = G_1$即为所求.否则，继续上述过程.经过$k = r-\delta(G)$
+  次上述操作，便会得到$G_k$，而$G_k$即为所求.
+\end{proof}
+\begin{remark}  \label{remark:regular_induced}
+
+  该证明由$Den\acute{e}s K\ddot{o}nig$给出.他写了第一本图论专著.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Set}
+\begin{problem}{\textbf{可简单图化}}  \label{ps:graphical}
+
+  $S = \set{2,6,7}$，定义$S^{k}= 2,2,\cdots,2,6,6,\cdots,6,7,7,\cdots,7$,其中元素重复次数均为$k$.证明存在整数$k$，使得以$S^{k}$
+  为度序列的序列是可简单图化的，给出最小的符合条件的$k$值.
+\end{problem}
+
+\begin{problem}{\textbf{图的连通性(充分条件)}}  \label{ps:sufficient}
+
+  $G$是阶为3或更高阶的图.如果$G$中包含两个相异顶点$u,v$,使得$G-\set{u},G-\set{v}$都是连通图，请证明$G$本身也是连通图.
+\end{problem}
+
+\begin{problem}{\textbf{图的连通性(必要条件)}}  \label{ps:necessary}
+
+  $G$是阶为3或更高阶的连通图.请证明,$G$中必存在两个相异顶点$u,v$，使得$G-\set{u},G-\set{v}$都是连通图.
+\end{problem}
+
+\begin{problem}{\textbf{顶点度数与图的连通性}}  \label{ps:degree+conn}
+  请说明定理\ref{thm:degree+conn}中的$n-1$的 bound 是紧的(sharpness).也就是说，当我们放松该条件,比如改为$n-2$时，请给出
+  满足度数条件但是不连通的图的例子.
+\end{problem}
+
+\begin{problem}{\textbf{正则图}}  \label{ps:regular}
+  \begin{enumerate}
+    \item 请证明:如果$G$是$n$阶图,则$\delta(G) + \delta(\bar{G}) \leq n-1$.
+    \item 请证明:如果$G$是$n$阶图,则$G$是正则图 $\iff$ $\delta(G) + \delta(\bar{G}) = n-1$.
+  \end{enumerate}
+\end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application and Extension}
+%\subsection{竞赛图(Tournaments)}
+\subsection{与``聚会''有关的图论知识}
+图论应用广泛,在下次聚会中，你可以验证下面的定理.
+\begin{theorem}{The Party Theorem}  \label{thm:party_same}
+
+  在任何一次聚会中，总存在两个人，他们拥有相同数量的朋友(聚会中的人).
+\end{theorem}
+\begin{remark}  \label{remark:party_same}
+
+  注意:这里所说的朋友是双向的。比如，$A$是$B$的朋友，那么$B$也一定是$A$的朋友.反之亦然.我们不考虑$A$对$B$
+  无话不谈而$B$却对$A$无话可说的情况.下同.
+\end{remark}
+\begin{proof}  \label{proof:party_same}
+
+  用顶点表示人,用边表示朋友关系.所谓相同数量，即使顶点度数相同.\emph{反设} 不存在度数相同的点,那么顶点度数
+  只能分别是$0,1,2, \cdots, n-1$.而$n-1$表示与所有其他顶点都相邻，那么就不可能存在度数为0的顶点.矛盾.
+\end{proof}
+\begin{theorem}{Ramsey Theorem}  \label{thm:ramsey}
+
+  六个人的聚会中，必存在三个人彼此认识或者彼此不相识.
+\end{theorem}
+\begin{proof}  \label{proof:ramsey}
+
+  关于该定理的证明请参见这里: \url{http://en.wikipedia.org/wiki/Theorem_on_friends_and_strangers}.
+\end{proof}
+
+下面我们不加证明地给出另一个有关聚会的定理.
+\begin{theorem}{Friendship Theorem}  \label{thm:friend}
+
+  在任何一次聚会中(人数任意但是是有限的，这和现实生活相吻合),如果任意两个人都有且仅有一个共同好友(想想人人网站吧),那么
+  必存在一个人，他和其他所有人都是好友.
+\end{theorem}
+\begin{remark}  \label{remark:friend}
+
+  是的，你猜对了。这就是上文所提到的 friendship graph, 见图\ref{fig:friendship}.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

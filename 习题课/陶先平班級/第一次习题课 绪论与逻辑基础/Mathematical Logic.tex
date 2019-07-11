@@ -1,0 +1,646 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,red]{beamer}
+\mode<presentation>
+
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{amssymb}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+\begin{document}
+%\initclock
+\begin{CJK*}{GBK}{kai}
+
+\title{第1次 离散数学习题课}
+\subtitle{绪论与逻辑基础}
+\author{魏恒峰 \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science \& Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame{
+	\titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Review}
+\subsection{What does mathematical logic concern about?}
+\frame
+{
+  \frametitle{开篇之句}
+    \begin{quote}
+         ``数理逻辑是研究{\color{red}推理}的数学分支\dots''
+    \end{quote}
+    \vspace{0.25cm}
+
+      \only<2>
+      {
+        \textcolor{gray}{But,the dialog is like this with high probability.}
+      }
+      \begin{enumerate}
+        \item Request: 请问还有去南京的$T7800$次火车的坐票吗？
+        \vspace{0.25cm}
+        \item Reply: 对不起，$T7800$次的所有车票都卖完了。
+        \vspace{0.25cm}
+        \item Request: 那还有站票吗？
+        \vspace{0.25cm}
+        \only<1>
+        {
+          \item Reply(\textcolor{red}{\smiley}):\textcolor{gray}{抱歉。 \\
+          $T7800$次的所有车票都卖完了； \\
+          站票是火车票的一种； \\
+          所以，站票也卖完了。}
+        }
+        \only<2>
+        {
+          \item \textcolor{gray}{Reply}(\frownie): \textcolor{gray}{下一个。}
+        }
+      \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{开篇之句}
+    \begin{quote}
+      ``\dots推理是由一系列{\color{red}有关联}的陈述句组成的。''
+    \end{quote}
+
+    \vspace{0.50cm}
+
+    \textbf{下面的陈述句序列是推理吗？}
+    \begin{enumerate}
+      \item 海水是咸的。
+      \vspace{0.25cm}
+      \item 中国的首都是北京。
+    \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{开篇之句}
+    \begin{quote}
+      ``数理逻辑是研究{\color{red}推理}的数学分支，推理由一系列有关联的陈述句组成。''
+    \end{quote}
+  \vspace{0.2cm}
+  
+  \textbf{Five Problems:}
+  \begin{enumerate}
+    \item 为什么需要推理？
+    \vspace{0.2cm}
+    \item 推理的基础是什么？
+    \vspace{0.2cm}
+    \item 推理的规则是什么？
+    \vspace{0.2cm}
+    \item 推理有正确与错误之分吗？
+    \vspace{0.2cm}
+    \item 若有，如何保证推理是正确的呢？
+  \end{enumerate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Propositional Logic}
+
+\frame
+{
+  \frametitle{Propositional Logic---Proposition(命题)}
+
+  \begin{quote}
+    ``命题'' 主要是指一些字或者其它符号组合成的一种形式，这种形式所表达的或者为真或者为假。---罗素
+  \end{quote}
+
+  \vspace{0.2cm}
+  \color{gray}{Notice: 排中律。有的逻辑学家并不承认这一规律。}
+   \vspace{0.3cm}
+  \pause
+  \begin{itemize}
+    \item 原子命题:  $p,q,r,s\dots$ ($\because$我们不太关心具体的命题内容)
+    \vspace{0.25cm}
+    \item 复合命题:  $\neg, \lor, \land, \to, \leftrightarrow$
+    \vspace{0.25cm}
+    \item 命题公式及其解释(interpretation)
+    \vspace{0.25cm}
+    \item 重言式(tautology), 矛盾式(contradiction)
+  \end{itemize}
+}
+
+\frame
+{
+  \frametitle{Propositional Logic---命题逻辑等值演算}
+
+  Question: 如何判断两个命题公式是等值的？
+  \begin{enumerate}
+    \item 真值表
+    \vspace{0.20cm}
+    \item 等值式
+  \end{enumerate}
+
+  \vspace{0.50cm}
+
+  \pause
+  重要等值式：
+  \begin{description}
+    \item [德摩根律 De Morgan]
+      \[ \neg(A \lor B) \Leftrightarrow \neg A \land \neg B \]
+      \[ \neg(A \land B) \Leftrightarrow  \neg A \lor \neg B \]
+    \item [蕴涵等值式]          $A \to B \Leftrightarrow \neg A \lor B$
+    \item [假言易位]            $A \to B \Leftrightarrow \neg B \to \neg A$
+    \item [归谬论]              $(A \to B) \land (A \to \neg B) \Leftrightarrow \neg A$
+  \end{description}
+}
+
+
+\frame
+{
+  \frametitle{Propositional Logic---推理的形式结构}
+  \textbf{推理的形式结构}
+  \[ \lbrace A_1,A_2,\cdots,A_n \rbrace \vdash B \]
+  \vspace{0.50cm}
+  \textbf{\alert{推理正确}当且仅当}
+  \[ A_1 \land A_2 \land \cdots A_n \to B \]
+  为重言式。(等值演算)
+}
+
+\frame
+{
+  \frametitle{Propositional Logic---自然推理系统}
+  \textbf{Q: 如何保证推理的正确性?} \\
+  \vspace{0.3cm}
+  \textcolor{red}{A: 推理规则集$R$}
+
+  \vspace{0.5cm}
+  \begin{quote}
+    ``\textcolor{blue}{证明}是一个描述推理过程的命题公式序列，其中的每个公式或者是已知前提，或者是由前面的
+    公式应用\textcolor{blue}{推理规则}得到的结论(中间结论或推理中的结论)。
+  \end{quote}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Predicate Logic}
+
+\frame
+{
+  \frametitle{Predicate Logic---符号化}
+  \begin{enumerate}
+    \item 个体词
+      \begin{enumerate}
+        \item 个体常项
+        \item 个体变项
+      \end{enumerate}
+    \vspace{0.25cm}
+    \item 谓词(predicate) \\
+      $P(x_1,x_2,\cdots,x_n) \to \lbrace \top , \bot \rbrace$
+    \vspace{0.25cm}
+    \item 量词
+      \begin{enumerate}
+        \item 全称量词 : $\forall x P(x)$
+        \item 存在量词 : $\exists x P(x)$
+      \end{enumerate}
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Predicate Logic---等值演算}
+
+  \textcolor{gray}{只要求了解，会进行简单推理即可}
+  \vspace{0.30cm}
+  \begin{enumerate}
+  \only<1>
+  {
+    \item $\forall x P(x) \vdash P(c) \text{ if } c \in U$
+    \vspace{0.20cm}
+    \item $\lbrace P(c) \text{ 对任意 } c \in U \rbrace \vdash \forall x P(x)$
+    \vspace{0.20cm}
+    \item $\exists x P(x) \vdash P(c) \text{ 对某个 } c \in U$
+    \vspace{0.20cm}
+    \item $\lbrace \text{对某个 } c \in U, P(c) \rbrace \vdash \exists x P(x)$
+  }
+  \only<2>
+  {
+    \vspace{0.20cm}
+    \item $\neg \forall x A(x) \Leftrightarrow \exists x \neg A(x)$
+    \vspace{0.20cm}
+    \item $\neg \exists x A(x) \Leftrightarrow \forall x \neg A(x)$
+  }
+  \end{enumerate}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Set}
+\subsection{Proposition}
+\frame
+{
+  \frametitle{Proposition}
+  \textbf{1: 请把下列命题符号化。}
+  \begin{enumerate}
+    \item 说逻辑枯燥无味或毫无价值都是不对的。
+    \vspace{0.25cm}
+    \pause
+    \item
+    \begin{quote}
+      我想证明我自己的清白无辜\only<3>{$(p)$}，只有以下三个途径\only<3>{$(q)$}：
+      \begin{enumerate}
+        \item 队长家不存在一只母狗\only<3>{$(p_1)$};
+        \item 该母狗天生没有左眼\only<3>{$(p_2)$};
+        \item 我是无手之人，不能持枪射击\only<3>{$(p_3)$}。
+      \end{enumerate}
+      --- 王小波《黄金时代》
+    \end{quote}
+    \only<4>
+    {
+      \vspace{0.25cm}
+      \item 我只给不给自己理发的人理发。--- (\textcolor{red}{罗素悖论})
+    }
+  \end{enumerate}
+}
+
+
+\frame
+{
+  \frametitle{Proposition}
+
+      \begin{enumerate}
+        \item Slogan: 如果你爱她，就请她吃哈根达斯。
+        \vspace{0.25cm}
+        \item One man: 我请他吃哈根达斯。
+        \vspace{0.25cm}
+        \item A girl's wish: 他一定很爱我。
+      \end{enumerate}
+
+      \pause
+      \color{blue}{Question:}
+      \begin{itemize}
+        \item 女孩的推理正确吗？
+        \item \alert{怎样才算正确的推理呢?}
+        \item 假设这位女孩学习过数理逻辑，你能教男孩该怎么做吗？
+      \end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Propositional Calculus}
+\frame
+{
+  \frametitle{命题逻辑等值演算}
+
+  \textbf{2：请利用等值演算法证明公式为重言式。}
+  \begin{enumerate}
+    \item $(p \to q) \lor (q \to p)$
+    \vspace{0.25cm}
+    \item $\neg ((p \land q) \land \neg (p \lor q))$
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{命题逻辑等值演算}
+  \textbf{3: 请利用等值演算证明等值式。}
+  \begin{enumerate}
+    \item $\neg (p \lor q) \lor (\neg p \land q) \Leftrightarrow \neg p$
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{命题逻辑等值演算}
+  \textbf{休息一下。翻卡片，验证规则。}
+
+    \begin{table}[!t]
+      \centering
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+          \textbf{抽象任务}     & A          & D         & 4     & 7 \\ \hline
+          \textbf{现实世界任务} & 苏打水     & 啤酒      & 23    & 17 \\
+        \hline
+        \end{tabular}
+    \end{table}
+
+    \vspace{0.5cm}
+
+    \begin{enumerate}
+      \item Rule: 如果卡片的一面是元音字母，那么它的另一面是偶数数字。
+      \vspace{0.20cm}
+      \item Rule: 如果一位消费者要喝酒精饮料，那么她必须年满18岁。
+    \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{命题逻辑等值演算}
+  \textbf{4(1): 等值演算应用题}
+  \begin{enumerate}
+    \item \textbf{对错参半问题:} 课本$P_{40}$第29题(不得兼任)
+    \vspace{0.30cm}
+    
+    \textbf{Answer:}
+    \pause
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+                & 王小红    & 李强  & 丁金生    \\
+      班长      & $p$         & $q$     & $r$         \\
+      学习委员  & $p_1$       & $q_1$   & $r_1$       \\
+      生活委员  & $p_2$       & $q_2$   & $r_2$       \\
+      \hline
+    \end{tabular}
+    
+    \pause
+    即求
+    \vspace{0.20cm}
+    \[
+      ((p \land \neg q_1) \lor (\neg p \land q_1)) \pause \textcolor{green}{\land} 
+      ((r \land \neg p_1) \lor (\neg r \land p_1)) \textcolor{green}{\land}
+      ((q \land \neg p_2) \lor (\neg q \land p_2))
+    \]
+    的成真赋值。
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{命题逻辑等值演算}
+  \textbf{4(2): 等值演算应用题}
+  \begin{enumerate}
+  \item \textbf{约束分配问题:} 课本$P_{40}$第30题
+  \vspace{0.30cm}
+  
+  \textbf{Answer:}
+  \pause
+  $p:\text{赵}; q:\text{钱}; r:\text{孙}; s:\text{李}; t:\text{周}$
+  \begin{enumerate}
+    \item $p \to q$
+    \item $s \lor t$
+    \item $(\neg q \land r) \lor (q \land \neg r)$
+    \item $(r \land s) \lor (\neg r \land \neg s)$
+    \item $t \to (p \land q)$
+  \end{enumerate}
+  
+  \pause
+  \vspace{0.30cm}
+  \textcolor{red}{\bf The student who solves the problem using ``calculus'' deserves credit($\bigstar \bigstar \bigstar$).}
+  \end{enumerate}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Natural Deduction System}
+\frame
+{
+  \frametitle{命题逻辑的推理理论}
+  \textbf{5: 在自然推理系统$P$中构造下述推理的证明。}
+  \begin{enumerate}
+    \item 课本$P_{53}$第14(2)题。
+      \begin{description}
+        \item [前提:] $\neg p \lor r, \neg q \lor s, p \land q$
+        \item [结论:] $t \to (r \land s)$
+      \end{description}
+%    \vspace{0.4cm}
+%    \item 课本$P_{54}$第17题(应用题)。
+  \end{enumerate}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{First Order Logic}
+\frame
+{
+  \frametitle{一阶逻辑基本概念}
+  \textbf{6: 在一阶逻辑中将命题符号化}
+  \begin{enumerate}
+    \item 课本$P_{65}$第4(1)题：
+      没有不能表示成分数的有理数。
+    \vspace{0.25cm}
+    \item \textbf{极限的定义:} $\text{数列 } \lbrace x_n \rbrace \text{ 收敛于 } x_0,
+      \text{ 指的是,对于任意的正实数} \epsilon, \text{ 存在自然数 } N,$
+
+      $\text{ 使得当 } n > N \text{ 时,有 } \mid x_n - x_0 \mid < \epsilon.$
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{一阶逻辑简单推理}
+  \textbf{7: Philosophy: Who am I?}
+  \begin{columns}
+  \column{.5\textwidth}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.4]{figure/lovelydog}
+      \caption{How lovely the dog is when it thinks.}
+    \end{figure}
+  \column{.5\textwidth}
+    \begin{itemize}
+      \item 所有的猫都有四条腿;
+      \vspace{0.25cm}
+      \item 我有四条腿;
+      \vspace{0.25cm}
+      \item 因此，我是一只猫。
+    \end{itemize}
+    
+    \vspace{0.30cm}
+    \pause
+    \textbf{\textcolor{red}{Identity:认清自我。}}
+    \[
+      \forall x P(x) \vdash P(c) \text{ if } c \in U
+    \]
+  \end{columns}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Extension}
+
+\subsection{Theorem Prover}
+
+\frame
+{
+  \frametitle{Theorem Prover}
+
+  \begin{columns}
+  \column{.5\textwidth}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[scale=0.4]{figure/aa}
+      \caption{Proof of $A \vdash A$}
+    \end{figure}
+  \column{.5\textwidth}
+    \begin{enumerate}
+      \item So intelligent \& So tedious.
+      \vspace{0.40cm}
+      \item \alert{机械证明与定理证明器}
+        % \href{http://logik.phl.univie.ac.at/~chris/logic.html}
+    \end{enumerate}
+  \end{columns}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Program Verification}
+\frame
+{
+  \frametitle{Program Verification}
+  \begin{columns}
+  \column{0.50\textwidth}
+    \begin{enumerate}
+      \item 程序规模大，复杂度高。
+      \vspace{0.25cm}
+      \item safety-critical, \\
+        commercially critical, \\
+        mission critical
+      \vspace{0.25cm}
+      \item \textcolor{red}{如何保证程序的正确性?}
+    \end{enumerate}
+  \column{0.50\textwidth}
+    \begin{figure}[h!]
+      \centering
+        \includegraphics[width=1.0\textwidth]{figure/ariane5}
+      \caption{法国Ariane-5运载火箭发射失败(1996-06-04)}
+    \end{figure}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Program Verification}
+  \begin{quote}
+    If the input $x$ is a positive number, compute a number $y$ whose square is less than $x$.
+  \end{quote}
+
+  \vspace{0.80cm}
+
+  \textbf{formalize:}
+    \[ \lbrace x > 0 \rbrace P \lbrace y^2 < x \rbrace \]
+  \textcolor{red}{Hoare triples}
+    \[ \phi P \varphi \]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Model Checking}
+\frame
+{
+  \frametitle{Model Checking}
+
+  \begin{columns}[t]
+
+    \column{.35\textwidth}    %%%%% vending maching %%%%%
+      \begin{figure}[htbp]
+        \includegraphics[width=1.0\textwidth]
+          {figure/Model_for_VM.jpg}
+      \end{figure}
+
+    \pause
+    \column{0.65\textwidth}
+     \begin{exampleblock}{\textit{\small 厂家提出要求(需求分析):}}
+
+          \begin{quote}
+            A \emph{`pay'} action must be preceded immediately by a \emph{`drink'} action.
+          \end{quote}
+
+         \textcolor{blue}{\it Not the case:}
+         \[
+           \lbrace \rbrace \lbrace drink \rbrace
+         \]
+       % }
+    \end{exampleblock}
+    \vspace{0.5cm}
+    \pause
+    \begin{quote}
+      \textcolor{red}{如何保证该自动售货机的模型能满足厂家要求?}
+    \end{quote}
+
+  \end{columns}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+\frame
+{
+  \huge \center \textbf{That's the end. Thank you.}
+  \begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{figure/question}
+    \caption{Bring Up a Question}
+  \end{figure}
+}
+
+\end{CJK*}
+
+
+\end{document} 

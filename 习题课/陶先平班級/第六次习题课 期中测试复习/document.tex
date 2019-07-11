@@ -1,0 +1,780 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,green]{beamer}
+\mode<presentation>
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+
+%\usepackage{mathdots}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{CJK*}{GBK}{kai}
+
+\title{Group Theory}
+%\subtitle{集合论(1) \\ 集合代数\&二元关系 }
+\author{Hengfeng Wei \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science and Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame
+{
+  \titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+
+
+\section{Set Theory}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Algebra of Sets}
+\frame
+{
+  \frametitle{集合运算律}
+
+  \textbf{1: 请证明补集之唯一性(Optional)。}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+  \vspace{0.20cm}
+    令$A,B$为$E$的任意子集，则 $B = \sim A \Leftrightarrow A \cup B = E \& A \cap B = {\O}$  \\
+  \vspace{0.40cm}
+  \textbf{tips:}  \\
+  \vspace{0.20cm}
+  $B = B \cap E = B \cap (A \cup \sim A) = (B \cap A) \cup (B \cap \sim A)$  \\
+  $= {\O} \cup (B \cap \sim A)=(A \cap \sim A) \cap (B \cap \sim A)$
+  $= \sim A \cap (A \cup B) = \sim A \cap E = \sim A.$
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+
+  \textbf{2: 请证明以下命题等价:}  \\
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $A \subseteq B$
+    \vspace{0.20cm}
+    \item $A \cup B = B$
+    \vspace{0.20cm}
+    \item $A \cap B = A$
+    \vspace{0.20cm}
+    \item $A - B = {\O}$
+  \end{enumerate}
+
+  \vspace{0.30cm}
+  \alert{\textbf{Q: 为什么可以采用循环证明?}}  \\
+  \textbf{A: $\Leftrightarrow$ is an equivalence relation.}
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{3: 请证明$\cap$关于$-$是可分配的:}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+    \[
+      A \cap (B - C) = (A \cap B) - (A \cap C)
+    \]
+  \vspace{0.50cm}
+  \textbf{tip: 换个方向，化繁为简更容易。}  \\
+
+  \vspace{0.2cm}
+  \textbf{\alert{练习:}}  \\
+  请问$\cup$关于$-$是可分配的吗？
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{4: 请证明$\cap$关于$\oplus$是可分配的:}  \\
+  \vspace{0.20cm}
+  \textbf{Theorem:} \\
+    \[
+      A \cap (B \oplus C) = (A \cap B) \oplus (A \cap C)
+    \]
+
+    \vspace{0.30cm}
+    \textbf{tips:}
+    \begin{itemize}
+      \item $B \oplus C = (B - C) \cup (C - B)$
+      \vspace{0.20cm}
+      \item $A \cap (B - C) = (A \cap B) - (A \cap C)$
+    \end{itemize}
+
+  \textbf{\alert{练习:}}  \\
+  请问$\cup$关于$\oplus$是可分配的吗？
+}
+
+\frame
+{
+  \frametitle{集合运算律}
+  \textbf{5: 请解答如下与幂集相关的题目:}  \\
+  \vspace{0.30cm}
+  \textbf{tip:}  \\
+  概念清晰，区分$\in,\subseteq$。
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $A \subseteq B \Leftrightarrow P(A) \subseteq P(B)$ \scriptsize (课本$P_{100}$第36题 \& $P_{101}$第44题)
+
+    \vspace{0.25cm}
+    \item \normalsize $P(A) \cap P(B) = P(A \cap B)$ \scriptsize (课本$P_{101}$第45(1)题)
+
+    \vspace{0.25cm}
+    \item \normalsize 字母集合$\mid A \mid = n$,自然数集合$\mid B \mid = m$,求 $P(A) \cap P(B)$ \scriptsize (课本$P_{98}$第12(1)题)
+
+    \vspace{0.25cm}
+    \item \normalsize $P(\bigcap A_i) = \bigcap P(A_i)$ \scriptsize (2010年期中测试题)
+  \end{enumerate}
+}
+
+\subsection{Counting --- Principle of Inclusion-Exclusion}
+\frame
+{
+  \frametitle{容斥原理}
+  \textbf{6: 求Euler函数$\phi$:}\hyperlink{in-ex}{\beamergotobutton{Review}} \\
+  \hypertarget{problem}{}
+  \vspace{0.20cm}
+  \scriptsize ($P_{91}$例6.6,2001年期中测试题)
+  \normalsize
+  \[
+    n = p_1^{\alpha_1}p_2^{\alpha_2} \cdots p_k^{\alpha_k},
+  \]
+  \[
+    \phi(n) = n \prod_{i=1}^{k}(1- \frac{1}{p_k}).
+  \]
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Binary Relation}
+
+\frame
+{
+  \frametitle{有序对}
+  \textbf{7: 如何定义三元组(Optional)?} \\
+  \vspace{0.20cm}
+  \textbf{We have:}
+  \[
+    \langle x,y \rangle = \lbrace \lbrace x \rbrace,\lbrace x,y \rbrace \rbrace
+  \]
+  \textbf{then:}
+  \[
+    \langle x,y,z \rangle = \lbrace \lbrace x \rbrace, \lbrace x,y \rbrace, \lbrace x,y,z \rbrace \rbrace
+  \]
+
+  \vspace{0.40cm}
+  \textbf{\alert{Q: Is the definition OK?}}  \\
+  \textit{Tips: Consider $\langle x,y,x \rangle and \langle x,y,y \rangle$}  \\
+
+  \vspace{0.20cm}
+  \textbf{A: $\langle x_1,x_2,x_3 \rangle = \langle \langle x_1,x_2 \rangle ,x_3 \rangle.$}
+}
+
+
+\frame
+{
+  \frametitle{Operation over Binary Relation}
+  \textbf{8: 请证明如下运算性质:}  \\
+  \vspace{0.20cm}
+  $R_1 \subseteq A \times B, R_2 \subseteq A \times B$
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $(R_1 \cup R_2)^{-1} = R_1^{-1} \cup R_2^{-1}$  \scriptsize ($P_{132}$第20(1)题)
+    \normalsize
+    \vspace{0.30cm}
+    \item $(R_1 \cap R_2)^{-1} = R_1^{-1} \cap R_2^{-1}$  \scriptsize ($P_{132}$第20(2)题)
+    \normalsize
+    \vspace{0.30cm}
+    \item $(\sim R)^{-1} = \sim (R^{-1})$
+    \vspace{0.30cm}
+    \item $(R_1 - R_2)^{-1} = R_1^{-1} - R_2^{-1}$
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Properties of Binary Relation}
+
+  \textbf{9: 请证明如下命题: \scriptsize ($P_{118}$表7.2)}  \\
+  \vspace{0.20cm}
+  \normalsize
+  \[
+    R,S \textrm{ are symmetric, so are } R^{-1},R \cap S, R\cup S, \textrm{ and }R-S.
+  \]
+
+  \vspace{0.30cm}
+  \textbf{tips:}
+  \begin{itemize}
+    \item $R \textrm{ is symmetric } \Leftrightarrow R = R^{-1}.$
+    \item $(\sim R)^{-1} = \sim (R^{-1}).$
+    \item $(R_1 \cap R_2)^{-1} = R_1^{-1} \cap R_2^{-1}.$
+  \end{itemize}
+}
+
+\frame
+{
+  \frametitle{Equivalence Relation}
+  \textbf{10: 请证明如下定义的关系为等价关系，并给出商群。}
+  \vspace{0.20cm}
+  \begin{enumerate}
+    \item $\langle a,b \rangle \sim \langle c,d \rangle \Leftrightarrow a+d=b+c$ \\
+      (where $a < b, a,b \in N$)\scriptsize ($P_{133}$第36题,作业补充题)
+    \vspace{0.30cm}
+    \normalsize
+    \item $\langle a,b \rangle \sim \langle c,d \rangle \Leftrightarrow ad=bc$
+    \vspace{0.30cm}
+    \item $A=P(X),C \subseteq X, \forall x,y \in A, xRy \Leftrightarrow x \oplus y \subseteq C$ \scriptsize ($P_{133}$第32(5)题)
+  \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Equivalence Relation}
+
+  \textbf{11: Counting partitions on a set with $n$ elements(Optional)} \\
+  \vspace{0.30cm}
+
+  \begin{columns}
+
+  \column{0.40\textwidth}
+  \textcolor{red}{try:}  \\
+  \begin{itemize}
+    \item $\lbrace {n \atop 0} \rbrace = 0$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop 1} \rbrace = 1$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop 2} \rbrace = 2^{n-1}-1$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop n-1} \rbrace = {n \choose 2}$
+    \vspace{0.30cm}
+    \item $\lbrace {n \atop n} \rbrace = 1$
+  \end{itemize}
+
+
+  \column{0.60\textwidth}
+  \textcolor{red}{Recurrence relation:}  \\
+  \[
+    \lbrace {n \atop r} \rbrace = r \lbrace {n-1 \atop r} \rbrace + \lbrace {n-1 \atop r-1} \rbrace
+  \]
+
+  \end{columns}
+
+
+  \vspace{0.30cm}
+  \begin{center}
+  \textbf{Bell number:}
+  \end{center}
+  \[
+    B_n = \sum_{r=0}^{n} \lbrace {n \atop r} \rbrace (n \ge 1)
+  \]
+}
+
+
+\subsubsection{Closure}
+\frame
+{
+  \frametitle{Closure}
+
+    \textbf{复合闭包:}  \\
+    \vspace{0.20cm}
+    证明: $A \textrm{ is finite set,} R \subseteq A \times A \Rightarrow rt(R) = tr(R).$  \\
+    \vspace{0.20cm}
+    \textbf{提示:}  \\
+    $(I_A \cup R)^n = I_A \cup R \cup R^2 \cup \cdots \cup R^n = I_A \cup (\cup_{i=1}^{n}R^i)$  \\
+    \vspace{0.20cm}
+    \textbf{解答:}  \\
+
+  \normalsize
+    \begin{equation*}
+        \begin{array}{rcl}
+            tr(R) & = & t(I_A \cup R)  \\
+                  & = & \cup_{i=1}^{n}(I_A \cup R)^{i}  \\
+                  & = & (I_A \cup R) \cup (I_A \cup R)^2 \cup \cdots \cup (I_A \cup R)^n  \\
+                  & = & (I_A \cup R) \cup (I_A \cup (\cup_{i=1}^{2}R^i)) \cup \cdots \cup (I_A \cup (\cup_{i=1}^{n}R^i))  \\
+                  & = & I_A \cup R \cup R^2 \cup \cdots \cup R^n  \\
+                  & = & I_A \cup (\cup_{i=1}^{n}R^i)  \\
+                  & = & I_A \cup t(R)  \\
+                  & = & r(t(R))  \\
+                  & = & rt(R)
+        \end{array}
+    \end{equation*}
+}
+
+\frame
+{
+  \frametitle{Closure}
+
+    \textbf{复合闭包:}  \\
+    \vspace{0.20cm}
+    \textbf{证明}: $R \subseteq A \times A \Rightarrow st(R) \subseteq ts(R).$  \\
+    \vspace{0.40cm}
+    \textbf{解答:}  \\
+
+%  \normalsize
+    \begin{equation*}
+        \begin{array}{rcl}
+            R\subseteq s(R)
+                  & \Rightarrow & t(R) \subseteq t(s(R))  \\
+                  & \Rightarrow & st(R) \subseteq \textcolor{red}{sts(R) = ts(R)}
+        \end{array}
+    \end{equation*}
+
+    \vspace{0.30cm}
+    $s(R)[sym] \Rightarrow ts(R)[sym] \Rightarrow sts(R) = ts(R).$
+}
+
+
+\subsection{Function}
+
+\frame
+{
+  \frametitle{Function}
+
+    \textbf{概念辨析:}  \\
+    \begin{enumerate}
+      \setlength{\itemsep}{0.20cm}
+      \item $A = {\O}, B = {\O} \Rightarrow B^{A} = {\O}^{{\O}} = \lbrace {\O} \rbrace$
+      \item $A = {\O}, B \ne {\O} \Rightarrow B^{A} = B^{{\O}} = \lbrace {\O} \rbrace$
+      \item $A \ne {\O}, B = {\O} \Rightarrow B^{A} = {\O}^{A} = {\O}$
+    \end{enumerate}
+}
+
+\frame
+{
+  \frametitle{Function}
+
+  \begin{columns}
+  \column{0.5\textwidth}
+  \textbf{交集与并集的函数像:}  \\
+  \begin{enumerate}
+    \setlength{\itemsep}{0.40cm}
+    \item \textbf{$P_{162}\textrm{第12题}$}  \\
+      说明$f(A \cap B) = f(A) \cap f(B)$不是永远为真的。
+    \item 设$f: A \to B, B_1 \subseteq B.$试证明:  \\
+      $f(A \cap f^{-1}(B_1)) = f(A) \cap B_1.$
+  \end{enumerate}
+  \column{0.5\textwidth}
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.40]{figure/image}\\
+      %\caption{}\label{}
+    \end{figure}
+  \end{columns}
+}
+
+\frame
+{
+  \frametitle{Function}
+
+  \begin{columns}
+    \column{0.4\textwidth}
+      \textbf{企图证明$f(A \cap B) = f(A) \cap f(B)$:}
+      \vspace{0.40cm}
+      $y \in f(A \cap B)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow \exists x (x \in A \land x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow \exists x (x \in A \land xfy \land x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\textcolor{red}{\Leftrightarrow} \exists x (x \in A \land xfy) \land (x \in B \land xfy)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow y \in f(A) \land y \in f(B)$  \\
+      \vspace{0.20cm}
+      $\Leftrightarrow y \in (f(A) \cap f(B))$
+    \column{0.6\textwidth}
+    \textbf{$f(A \cap f^{-1}(B_1)) = f(A) \cap B_1.$}  \\
+    \begin{figure}
+      % Requires \usepackage{graphicx}
+      \includegraphics[scale=0.25]{figure/image_2}
+      %\caption{}\label{}
+    \end{figure}
+
+  \end{columns}
+}
+
+\subsection{Abstract Algebra}
+
+\frame
+{
+  \frametitle{Homomorphism and Isomorphism}
+\normalsize
+  \textbf{$P_{180} \textrm{第18题}$}  \\
+  \vspace{0.20cm}
+  $V_1 = \langle Z, +, \cdot \rangle,V_2 = \langle Z_n,\oplus,\otimes \rangle.$  \\
+    \vspace{0.20cm}
+  令$f:Z \to Z_n, f(x) = (x) \textrm{ mod } n.$  \\
+    \vspace{0.20cm}
+  证明,$f$为$V_1$到$V_2$的满同态映射。
+}
+
+
+
+\subsection{Concept of Group}
+
+\begin{frame}{$(U(m), \otimes_m$)}
+  \textbf{试证明:}  \\
+  设$m$是大于1的正整数,记 $U(m) = \lbrace a \in \mathbf{Z}_m \mid (a,m) = 1 \rbrace$,  \\
+  则$U(m)$关于$\otimes_m$的乘法构成群。
+
+  \vspace{0.20cm}
+  \textbf{举例:}  \\
+  \textcolor{gray}{
+  \[
+    U(15) = \lbrace 1,2,4,7,8,11,13,14 \rbrace
+  \]}
+
+  \vspace{0.20cm}
+
+  \textbf{数论知识:}  \\
+  在求元素$a \in U(m)$的逆元时，你可能会用到如下数论知识:  \\
+  \textcolor{blue}{$(a,m) = 1 \Leftrightarrow (\exists u,v \in \mathbf{Z})(au + mv = 1).$} 请说明,$u$即是$a$的逆元.  \\
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+
+  \begin{itemize}
+    \item \textcolor{red}{运算封闭性}
+    \item 结合律
+    \item 单位元($1 \in U(m)$)
+    \item \textcolor{red}{逆元($au+mv=1, a^{-1} = u.$)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{3-order Group}
+  \textbf{试证明:在同构意义下,3阶群只有一种结构，即3阶循环群。}  \\
+  \vspace{0.20cm}
+  \textbf{提示:}
+  \begin{itemize}
+    \item 使用群表。
+    \item 使用Lagrange Theorem。
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Order of ab}
+  \textcolor{gray}{一般不能由$a,b$的阶直接得到$ab$的阶。}  \\
+  \vspace{0.20cm}
+  \textbf{证明以下命题:}  \\
+  有限群$G$，$a,b \in G,\vert a \vert = n, \vert b \vert = m, \textcolor{red}{ab=ba} \land (n,m)=1 \Rightarrow \vert ab \vert = nm.$
+
+  \vspace{0.20cm}
+  \textbf{方法:}  \\
+  设$\vert ab \vert = r,$ 则需证:$(mn) \vert r$ 和 $r \vert (mn)$, 也即 $n \vert (rm), m \vert (rn), r \vert (mn)$.  \\
+  还记得关于元素阶的那个重要结论吗?  \\
+  \textcolor{blue}{$\vert a \vert = n, a^m = e \Leftrightarrow n \mid m$}  \\
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \vspace{0.20cm}
+
+  $a^{rm} = a^{rm} \cdot b^{rm} = (ab)^{rm} = e \Rightarrow n \vert (rm) \Rightarrow n \vert r.$  \\
+  $(ab)^{mn} = e.$
+\end{frame}
+-
+\subsection{Subgroup and Lagrange Theorem}
+\begin{frame}{Application of Lagrange Theorem}
+  \textbf{试证明Fermat小定理:}  \\
+  设$p$为素数,则对任意一个与$p$互素的整数$a$,有$a^{p-1} \equiv 1(\textrm{mod p}).$
+
+  \vspace{0.20cm}
+  \textbf{提示:}  \\
+  已证:
+  \textcolor{blue}{}{
+  \[
+    U(m) = \lbrace a \in \mathbf{Z}_m \mid (a,m) = 1 \rbrace
+  \]}
+  关于$\otimes_m$构成群。  \\
+  \textit{请思考: 当$m$为素数$p$时，$P_{190}$推论1意味着什么?}  \\
+  \vspace{0.40cm}
+  \textbf{解答:}  \\
+
+  当$m=p$为素数时，$U(p)$的阶为$p-1$.  \\
+  $a$与$p$互素,$\therefore a \in U(p) \Rightarrow a^{(p-1)} = e = 1$
+\end{frame}
+
+\begin{frame}{Application of Lagrange Theorem}
+  \textbf{试证明:在同构意义下,四阶群有且仅有两种.}  \\
+  对于每个四阶群$(G, \ast)$,  \\
+  $(G,\ast) \cong (Z_4,+_4) \textrm{ 或  } (G, \ast) \cong \textrm{ Klein 4-group}.$  \\
+  \vspace{0.20cm}
+  \textbf{提示:}  \\
+  使用Lagrange Theorem分析每个元素的可能的阶。
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+
+  设$G= \lbrace e, a, b, c \rbrace.$  \\
+  \begin{description}
+    \setlength{\itemsep}{0.20cm}
+  \item[Case 1:] $\vert a \vert = 4 \lor \vert b \vert = 4 \lor \vert c \vert = 4$  \\
+    $\Rightarrow G = \langle a \rangle \lor G = \langle b \rangle \lor G = \langle c \rangle.$  \\
+  \item[Case 2:] $\vert a \vert \neq 4 \lor \vert b \vert \neq 4 \lor \vert c \vert \neq 4$
+    $\Rightarrow \vert a \vert = 2 \lor \vert b \vert = 2 \lor \vert c \vert = 2.$
+  \end{description}
+
+  \vspace{0.20cm}
+
+  \textcolor{red}{Q: $\vert G \vert \leq 6 ?$}
+\end{frame}
+
+\subsection{Cyclic Group}
+
+\begin{frame}{n-th Root of Unity}
+  \textbf{试证明:}  \\
+  全体$n$次单位根组成的集合  \\
+	$U_n = \lbrace x \in \mathbf{C} \mid x^n = 1 \rbrace = \lbrace \cos \frac{2k
+	\pi}{n} + \mathbf{i} \sin \frac{2k \pi}{n} \mid k = 0,1,2, \cdots, n-1
+	\rbrace$  \\
+  关于数的乘法构成$n$阶循环群{\tiny ($P_{202}(6)$)}.  \\
+  并求$U_n$的所有生成元.
+  \vspace{0.20cm}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.60]{figure/6root.png}
+		\end{center}
+	  \end{figure}
+    \column{0.50\textwidth}
+      \textbf{解答:}  \\
+
+      \begin{enumerate}
+        \item \textcolor{gray}{复数乘法的几何意义.}
+        \item \textcolor{blue}{先说明$U_n$构成群.}
+        \item 令$\omega = \cos \frac {2\pi}{n} + i \sin \frac {2 \pi}{n}$,  \\
+          则$U_n = \langle \omega \rangle = \lbrace 1, \omega, \omega^2, \cdots, \omega^{n-1} \rbrace.$
+        \item $(k,n) = 1, \omega^k$为生成元.
+      \end{enumerate}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Cyclic Grooup}
+  设$f$为群$(G, \ast)$到群$(H, \circ)$的满同态,  \\
+  证明: 若$G$为循环群，则$H$亦为循环群 {\tiny ($P_{204}(27)$}。
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+
+  令$G = \langle a \rangle$,则
+  \[
+    H = f(G) = f(\langle a \rangle) = \lbrace f(a^n) \mid n \in Z \rbrace = \lbrace (f(a))^n \mid n \in Z \rbrace =
+    \langle f(a) \rangle.
+  \]
+\end{frame}
+
+
+
+\subsection{Permutation Group}
+\begin{frame}{Permutation Group}
+  \textbf{试证明:}  \\
+  { \scriptsize
+  \begin{displaymath}
+    \tau = \left( \begin{array}{cccc}
+        1 	& 2 	& \cdots & n  \\
+        k_1 & k_2 	& \cdots & k_n
+      \end{array}\right).
+  \end{displaymath}
+  则对任一$n$阶置换$\sigma$,有
+  \begin{displaymath}
+    \sigma^{-1} \tau \sigma = \left( \begin{array}{cccc}
+        \sigma(1) 	& \sigma(2) 	& \cdots & \sigma(n)  \\
+        \sigma(k_1) & \sigma(k_2) 	& \cdots & \sigma(k_n)
+      \end{array}\right).
+  \end{displaymath}
+  }
+
+  \textbf{解答:}
+  置换是函数。如何证明函数相等?  \\
+
+  \vspace{0.30cm}
+
+  \textcolor{blue}{Q: What if $\tau = (a_1, a_2, \cdots, a_k)$?}
+\end{frame}
+
+\begin{frame}{Permuation Group}
+  \textbf{试验证:}  \\
+  { \scriptsize
+    $(i_k a \cdots b), (i_n c \cdots d) \textrm{不相交},$则
+  \[
+    (i_k ,i_n)(i_k, a ,\cdots ,b)(i_n ,c ,\cdots ,d) = (i_k ,a, \cdots ,b ,i_n ,c ,\cdots ,d).
+  \]
+  \[
+    (i_k ,i_n)(i_k ,a ,\cdots, b, i_n, c ,\cdots, d) = (i_k, a ,\cdots, b)(i_n, c ,\cdots ,d).
+  \]
+  }
+
+  \vspace{0.30cm}
+
+  \emph{简单介绍另一种``置换可表为不相交轮换之积''的证明方法。}
+\end{frame}
+
+\begin{frame}{Permutation Group}
+  已知$\sigma^3 = (1 ,4 ,3 ,7 ,5 ,6 ,2)$,求$\sigma$.  \\
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+
+  $\sigma = (1,6,7,4,2,5,3).$
+
+\end{frame}
+
+
+
+\subsection{Normal Subgroup and Quotient Group}
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+在$S_4$中，令
+\[
+  K = \lbrace (1),(1,2)(3,4),(1,3)(2,4),(1,4)(2,3) \rbrace.
+\]
+$K$是$S_4$的正规子群.
+
+\vspace{0.20cm}
+\textbf{提示:}  \\
+\scriptsize{
+  \begin{displaymath}
+    \sigma^{-1} \tau \sigma = \left( \begin{array}{cccc}
+        \sigma(1) 	& \sigma(2) 	& \cdots & \sigma(n)  \\
+        \sigma(k_1) & \sigma(k_2) 	& \cdots & \sigma(k_n)
+      \end{array}\right).
+  \end{displaymath}}
+
+\end{frame}
+
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+  设$H,K$都是$G$的子群。如果$H \triangleleft G$且$H \subseteq K$, 则$H \triangleleft K$。
+\end{frame}
+
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+	  \[
+	    \sigma: G \to G', \textrm{为同态映射, } H \leq G, K \leq G'.
+	  \]
+	  \begin{enumerate}
+	    \setlength{\itemsep}{0.20cm}
+	    \item $\sigma(H)$是$G'$的子群.
+	    \item $\sigma^{-1}(K)$是$G$的子群.
+	    \item 如果$H$是$G$的正规子群，则$\sigma(H)$是$\sigma(G)$的正规子群.
+	    \item 如果$K$是$G'$的正规子群，则$\sigma^{-1}(K)$是$G$的正规子群.
+	    \item $Ker \sigma$是$G$的正规子群.
+	  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+  设$G$为群，$H_1,H_2$为$G$的正规子群。则  \\
+  $H_1 \cap H_2, H_1H_2$ 都是$G$的正规子群。
+
+  \vspace{0.30cm}
+  \textcolor{blue}{Q: 如果$H, K \leq G, \neg(H,K \triangleleft G) ? $}
+
+\end{frame}
+
+
+\subsection{Fundamental Theorem over Homomorphism}
+\begin{frame}{Fundamental Theorem over Homomorphism}
+  \begin{quote}
+    应用(apply)群同态基本定理证明与商群相关的同构关系的例题，请参见文件《离散数学习题解析 第八周》。
+    该文件已上传至教学网站。
+  \end{quote}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{CJK*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

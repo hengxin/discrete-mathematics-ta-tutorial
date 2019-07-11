@@ -1,0 +1,207 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+%%%%%%%%%%
+%\input{format}
+%insert macros here to avoid loading my own format file
+%Author : Zhu Yin @ Nanjing University
+\newtheoremstyle{problem}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{problem}
+\newtheorem{problem}{ }
+
+\newtheoremstyle{solution}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{solution}
+\newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{CJK*}{GBK}{com}
+\title{2010级计算机《离散数学》期中考试试卷}
+\author{南京大学计算机科学与技术系}
+\date{May. 05, 2010}
+
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{集合代数}}
+
+  试给出集合等式$(A-C) \cup B = A \cup B$成立的充分必要条件并证明之.
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+\begin{problem}{\textbf{格}}
+
+  试证明: 有界分配格$L$中所有存在补元的元素之集合构成$L$的子格.
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+\begin{problem}{\textbf{布尔代数}}
+
+  三人裁判小组，$A$有否决权; 在$A$不行使否决权时则按简单多数决定结果.试设计该表决器的逻辑电路并简化之.
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+\begin{problem}{集合开放问题}
+
+  请构思一道有关容斥原理的计算题，并给出解答.
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+
+
+\begin{problem}{\textbf{置换群}}
+
+  设按升序排列的13张扑克牌(只考虑点值，不考虑花色)
+  \[
+    A,2,3,4,5,6,7,8,9,10,J,Q,K
+  \]
+  经2次同样方式的洗牌后，牌的顺序变成
+  \[
+    6,10,A,Q,9,K,J,7,4,8,3,2,5
+  \]
+  \begin{enumerate}
+    \item 请给出第一次洗牌后的顺序.
+    \item 按照同样的方式洗牌若干次，能否洗回最初的升序排列?
+  \end{enumerate}
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+\begin{problem}{\textbf{集合的基数}}
+  设$A,B,C$为集合,$A \cap B = A \cap C = \emptyset \land B \approx C.$ 试证明: $A \cup B \approx A \cup C.$
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+
+\begin{problem}{\textbf{群论}}
+
+    给定集合$S$，$P(S)$表示集合$S$的幂集.
+
+    定义$G = \langle P(S),\ast \rangle$,其中$\ast$为二元运算，其定义为
+    \[
+      A \ast B = (A \cup B) - (A \cap B).
+    \]
+    \begin{enumerate}
+        \item
+          请证明$G = (P(S), \ast)$构成群.
+        \item
+          考虑自然数的幂集，即当$S = N$，解如下方程
+          \[
+            \set{1,2,4} \ast X = \set{3,4}
+          \]
+          (其中$X$为未知数.)
+    \end{enumerate}
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{等价关系}}
+
+  设$\sigma$为一个$n$阶置换,集合$X = \set{1,2,\cdots,n}$.在$X$中，定义关系$\sim$为
+  \[
+    k \sim l \Leftrightarrow \exists r \in \mathbf{Z}, \sigma^{r}(k) = l.
+  \]
+
+  \begin{enumerate}
+    \item 证明: $\sim$是$X$上的等价关系.
+    \item 证明: $k \sim l$的充分必要条件是$k$与$l$属于$\sigma$的同一个轮换.
+%     \item 对于置换
+% 	  \begin{displaymath}
+% 	    \sigma = \left( \begin{array}{cccccccccc}
+% 	        1 	& 2 	& 3 & 4  & 5 & 6 & 7 & 8 & 9 & 10  \\
+% 	        3 & 2 & 6 & 8 & 9 & 1 & 7 & 10 & 4 & 5
+% 	      \end{array}\right).
+% 	  \end{displaymath}
+% 	  试确定集合$X = \set{1,2,\cdots,10}$的所有等价类.
+  \end{enumerate}
+
+  \begin{solution}
+
+  \end{solution}
+\end{problem}
+
+
+\begin{problem}{\textbf{容斥原理}}
+
+    给定集合$\set{1,2,\cdots,2n}(n \in N^+)$($N^+$表示正整数集合)，如果它的某个排列$\pi = \set{x_1,x_2,\cdots,x_{2n}}$
+    满足条件
+    \[
+      \exists i \in \set{1,2,\cdots,2n-1}. (\vert x_i - x_{i+1} \vert = n),
+    \]
+    则称该排列具有性质$P$.
+
+    \begin{enumerate}
+      \item 试使用容斥原理给出具有性质$P$的排列的个数(\emph(可以不给出最简式)).
+      \item 若已知有关容斥原理的命题\ref{in-ex}成立，请证明对于任意$n$，具有性质$P$的排列的个数比不具有性质$P$的排列的个数要多。
+
+        \begin{align}  \label{in-ex}
+          \textrm{对于有限集合 }S_1,S_2,\cdots,S_n, \vert \cup_{1 \leq i \leq n} S_i \vert \geq \Sigma_{1 \leq i \leq n} \vert
+          S_i \vert - \Sigma_{1 \leq i < j \leq n} \vert S_i \cap S_j \vert.
+        \end{align}
+    \end{enumerate}
+\end{problem}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{CJK*}
+\end{document}

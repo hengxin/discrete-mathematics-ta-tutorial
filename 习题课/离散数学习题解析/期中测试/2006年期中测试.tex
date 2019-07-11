@@ -1,0 +1,126 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+%%%%%%%%%%
+%\input{format}
+%insert macros here to avoid loading my own format file
+%Author : Zhu Yin @ Nanjing University
+\newtheoremstyle{problem}% name
+  {15pt}%      Space above, empty = `usual value'
+  {15pt}%      Space below
+  {}% Body font
+  {}%         Indent amount (empty = no indent, \parindent = para indent)
+  {\bfseries}% Thm head font
+  {}%        Punctuation after thm head
+  {5pt}% Space after thm head: \newline = linebreak
+  {}%         Thm head spec
+\theoremstyle{problem}
+\newtheorem{problem}{ }
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{CJK*}{GBK}{com}
+\title{05级计算机《离散数学》期中考试试卷}
+\author{南京大学计算机科学与技术系}
+\date{Apr. 21, 2006}
+\begin{document}
+\maketitle
+
+
+\begin{problem}{15pts}
+
+    $A,B,C$~为任意集合。判断下列等式是否成立，给出证明或给出反例：
+    \begin{compactenum}
+        \item
+        $C\cap(A\oplus B) = (C\cap A)\oplus (C\cap B)$
+        \item
+        $C\cup(A\oplus B) = (C\cup A)\oplus (C\cup B)$
+    \end{compactenum}
+
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $\N$~是自然数集。在~$\N\times\N$~上定义关系~$R$~如下：
+    \begin{displaymath}
+        \pair{j,k} \textrm{~R~} \pair{m,n} \textrm{~当且仅当~}
+        \max(j,k) = \max(m,n)
+    \end{displaymath}
+    \begin{compactenum}
+        \item
+            证明~$R$~是等价关系。
+        \item
+            写出其等价类的一般形式。
+        \item
+            是否存在两个不同的等价类等势？说出理由。
+        \item
+            证明：$\N\times\N/R$~与自然数集等势。
+    \end{compactenum}
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $X$~是至少含两个元素的集合。$X' =
+    \rho(X)-\set{\emptyset}-\set{X}$。
+    \begin{compactenum}
+        \item
+            偏序集~$(X',\subseteq)$~是否有最大元，最小元？
+        \item
+            求：偏序集~$(X',\subseteq)$~的所有极小元的集合
+            ~$X_{\min}$，所有极大元的集合~$X_{\max}$。
+        \item
+            证明：$X_{\min}$~与~$X$~等势。
+    \end{compactenum}
+\end{problem}
+
+\begin{problem}{15pts}
+
+    给定函数~$f:A\to B$，若~$Y\subseteq B$，定义~$f^1(Y) =
+    \set{x~|~~x\in A, f(x)\in Y}$。证明：对~$B$~的任意非空
+    子集~$Y$，$f^1(Y)$~非空的充分必要条件是~$f$~是满射。
+\end{problem}
+
+
+\begin{problem}{15pts}
+
+    证明：随于任意正整数~$n$，模~$n$~的整数加群~$(\Z_n,+_n)$~
+    是整数加群~$(\Z,+)$~的商群。
+\end{problem}
+
+\begin{problem}{15pts}
+
+    $G$~是奇数阶有限群。证明：对任意~$x\in G$，存在唯一的
+    ~$y\in G$，满足：$x = y^2$。
+\end{problem}
+
+
+\begin{problem}{10pts}
+
+    用~$1,2,3$~三个数字组成~$n(n\ge
+    3)$~位数，数字可以重复，且在每个~$n$~位数中每个数字至少出现
+    一次。利用容斥原理求满足上述条件的~$n$~位数有多少个。
+\end{problem}
+
+\HandPencilLeft Compiled by zhuyin.nju@gmail.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{CJK*}
+\end{document}

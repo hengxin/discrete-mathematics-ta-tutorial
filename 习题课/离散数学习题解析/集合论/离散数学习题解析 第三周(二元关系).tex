@@ -1,0 +1,189 @@
+%=========================================================================
+\documentclass[a4paper]{ctexbook}
+
+%
+\usepackage{graphicx}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{color}
+\usepackage{amsmath}
+\numberwithin{algorithm}{chapter}
+\usepackage{latexsym}
+\usepackage{amssymb}
+
+%\usepackage{ctex}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}[theorem]{Remark}
+
+\setcounter{topnumber}{1}
+
+%-------------------------------------------------------------------------
+\begin{document}
+
+\title{\Huge \bf 离散数学\\ \ \\ {\it \Large Discrete Mathematical Structures} \\ {\it \Large Lecture on Exercises}}
+
+\author{\bf \Large 魏 \ \ 恒 \ \ 峰 \\ hengxin0912@gmail.com}
+
+\maketitle
+
+\thispagestyle{empty}
+
+%--------------------------------------
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{习题7 二元关系}
+
+\section{习题解析}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+\item \textbf{3(2): 该等式是否成立?}  \\
+\[
+  (A-B) \times (C-D) = (A \times C) - (B \times D)
+\]
+
+\textbf{解答:}  \\
+该等式不成立。以下集合可以用于证伪该命题：
+\[
+  A = \lbrace 1 \rbrace, B = \lbrace 1,2 \rbrace, C = \lbrace 2 \rbrace, D = \lbrace 3 \rbrace.
+\]
+\textbf{常见错误:}
+有些同学试图通过如下过程证明该等式的正确性:
+\begin{center}
+  $\forall \langle x,y \rangle \in (A-B) \times (C-D)$  \\
+  $\Leftrightarrow x \in A \land x \notin B \land y \in C \land y \notin D$  \\
+  $\Leftrightarrow (x \in A \land y \in C) \land (x \notin B \land y \notin D)$  \\
+  \textcolor{red}{$\Leftrightarrow \langle x,y \rangle \in (A \times C) \land \neg (\langle x,y \rangle \in (B \times D))$}  \\
+  $\Leftrightarrow \langle x,y \rangle \in (A \times C) - (B \times D)$
+\end{center}
+该证明的错误部分已经用红色高亮显示。
+
+\[
+  \langle x,y \rangle \in (B \times D) \Leftrightarrow x \in B \land y \in D.
+\]
+的否定形式应为:
+\begin{center}
+  $\langle x,y \rangle \notin (B \times D)$
+  $\Leftrightarrow (x \notin B \land y \notin D) \lor (x \in B \land y \notin D) \lor (x \notin B \land y \in D)$
+\end{center}
+
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{10(1): $\langle 0,0 \rangle$也满足条件.}  \\
+\textbf{说明:}  \\
+\[
+  \langle 0,0 \rangle \in S.
+\]
+
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item \textbf{18: 证明定理7.4(4).}
+\[
+  (G \cap H) \circ F \subseteq G \circ F \cap H \circ F.
+\]
+
+\textbf{解答:}
+我们以课本$P_{109}$定理7.4(3)的证明为例加以说明。7.4(4)的证明与其如出一辙，此处不再赘述。
+
+我们注意到$\circ$运算对于$\cap$运算不具有分配率，其根本原因可以从7.4(3)的证明过程中得出。
+证明过程第四行的$\Rightarrow$表明:
+\[
+  \exists t(\langle x,t \rangle \in F \land \langle t,y \rangle \in G) \land \exists t(\langle x,t \rangle \in F \land t,y \in H)
+\]
+推导不出
+\[
+  \exists t (( \langle x,t \rangle \in F \land \langle t,y \rangle \in G) \land ( \langle x,t \rangle \in F \land t,y \in H))
+\]
+这是因为当两个$\exists t$不是同一个$t$值时，就不能将$\exists t$提取出来(就像提取共因式那样)。
+而对于定理7.4的前两个命题则不存在该问题，因为对于$\cup$而言，类似的上述两式是等价的。当两个$\exists t$不相同时，我们可以任选其中之一，而保证推导是等价的。
+请同学们仔细体会其间的区别。另外，大家也可以尝试举出反例，进一步加深理解。
+
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{20: 规范而严谨的证明风格}  \\
+
+\textbf{说明:}
+本题的证明并不困难，但是有些同学的证明过程不够严谨和规范。这通常并不意味着你的证明有误，
+但一个糟糕的证明过程却可能说明你对基本概念的理解不够深刻。
+
+作业中表现出来的不太好的证明通常具有以下特征：
+\begin{enumerate}
+  \item $\because,\therefore$与$\Leftrightarrow$混用。
+  \item 自然语言与符号推理混用。
+  \item $\Leftrightarrow$与$\Rightarrow$使用错误。
+\end{enumerate}
+建议：
+\begin{enumerate}
+  \item 在证明充要条件时，若对于充分条件和必要条件的证明类似(步步可逆)，则建议使用$\Leftrightarrow$来统一
+    这两个方向的证明。
+\end{enumerate}
+\qed
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{32(3): 判断$R$是否为$A$上等价关系.}  \\
+
+\textbf{解答:}  \\
+$xRy \Leftrightarrow xy \textrm{ 是奇数}$ 该关系不是正整数集上的等价关系。
+它不满足自反性。
+
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{32(5): 判断$R$是否为$A$上等价关系.}  \\
+
+\textbf{解答:}  \\
+\[ 
+  A = P(X), C \subseteq X, \forall x,y \in A, xRy \Leftrightarrow x \oplus y \subseteq C.
+\]
+是等价关系。 
+
+自反性和对称性易见，下证传递性。\\
+$\forall xRyRz, x \oplus z = x \oplus (y \oplus y) \oplus z = (x \oplus y) \oplus (y \oplus z) \subseteq C.$
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\item \textbf{39: 证明}  \\
+
+\textbf{解答:}
+\begin{enumerate}
+  \item 充分性
+    \begin{enumerate}
+      \item 自反性。已知。
+      \item 对称性。$\langle x,y \rangle \in R \Rightarrow \langle x,y \rangle \in R \land \langle x,x \rangle \Rightarrow \langle y,x \rangle \in R$(本证明过程使用了自反性和已知条件)
+      \item 传递性。$\langle x,y \rangle \in R \land \langle y,z \rangle \in R \Rightarrow \langle y,x \rangle \in R \land \langle y,z \rangle \in R \Rightarrow \langle x,z \rangle \in R$(本证明过程中使用了对称性和已知条件)
+    \end{enumerate}
+  \item 必要性 $\langle a,b \rangle \in R \land \langle a,c \rangle R \Rightarrow \langle b,a \rangle \in R \land \langle a,c \rangle \in R \Rightarrow \langle b,c \rangle \in R.$(对称性和传递性)
+\end{enumerate}
+
+在本题的证明过程中，要分清哪些是已知条件，哪些是待证命题。
+
+\qed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document} 

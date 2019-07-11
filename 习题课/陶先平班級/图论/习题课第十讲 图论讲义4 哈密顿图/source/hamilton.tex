@@ -1,0 +1,309 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(4) 哈密顿图(Hamiltonian Graph)}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special Topics}
+
+\subsection{Hamiltonian Graph}
+\begin{definition}{哈密顿图}  \label{def:hamilton}
+
+  经过图$G$中所有点恰一次的通路称为$G$的哈密顿通路.
+  
+  经过图$G$中所有点恰一次的回路称为$G$的哈密顿回路.
+\end{definition}
+
+和欧拉图的情况不同,对于哈密顿图,人们至今仍未找到便于判断的充要条件.在这种现状下,我们主要研究以下三点:
+\begin{enumerate}
+  \item 研究某些特殊类型的图是否是哈密顿图.
+  \item 给出哈密顿图的某些必要条件.必要条件可以用来确定某个图\emph{不是}哈密顿图.
+  \item 给出哈密顿图的某些充分条件.充分条件可以用来确定某个图\emph{是}哈密顿图.
+\end{enumerate}
+
+\begin{remark}{哈密顿回路的一些特点}  \label{remark:hcycle}
+若某图$G$是哈密顿图,则其哈密顿回路是原图$G$的一个生成子图.
+
+在哈密顿回路中,原图的每个顶点都用去了两度.所以,如果图$G$
+中存在顶点$v,deg(v)=2$,那么该顶点的两条边必然在哈密顿回路中.使用该条件,
+我们可以判断某些简单的图不是哈密顿图\ref{example:non_hamilton}.
+
+哈密顿回路不含有比其小的圈作为子图.
+\end{remark}
+
+\begin{example}{非哈密顿图}  \label{example:non_hamilton}
+
+  请说明图\ref{fig:non_hamilton}不是哈密顿图.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.6]{figure/non_hamilton}
+	  \caption[labelInTOC]{非哈密顿图}
+	  \label{fig:non_hamilton}
+	\end{center}
+	\end{figure}
+\end{example}
+
+\begin{theorem}{Petersen图不是哈密顿图}  \label{thm:petersen}
+
+  Peterson图不是哈密顿图.
+\end{theorem}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/Petersen_1}
+	  \caption[labelInTOC]{Peterson图不是哈密顿图}
+	  \label{fig:petersen}
+	\end{center}
+	\end{figure}
+	
+\begin{proof}{Petersen图不是哈密顿图}  \label{proof:petersen}
+
+  \textbf{使用反证法.}
+  
+  我们先给Petersen图一些记号.我们采用如图\ref{fig:petersen}所示的方式标记Petersen图的顶点.
+  用$C'$表示外部的圈$u_1,u_2,u_3,u_4,u_5$,用$C''$表示内部的圈$v_1,v_2,v_3,v_4,v_5$.
+  当然,连接外部和内部圈相应顶点的边为$u_i v_i$.
+  
+  反设Petersen图是哈密顿图，则其有哈密顿回路$C$.回路$C$包含10条边.$u_i v_i$边共有5条.所以,至少还有5条边属于
+  $C'$或$C''$.根据鸽笼原理,不妨设$C$中至少包含$C'$中的3条边.又因为$C$中不可能含有$C'$中的全部的5条边($C$不应当
+  包含子圈),所以$C$中只可能包含$C'$中的3条边或者4条边.
+  
+  \begin{description}
+    \item [Case 1:] 如果$C$中恰包含$C'$中的4条边.根据对称性,不妨设这四条边为$u_4u_5, u_5u_1, u_1u_2,
+    u_2u_3$,.则连接外部和内部圈的边$u_5v_5,u_1v_1,u_2v_2$不属于$C$(因为每个顶点只能有两条边属于$C$),
+    如图\ref{fig:Case 1(a)}.
+    则边$u_4v_4,u_3v_3,v_1v_3,v_1v_4$属于$C$(因为每个顶点必有两条边属于$C$),如图\ref{fig:Case
+    1(b)}.但是,这意味着$C$包含了一个 大小为8的圈.矛盾(哈密顿回路不可能包含子圈).
+    \item [Case 2:] 如果$C$中恰包含$C'$中的3条边.
+      \begin{description}
+        \item[Subcase 1:] 这3条边在$C'$中相邻. 如图\ref{fig:Case 2(a)}
+        所示,$C$包含$C'$中的3条边$u_4u_5,u_3u_4,u_2u_3$.
+        这导致最多只有一条边($u_1v_1$)与顶点$u_1$关联.矛盾.
+        \item[Subcase 2:] 这3条边在$C'$中不相邻. 如图\ref{fig:Case 2(b)}
+        所示,$C$包含$C'$中的3条边$u_5u_1,u_1u_2,u_3u_4$.则$u_4v_4,u_3v_3,v_1v_4,v_1v_3$必包含于$C$,但是
+        这四条边构成了一个大小为4的圈. 矛盾.
+      \end{description}
+  \end{description}
+\end{proof}
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen4(a)}
+	  \caption[labelInTOC]{Case 1(a)}
+	  \label{fig:Case 1(a)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen4(b)}
+	  \caption[labelInTOC]{Case 1(b)}
+	  \label{fig:Case 1(b)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen3(a)}
+	  \caption[labelInTOC]{Case 2(a)}
+	  \label{fig:Case 2(a)}
+	\end{center}
+	\end{figure}
+	
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.3]{figure/Petersen3(b)}
+	  \caption[labelInTOC]{Case 2(b)}
+	  \label{fig:Case 2(b)}
+	\end{center}
+	\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tournaments}  \label{subsection:tournament}
+
+\begin{definition}{\textbf{竞赛图(tournament)}}  \label{definition:tournament}
+
+  底图是完全图的有向图是竞赛图.
+\end{definition}
+
+\begin{remark}{\textbf{竞赛图(tournament)}}  \label{remark:tournament}
+
+  之所以称为竞赛题,是因为我们可以用比赛的术语来描述该类图.竞赛图建模了循环赛(round-robin),在该种赛制中,每两个参赛队员之间都要
+进行一场且仅一场比赛.底图是完全图$K_n$是显然的.如果队员$x$赢得了与队员$y$的比赛,则有向边$(x,y) \in E(K_n)$.
+
+  在课堂上,我们学习了根据竞赛图给各个队员排名.最简单的一种排名方式是按照队员相对应的顶点的出度(outdegree)的大小排名.
+  由于具有最大出度的顶点很可能不止一个,如图\ref{fig:tournament}所示,所以可能没有明显的第一名.但是,尽管如此,我们却可以找到这样
+  的一个队员$x$:
+  对于其他所有队员$z$,要么$x$赢得了与$z$的比赛,要么$x$赢得了与$y$的比赛而$y$赢得了与$z$的比赛．我们把这样的队员称为
+  ``king'' !
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/tournament}
+	  \caption[labelInTOC]{tournament with many vertices holding maximum outdegree}
+	  \label{fig:tournament}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+\begin{definition}{\textbf{king}}  \label{definition:king}
+
+  在有向图中(该定义不局限于竞赛图),king 指的是顶点$x$,如果其它所有的顶点都可从$x$通过长度不大于2的路径(path)可达.
+\end{definition}
+
+我们以习题的形式给出关于``竞赛图中必定含有king''的定理.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Set}
+\begin{problem}{\textbf{$P_{306}$(15)}}  \label{ps:material}
+
+  某工厂生产由6种颜色的纱织成的双色布.已知在一批双色布中,每种颜色至少与其他3种颜色相搭配.证明可以从这批双色布
+  中挑出3种,它们由6种不同颜色的纱织成.
+\end{problem}
+*******************************************************************
+\begin{problem}{\textbf{竞赛图中必有 king}}  \label{ps:king}
+
+  证明:竞赛图中必有 king.
+\end{problem}
+
+\begin{solution}{\textbf{竞赛图中必有 king}}  \label{solution:king}
+  
+  证明过程可以使用图 来说明.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/king_proof}
+	  \caption[labelInTOC]{proof of king}
+	  \label{fig:king_proof}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+\begin{remark}{\textbf{竞赛图中必有 king}}  \label{remark:king}
+
+  该定理的证明过程实际上隐含了``求竞赛图中的king''的算法.请仔细体会.
+  
+  该定理的证明过程在图论中是比较有代表性的,即以某种方式将问题推到``绝境'',``迫使''具有某种特性的对象出现.也请仔细体会.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application and Extension}
+
+\end{document}
+
+

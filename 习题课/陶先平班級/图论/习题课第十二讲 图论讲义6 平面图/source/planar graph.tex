@@ -1,0 +1,289 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(6) 平面图(Planar Graphs)}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Special Topics}
+
+\subsection{Planar Graphs}
+\begin{definition}{\textbf{平面图}}  \label{definition:planar}
+
+  存在\emph{平面嵌入}的无向图称为平面图.
+\end{definition}
+
+$K_5,K_{3,3}$均为非平面图,参见习题\ref{ps:k5_k33}.
+
+\begin{definition}{\textbf{对偶图}}  \label{definition:dual}
+
+  
+\end{definition}
+
+\begin{remark}{\textbf{对偶图}}  \label{remark:dual}
+
+  我们知道某平面图可能有几种不同的平面嵌入.同一平面图的不同平面嵌入可能会产生不同构的对偶图,
+  如 所示(教材中亦有类似图例).但是,如果平面图$G$是连通的,则$(G^{\star})^{\star} \cong G$.
+\end{remark}
+
+\begin{theorem}{\textbf{对偶图的对偶图}}  \label{thm:dual_dual}
+
+  如果平面图$G$是连通的,则$(G^{\star})^{\star} \cong G$.
+\end{theorem}
+
+\begin{proof}{\textbf{对偶图的对偶图}}  \label{proof:dual_dual}
+
+  我们只给出证明的思路和证明的要点提示.
+  \begin{enumerate}
+    \item 平面图$G$(不论是否为连通图)的对偶图$G^{\star}$是连通图.(提示:考虑$G^{\star}$中顶点的构造.)
+    \item 如果$G$是连通图,则$G^{\star}$的每一个面(face)都包含且仅包含$G$的一个顶点.
+    \item 综合以上两点,即可证明 $(G^{\star})^{\star} \cong G \iff G \textrm{ is
+    connected}$.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{\textbf{对偶图的对偶图}}  \label{remark:dual_dual}
+
+  如果将``求对偶''看作一种运算,那么定理 \ref{thm:dual_dual} 则说明连续进行两次该操作会得到原对象.
+  这便是对偶一词的由来.$G$与其对偶图$G^{\star}$之间存在多处对偶关系,比如
+  \begin{enumerate}
+    \item 环(loop) $\leftrightarrow$ 桥(bridge)
+    \item $n^{\star} = r; m^{\star} = m; r^{\star} = n$
+    \item 圈(cycle) $\leftrightarrow$ 极小边割集(minimal edge cut),
+    见习题\ref{ps:cycle_bond_dual}.
+  \end{enumerate}
+\end{remark}
+
+下面直接给出平面图的判定定理,其证明比较复杂,不做介绍.有兴趣的同学可以查看 Douglas B.West 所著 ``Introduction to Graph
+Theory''.
+\begin{theorem}{\textbf{平面图判定定理(Kuratowski theorem)}}  \label{thm:kuratowski}
+
+  图$G$是平面图 $\iff$ $G$中既不含与$K_5$同胚的子图,也不含与$K_{3,3}$同胚的子图 $\iff$
+  $G$中既没有可以收缩到$K_5$的子图,也没有可以收缩到$K_{3,3}$的子图.
+\end{theorem}
+
+\begin{remark}{\textbf{平面图判定定理(Kuratowski theorem)}}  \label{thm:kuratowski}
+
+  Kasimir Kuratowski 有一次问 Frank Harary(图论先驱) $K_5,K_{3,3}$ 记号的由来,Harary
+  回答说,$K_5$中的$K$表示 Kasimir, $K_{3,3}$中的$K$表示 Kuratowski.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Euler's Formula}  \label{subsection:euler_formula}
+
+\begin{theorem}{\textbf{欧拉公式(Euler's formula)}}  \label{thm:euler_formula}
+
+  $n$顶点,$e$条边,$f$个面的\emph{连通平面图}$G$满足公式:
+  \[
+   n - e + f = 2.
+  \]
+\end{theorem}
+
+\begin{remark}{\textbf{欧拉公式(Euler's formula)}}  \label{remark:euler_formula}
+
+  欧拉公式是平面图中计数的基本工具.
+  
+  欧拉公式在多面体上的示例如图\ref{fig:euler_formula}所示.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/euler_formula}
+	  \caption[labelInTOC]{Euler's formula}
+	  \label{fig:euler_formula}
+	\end{center}
+	\end{figure}
+\end{remark}
+
+根据欧拉公式可以推导出极大平面图的一些特征.教材中已经给出,这里只是整理出这些结论.
+\begin{proposition}{\textbf{极大平面图(maximal planar graph)}} \label{prop:mpg}
+
+  对于$n$阶的简单平面图$G$,以下三点等价:
+  \begin{enumerate}
+    \item $m = 3n-6$;
+    \item $G$ 的每个面$f$的长度都为3(该特点也称为 triangulation);
+    \item $G$ 是极大平面图.
+  \end{enumerate}
+\end{proposition}
+
+由欧拉公式推导的一个重要结论是,正多面体(regular polyhedra)有且仅有五种!
+所谓正多面体,是指它的所有面都是边数相等的正多边形,而且每个顶点所我们将该定理留作习题,见习题 .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Set}
+
+\begin{problem}{\textbf{$K_5,K_{3,3}$均为非平面图}}  \label{ps:k5_k33}
+
+  证明:$K_5,K_{3,3}$均为非平面图.
+\end{problem}
+
+\begin{solution}{\textbf{$K_5,K_{3,3}$均为非平面图}}  \label{solution:k5_k33}
+
+  对于$K_5,K_{3,3}$的非平面性,可以直接证明.也可以按照教材上的做法由欧拉公式推导出来.
+  以$K_5$为例,见图\ref{fig:k5}.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/k5}
+	  \caption[labelInTOC]{$K_5$ is not planar graph}
+	  \label{fig:k5}
+	\end{center}
+	\end{figure}
+\end{solution}
+
+**********************************************************************
+\begin{problem}{\textbf{对偶图}}  \label{ps:sufficient}
+
+  分别给出$K_4$和$Q_3$的对偶图,并指出它们各自是什么图?
+\end{problem}
+**********************************************************************
+\begin{problem}{\textbf{圈与极小边割集对偶}}  \label{ps:cycle_bond_dual}
+
+  平面图$G$中$E(G)$的子集$D$构成圈  $\iff$ $G^{\star}$中$D$所对应的对偶边构成极小边割集.
+\end{problem}
+
+\begin{solution}{\textbf{圈与极小边割集对偶}}  \label{solution:cycle_bond_dual}
+
+  
+\end{solution}
+**********************************************************************
+
+\begin{problem}{\textbf{正多面体(regular polyhedra)}}  \label{ps:regular_polyhedra}
+  
+  请使用欧拉公式证明: 正多面体有且仅有五种.
+\end{problem}
+
+\begin{solution}{\textbf{正多面体(regular polyhedra)}} 
+\label{solution:regular_polyhedra}
+
+  正多面体可以投影到平面上,形成正则平面图.设顶点度数为$k$,所有的面由$l$条边组成,$n$个顶点,$e$条边,$f$个面.
+  联立握手定理$kn=2e=lf$和欧拉公式$n+f-e=2$,推导过程如下:
+  
+  $e(\frac{2}{k}-1+\frac{2}{l})=2 \Rightarrow \frac{2}{k}+\frac{2}{l}>1
+  \Rightarrow 2l+2k>kl \Rightarrow (k-2)(l-2)<4$
+  
+  符合条件的$(k,l)$对只可能有$(3,3),(3,4),(3,5),(4,3),(5,3)$.对应的正多面体见图\ref{fig:regular_polyhedra_kl}.
+	%\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=1.0]{figure/regular_polyhedra_kl}
+	  \caption[labelInTOC]{regular polyhedra with values of k and l}
+	  \label{fig:regular_polyhedra_kl}
+	\end{center}
+	\end{figure}
+\end{solution}
+**********************************************************************
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Application and Extension}
+
+\end{document}
+
+

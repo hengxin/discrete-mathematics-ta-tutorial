@@ -1,0 +1,287 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+
+
+% %%%%%%%%%%
+% %\input{format}
+% %insert macros here to avoid loading my own format file
+% %Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(2) 最短路径 Dijkstra Algorithm}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{离散数学习题解析}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+本文档用以介绍与解释求最短路径的~Dijkstra Algorithm.
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=1.0]{figure/dijkstra}
+  \caption[labelInTOC]{{\small Dijkstra at the blackboard during a conference at
+  ETH Zurich in 1994}}
+  \label{fig:dijkstra}
+\end{center}
+\end{figure}
+
+\section{问题描述}
+\begin{problem}{\textbf{最短路径问题}}  \label{problem:shortest}
+
+  最短路径问题描述如下:
+  
+  给定带权图$G$,求某固定源点$s(source)$到其它所有顶点的最短路径.
+\end{problem}
+
+\begin{remark}{\textbf{最短路径问题}}  \label{remark:shortest}
+
+  最短路径问题至少有以下几种不同的版本:
+  \begin{enumerate}
+    \item 无向图 ~vs.~ 有向图
+    \item 非负权值边 ~vs.~ 允许边的权值为负值的情况
+    \item 单源点多目标点 ~vs.~ 多源点多目标点
+  \end{enumerate}
+  我们这里所考虑的是无向图,非负权值边情况下的单源点多目标点最短路径问题.下文中所说的最短
+  路径问题均为该类.
+\end{remark}
+
+\begin{remark}{\textbf{最短路径问题的应用}}  \label{remark:shortest_app}
+
+  在实际生活和应用中，我们经常会考虑最短路径的问题.比如,假设你有你所在乡村城镇的设计图,这张设计图
+  标注了每一户人家、每一座工厂、每一所学校还有所有的重要设施的位置.不仅如此，街道也都标注了长度.
+  现在你所关心的问题是，以我家为源点，到该城镇的其它所有位置的最短路径分别是多少.
+  
+  最短路径算法的另一个重要应用就是网络路由.
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{算法设计}  \label{section:design}
+\begin{center}
+  \textbf{Dijkstra Algorithm --- shortest path from one vertex:}
+\end{center}
+
+\begin{description}
+  \item[输入:] 无向非负带权图$G$以及单源点$u$.($w(xy)$表示边$xy$的权值.)
+  \item[算法思想:] 维护一个顶点集合$S$,对该集合中的所有顶点$v$均已经求出从$u$到$v$的最短路径.最初的时候,$S=\set{u}$,
+    该算法的过程就是逐步扩大该集合,每次迭代使得给集合元素增加一个(永不删除),最终使得$S=V(G)$.为了达到该目的,我们维护另外
+    一组变量$t(z)$($t$表示~tentative~,``试探的''; $z \notin
+    S$),表示目前(算法迭代了多次，运行到该时刻)所发现的$u-z$最短路径的长度.我们在迭代的每一步，就是通过$t(z)$来决定将
+    哪一点加入到$S$中来的.
+  \item[初始化:] $S=\set{u};t(u)=0;t(z)=w(uz), \forall z \neq u.$
+  \item[算法迭代过程:] 选取顶点$v$,$t(v) = \min_{z \notin
+  S}t(z)$,也就是不属于$S$集合的顶点中$t(z)$最小的顶点.将$v$加入$S$.
+  
+  考察$v$所邻接的顶点(当然也就考察了$v$所邻接的边),需要注意的是,此时我们只需要考虑与$v$邻接但是不属于$S$的那些顶点(对于
+  属于$S$的顶点,最短路径已经求出来了，关于该点，我们会在后面加以证明).$\forall vz \in E(G) \land z \notin S,
+  t(z) = \min \set{t(z),t(v) + w(vz)}$.
+  \item[算法终止:] $S$不断扩大，直到$S=V(G)$ 或者 $\forall z \notin S, t(z) = \infty$.
+  算法结束时，$\forall v, d(u,v) = t(v)$.
+\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{算法分析}  \label{section:analysis}
+我们需要证明该算法的正确性.
+
+在算法设计\ref{section:design}的思想描述中，大家已经看到，该算法维护了两个变量，一个是集合$S$，另一个是$t(z)$.在算法的迭代
+过程中，这两个集合相互依赖.也就是说，在扩展集合$S$时，我们选取的是$t(z)$最小的点;在扩展了集合$S$之后，我们又更新了$t(z)$的值.
+所以，在算法正确性证明中，我们需要同时考虑这两个集合的性质.同样，在算法设计\ref{section:design}中，我们已经描述了这两个变量的
+性质:对于$S$来说，它的元素是已经求出$u$到$v$的最短路径的那些点;对于$t(z)$来说，它是目前所发现的$u-z$最短路径的长度.我们可以把
+这两个性质看作循环的不变式.所谓循环不变式，是指在循环(迭代)过程中保持不变的那个量.寻求这种量对于算法的正确性证明至关重要.
+
+我们所要证明也就是这个循环不变式:
+
+在每一次迭代开始时:
+\begin{enumerate}
+  \item $\forall z \in S, t(z) = d(u,z),$
+  \item $\forall z \notin S, t(z) \textrm{ is the least length of a } u-z
+  \textrm{ path reaching } z \textrm{ directly from } S.$
+\end{enumerate}
+
+\begin{proof}{循环不变式}  \label{proof:inv}
+
+  使用数学归纳法.对$\vert S \vert = k$做归纳.
+  
+  \begin{description}
+    \item[基础步:] 初始时:
+    \begin{enumerate}
+      \item $S=\set{u},d(u,u)=t(u)=0$;
+      \item 从$u$到其他顶点$z$的最短路径长度为$t(z)=w(u,z)$.
+    \end{enumerate}
+    \item[归纳假设:] 假设$\vert S \vert = k$时,两个循环不变式都成立.(注意，我们同时考虑两个循环不变式.)
+    \item[归纳证明:] $v$是$t(z)(z \notin
+    S)$中最小的.按照算法，我们将$v$加入到$S$中,并且按照算法过程更新$t(v)$.此时，$\vert S \vert = k+1.$我们需要证明
+    循环不变式仍然成立.
+    \begin{enumerate}
+      \item 先证明第一个关于$S$的循环不变式成立.
+        
+        只需证明对于新加入的点$v$,$d(u,v)=t(v)$成立即可.
+        
+        显然，任何$u-v$路径都必须是先``穿过''集合$S$中的顶点，然后再直接或者间接地到达$v$.
+        
+        对于穿过$S$集合然后直接与$v$相
+        连的情况,我们借助于$\vert S \vert = k$的情况下对于第二个循环不变式的归纳假设可知,穿过$S$集合直接到达$v$的最短路径的
+        长度为$t(v)$;
+        
+        对于第二种情况,假设$u-v$路径在穿过$S$后先到达$z(z \notin
+        S)$,然后再与$v$相连(见图 ).根据我们对$v$的选择，我们知道$t(z) \geq
+        t(v)$，所以该间接路径的长度必定不小于$t(v)$.
+        %\usepackage{graphics} is needed for \includegraphics
+		\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=1.0]{figure/correction}
+		  \caption[labelInTOC]{算法正确性证明用图}
+		  \label{fig:correction}
+		\end{center}
+		\end{figure}
+      \item 再证明第二个关于$t(z)$的循环不变式成立.
+      
+        根据归纳假设,在没有将$v$加入$S$时，也就是$\vert S \vert = k$的情况下,从$S$直接到达$z(z
+        \notin S)$的最短的$u-z(z \notin
+        S)$路径的长度为$t(z)$.
+        
+        现在，我们加入了新的$v$点.$v$点可能与$z$相连，它可能使得从$S$($v$现在是$S$的一员)直接到$z$的
+        最短路径的长度变小(也就是$t(z)$需要更新)(注意，由归纳假设$t(v)=d(u,v)$为最短).如果这种情况发生了，根据算法，我们更新了$t(z)$，而且取的是最小值.当然，在
+        $\vert S \vert = k+1$的情况下,从$S$直接到$z$的最短路径的长度为$\min
+        \set{t(z),t(v)+w(vz)}$.
+    \end{enumerate}
+  \end{description}
+\end{proof}
+
+\begin{remark}{正确性证明}  \label{remark:correct}
+
+  在证明过程中，我们用到了两个循环不变式，而且这两个循环不变式相互依赖.在证明第一个循环不变式时，用到了第二个循环不变式的归纳
+  假设.同样地,在证明第二个循环不变式时，也用到了第一个循环不变式的归纳假设.这种技巧我们称为``co-induction''.
+  
+  大家对此可能会有疑惑,两个相互依赖的话，证明$A$需要用到$B$，证明$B$又要用到$A$，这不成了无限循环了吗?其实不然，这和普通递归
+  的情况类似.实际上，证明$A$时，我们用的是规模小一些的$B$.所以，只要基础步有保证，该类递归就是可行的.
+  
+  大家可以找一个图的例子，然后对照着证明过程，从初始条件开始依次验证该过程，大家会体会到``co-induction''的意思，并且发现它并
+  没有造成死循环.
+\end{remark}
+
+\begin{remark}{跳出算法}  \label{remark:total}
+
+  我们站在算法之外来观察该算法过程给问题带来了什么特殊的性质.
+  \begin{enumerate}
+    \item $\forall x \in S, z \notin S, d(u,x) \leq t(z).$
+    \item 该算法以$d(uv)$非递减的顺序选取并计算了源点$u$与其他所有顶点的最短距离.
+  \end{enumerate}
+\end{remark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{扩展}
+关于该算法的更多信息，请参见图\ref{fig:wiki}.
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+  \includegraphics[scale=1.0]{figure/wiki}
+  \caption[labelInTOC]{Wiki for dijkstra algorithm}
+  \label{fig:wiki}
+\end{center}
+\end{figure}
+该网页的最后给出了很多有用的链接.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

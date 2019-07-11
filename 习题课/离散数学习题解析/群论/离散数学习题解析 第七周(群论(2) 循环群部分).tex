@@ -1,0 +1,74 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{第七周(群论(2))}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt NJUCS \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{习题十 \hspace{0.15cm} 群与环(2)}
+
+\begin{enumerate}
+  \setlength{\itemsep}{0.40cm}
+
+  \item \textbf{$P_{204}(26)$, 证明循环群一定是Abel群，并说明Abel群是否一定是循环群.}  \\
+    \textbf{解答:}  \\
+    因为循环群$G = \lbrack a \rbrack$的元素均可表为$a^k$的形式，故根据幂运算的性质即可证明循环群是Abel群。  \\
+    是Abel群但是为非循环群的典型例子是Klein四元群。  \\
+
+    \textbf{作业中出现的错误:}  \\
+    在举反例的时候，有同学以$(Z,+)$为例，其实，$(Z,+)$是循环群。对于循环群，同学们要始终记住$(Z,+)$和$(Z_n,\oplus)$群，
+    因为循环群在同构意义下有且仅有这两种形态。  \\
+    还有的同学认为$(Z,\times)$是Abel群，不是循环群。对，它的确不是循环群，因为它不构成群!所以，我们在习题课上才多次强调
+    只有特殊元素的集合关于模乘法才构成群，即$(U_n,\otimes)$，此处的集合元素是所有小于$n$且与$n$互素的元素。
+
+  \item \textbf{$P_{204}(27)$, 证明循环群$G$的同态像$f(G)$也是循环群.}  \\
+    \textbf{解答:}  \\
+	本题的证明并不困难。只需要证明$f(a)$是$f(G)$的生成元即可.  \\
+	但是很多同学都忽略了一点，那就是需要先说明$f(G)$构成群。  \\
+
+\end{enumerate}
+
+\end{document}
+
+

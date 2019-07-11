@@ -1,0 +1,375 @@
+\documentclass[12pt]{ctexart}
+
+% \usepackage[dvips]{graphics,color}
+\usepackage{graphicx}
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+%\usepackage{hyperref}
+\usepackage{url}
+\usepackage{color}
+
+\usepackage{bbding}
+\usepackage{latexsym,epsf,epsfig}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{mathrsfs} %mathscr{}
+\usepackage{CJK}
+\usepackage[newitem, newenum]{paralist}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{solution}[theorem]{Solution}
+% \newtheorem{proof}{proof}[section]
+% \newtheorem{solution}[theorem]{Solution}
+
+
+%%%%%%%%%%
+%\input{format}
+%insert macros here to avoid loading my own format file
+%Author : Zhu Yin @ Nanjing University
+% \newtheoremstyle{problem}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{problem}
+% \newtheorem{problem}{ }
+% 
+% \newtheoremstyle{solution}% name
+%   {15pt}%      Space above, empty = `usual value'
+%   {15pt}%      Space below
+%   {}% Body font
+%   {}%         Indent amount (empty = no indent, \parindent = para indent)
+%   {\bfseries}% Thm head font
+%   {}%        Punctuation after thm head
+%   {5pt}% Space after thm head: \newline = linebreak
+%   {}%         Thm head spec
+% \theoremstyle{solution}
+% \newtheorem{solution}{ }
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}   % set
+\newcommand{\pair}[1]{\left<\,#1\,\right>}    % order pair
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+%%%%%%%%%%
+% 1-inch margins
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 11in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{图论(2) 图的连通度}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{图论习题课讲义}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt MOPEC-2010-00\id \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% sample use
+\head
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{图论专题}
+\subsection{图的连通度}
+上一讲中，我们介绍了图的连通性。图的连通性主要关注一个图(我们这里只关注无向图,下同)是否是连通的.但是，我们可以很
+直观地感到有些图``很连通'',而有些图就显得那么脆弱，``不够连通''. 要更准确地表达我们这种感觉，就需要引入``连通度''
+的概念。``连通度''就是度量图有``多连通''的指标.
+
+\begin{definition}{\textbf{图的点连通度}}  \label{def:kappa_g}
+
+  图$G$的点连通度$\kappa(G) = \min \set{ \vert T \vert \mid T \textrm{ 为 } G
+  \textrm{ 的点割集}}$.
+\end{definition}
+
+\begin{definition}{\textbf{图的边连通度}}  \label{def:lambda_g}
+
+  图$G$的边连通度$\lambda(G) = \min \set{ \vert S \vert \mid S \textrm{ 为 } G \textrm{
+  的边割集}}$.
+\end{definition}
+
+\begin{remark}{\textbf{连通度}}  \label{remark:conn}
+
+  $\kappa(G)(\lambda(G))$是为产生一个不连通图或平凡图所需要移去的点(边)的 \emph{最少} 数目.
+  
+  一般而言，这种方式的定义都不太好处理，它对于求解和分析都会带来一定困难.一方面，它要求最优化(\emph{最少})，另一
+  方面，它处理的又是离散的对象. 这便会带来组合问题.这与对某个连续函数求极值有着很大不同. 
+  
+  那么为什么要考虑``图的连通度''呢?实际上，它在计算机科学中有着很重要的应用.比如，我们要铺设计算机网络，使用图论的
+  语言，我们可以将单台计算机建模为图的顶点，将两台计算机之间的连接建模为图的边.那么，我们就想知道该网络有多健壮.
+  如果一台计算机失效了，整个网络会不会断成几个``孤岛''?如果是一条连接出现通讯故障，又会怎么样呢?为了增加网络的健壮性，
+  我们需要做些什么?
+\end{remark}
+
+\begin{theorem}{\textbf{完全图的边连通度}}  \label{thm:lambda_kn}
+
+  证明: $\lambda(K_n) = n - 1.$
+\end{theorem}
+
+\begin{proof}{\textbf{完全图的边连通度}}
+
+  \begin{enumerate}
+    \item 根据定义，$\lambda(K_1) = 0$. 下面仅考虑$n \geq 2$的情况.
+    \item $K_n$每个顶点度数均为$n-1$，删除$v$的这$n-1$条邻接边可以导致图不连通.故，$\lambda(K_n) \leq n-1$.
+    \item
+    记$X$为$G$的最小边割集.\emph{$G-X$恰有两个连通分支,分别记为$G_1,G_2$}.记$G_1$的阶为$k$,则$G_2$的阶为$n-k$.
+    因为$G$是完全图,所以$\vert X \vert = k(n-k)$.又，$k \geq 1, n-k \geq 1, \Rightarrow
+    (k-1)(n-k-1) \geq 0 \Rightarrow (k-1)(n-k-1) = k(n-k)-n+1 \geq 0 \Rightarrow
+    \lambda(G) = \vert X \vert = k(n-k) \geq n - 1.$
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}($Whitney(1932)$)} 
+\label{thm:kappa_lambda_delta}
+
+  对于任意图，下式成立:
+  \[
+    \kappa(G) \leq \lambda(G) \leq \delta(G) \leq \lfloor \frac{2m}{n} \rfloor
+  \]
+  其中，$m,n$分别为图$G$的边数和顶点数.
+\end{theorem}
+
+\begin{proof}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}} 
+\label{proof:kappa_lambda_delta}
+
+  课堂上已经给出了$\kappa(G) \leq \lambda(G)$的归纳法证明.下面我们给出另外一种更直观的证明.
+  
+  \begin{enumerate}
+    \item 若图为非连通图或为平凡图,则$\kappa(G) = \lambda(G) = 0$.
+    \item 若图为$K_n$,则$\kappa(G) = \lambda(G) = n - 1$.
+    \item 下面假设$G$为阶大于等于3的连通、非完全图.
+      
+      我们打算从边割集$X$(显然，$\vert X \vert = \lambda(G) \leq n - 2$)构造出点割集$U$.
+      一个很直观的想法是，对于边割集$X$中的每一条边$e$，需要选择$e$的一个顶点 作为点割集的一个元素.
+      问题在于，如何才能保证$\vert X \vert$次选择能够构成点割集?
+      
+      $G-X$恰有两个连通分支,记为$G_1,G_2$，其中$G_1$阶为$k$，则$G_2$阶为$n-k$.
+      \begin{itemize}
+        \item \textit{在$G$中,$G_1$中的每个顶点均与$G_2$中的每个顶点相邻接.}
+        
+          若为该种情况，则根据定理\ref{thm:lambda_kn}的推理，可以得出$\lambda(G) \geq n-1$.矛盾.
+          \item \textit{在$G$中，$\exists u \in G_1, \exists v \in G_2$,$u,v$不邻接.}
+          
+            下面我们构造点割集$U$:主要思想是，我们要破坏$u,v$之间的通路.现在，我们已经说明了，$u,v$
+            不邻接.那么下一个目标就是破坏$u,v$之间的间接连通通路.那么这些通路是如何构成的呢? 一共有三种情况：
+            \begin{inparaenum}[\itshape a\upshape)]
+              \item $u \leadsto u' \to v' \leadsto v$(取$u'$)
+              \item $u \leadsto u' \to v$(取$u'$)
+              \item $u \to v' \leadsto v$(取$v'$)
+            \end{inparaenum}
+            (其中,$u' \in G_1, v' \in G_2, \leadsto \textrm{ 表示通路}, \to
+            \textrm{表示有边相连}$) 
+            
+            显然,$\vert U \vert \leq \vert X \vert$，且$u,v \notin
+            U$.根据$U$的构造方法，$G-U$中不存在$u-v$通路.故,$\kappa(G) \leq \vert U \vert \leq
+            \vert X \vert = \lambda(G)$.
+      \end{itemize}
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}} 
+\label{remark:kappa_lambda_delta}
+
+  关于$\kappa(G) \leq \lambda(G) \leq \delta(G)$的证明，在课堂上已经给出.而
+  $\frac{2m}{n}$实际上为图的平均度数，故有$\delta(G) \leq \lfloor \frac{2m}{n} \rfloor$.
+  
+  习题\ref{ps:kappa_lambda_delta}要求你分别给出满足该定理公式不同特例的图例.
+\end{remark}
+
+下面我们看一道关于具体类型图的点连通度和边连通度关系的定理，主要目的是为了让大家体会图论中的证明方法.
+
+\begin{theorem}{\textbf{3正则图的点连通度和边连通度}}  \label{thm:3regular}
+
+  如果$G$是3正则图,请证明,$\kappa(G) = \lambda(G)$.
+\end{theorem}
+
+\begin{proof}{\textbf{3正则图的点连通度和边连通度}}  \label{proof:3regular}
+
+  假设$U$是最小点割集，即$\vert U \vert = \kappa(G)$.因为$\lambda(G) \geq
+  \kappa(G)$，故只需证明$\lambda(G) \leq \kappa(G)$，要证明该结论，我们又只需构造一个边割集$X$，$\vert X
+  \vert = \vert U \vert$。这提醒我们需要根据点割集来构造边割集，最好的情况就是在这种构造方法中，点割集中的一个点
+  能对应边割集中的一条边.(注意，在定理\ref{thm:kappa_lambda_delta}的证明中我们也使用了这种技巧，只不是是从边割集
+  构造点割集.)
+  
+  取$G_1,G_2$为$G-U$的两个连通分支.因为$U$是最小点割集，所以$U$中的每一个顶点$u$在$G_1$与$G_2$中都有邻接顶点.
+  又因为$G$是3正则图,所以$u$不可能在$G_1,G_2$中都有两个邻接顶点.\textit{取边$us$，如果$s$是$G_1,G_2$中与$u$邻接
+  的唯一顶点}.%特殊的情况是,如果出现如图 所示的情况,我们取边$uu'$和边$vv'$. 
+  
+  \textcolor{red}{思考:但是，这里存在一种特殊情况，你能找到它吗?}
+  
+  这样，我们就构造了大小为$U$的边集,且为边割集.得证.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{习题集}
+\begin{problem}{\textbf{图的连通度}}  \label{ps:conn}
+
+  计算下列类型的$\kappa(G),\lambda(G)$参数值:
+  \[
+    K_{m,n}, \textrm{Petersen}, C_n, W_n,S_n,P_n,K_n.
+  \]
+\end{problem}
+
+\begin{solution}{\textbf{解答:图的连通度}}  \label{solution:conn}
+
+
+\end{solution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{ps:kappa_lambda_delta}
+  
+  \begin{enumerate}
+    \item 请给出满足 $\kappa(G) < \lambda(G)$的例子.
+    \item 请给出满足 $\kappa(G) = \lambda(G)$的例子.
+    \item 请给出满足 $\kappa(G) < \lambda(G) < \delta(G)$的例子.
+    \item 请给出满足 $\kappa(G) = \delta(G)$的例子.
+    \item 请给出满足 $\lambda(G) = \delta(G)$的例子.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}{\textbf{解答:$\kappa(G),\lambda(G),\delta(G)$之间的数量关系}}
+\label{solution:kappa_lambda_delta}
+
+  \begin{enumerate}
+    \item 
+    \item   
+    \item   
+    \item 课堂上给出了一个例子 $\delta(G) \geq n - 2 \Rightarrow \kappa(G) =
+    \delta(G)$.(请证明该结论)
+    \item 课堂上给出了一个例子 $\delta(G) \geq \frac{n}{2} \Rightarrow \lambda(G) =
+    \delta(G)$.(该命题由$Chartrand$于1966年给出.该命题的证明是通过数量关系完成的，其关键的数量关系为
+    ``$G_1$中顶点的次数之和不大于$\vert G_1 \vert$阶完全图的次数之和加上被删除的边数$X$''.)
+  \end{enumerate}
+\end{solution}
+
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{非割点的存在性}}  \label{ps:non_cv}
+  
+  如果$G$为非平凡连通图，$u \in V(G)$,$v$是距离$u$最远的点，请证明$v$不是$G$的割点.
+\end{problem}
+
+\begin{solution}{\textbf{解答:非割点的存在性}}  \label{solution:non_cv}
+
+  
+\end{solution}
+
+\begin{remark}{\textbf{非割点的存在性}}  \label{remark:non_cv}
+
+  习题\ref{ps:non_cv}实际上说明了在非平凡连通图中至少存在两个割点(\textcolor{red}{讨论:请思考为什么?}).反过来说，
+  不存在某个非平凡连通图，所有的点都是割点。但是，对于割边来说，该情况是可能出现的。也就说，存在某个非平凡连通图，
+  它的所有边都是割边(\textcolor{red}{讨论:请举出这样的图例}).
+\end{remark}
+
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}{\textbf{对2连通图的等价刻画}}  \label{ps:2conn}
+  
+  设$G$为阶不小于3的连通图，请证明以下各点等价:
+  \begin{enumerate}
+    \item $G$无割点.
+    \item 图是2点连通的.
+    \item $\kappa(G) \geq 2$.
+    \item \textbf{任意两点总在某个圈上}.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}{\textbf{解答:对2连通图的等价刻画}}  \label{solution:2conn}
+
+  前三点的等价证明是很容易的。我们着重证明下面的定理:
+  \begin{theorem}{\textbf{对2连通图的等价刻画}}  \label{thm:2conn}
+  
+    图$G$是不含割点的阶大于3的连通图 $\Leftrightarrow$ $G$中任意两点总在某个圈上.
+  \end{theorem}
+  
+  \begin{proof}{\textbf{对2连通图的等价刻画}}  \label{proof:2conn}
+  
+    \begin{enumerate}
+      \item ``$\Leftarrow:$''该证明请自行完成.
+      \item
+      ``$\Rightarrow:$''反设存在顶点对不在某个共同圈上.\textbf{取所有这样的顶点对中满足$d(u,v)$最小的顶点对}.
+      如果$d(u,v) = 1$，则$u,v$必在同一个圈上(否则，图$G$含有割点).故可假设$d(u,v) = k \geq 2$.
+      
+      $P: u = v_0,v_1, \cdots,v_{k-1},v_k = v$是长度为$k$的$u,v$路径.因为$d(u,v_{k-1})=
+      k-1 < k$，所以，存在圈$C$包含$u$和$v_{k-1}$,而不包含$v$.又，$v_{k-1}$不是割点，所以，
+      存在不包含$v_{k-1}$ 的 $v-u$路径$Q$.$u$在$C$上，记$x$为$Q$与$C$相交的第一个顶点.那么$v_k = v \to
+      v_{k-1} \leadsto u \leadsto x \leadsto v_k = v$构成圈.矛盾.
+    \end{enumerate}
+  \end{proof}
+\end{solution}
+$---------------------------------------------------------------------$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{应用与扩展}
+\subsection{无}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\HandPencilLeft 由魏恒峰(hengxin0912@gmail.com)编辑.
+
+若发现错误或者有任何建议，请与我联系.谢谢.
+
+\textcolor{red}{联系方式：$QQ:245552163(\textrm{蚂蚁蚂蚁}), Phone:13905194610$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
+

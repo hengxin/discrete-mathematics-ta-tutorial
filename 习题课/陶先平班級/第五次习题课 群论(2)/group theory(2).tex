@@ -1,0 +1,782 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 26/05/2010
+% edited by Bill Lampos
+%
+% Feel free to use (copy) the structure (latex formatting source code)
+% but not the content of this document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[compress,green]{beamer}
+\mode<presentation>
+
+
+
+\usetheme{Warsaw}
+% other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
+% Hannover, Ilmenau, JuanLesPins, Luebeck, Madrid, Maloe, Marburg, Montpellier, PaloAlto, Pittsburg, Rochester, Singapore, Szeged, classic
+
+%\usecolortheme{lily}
+% color themes: albatross, beaver, beetle, crane, default, dolphin, dov, fly, lily, orchid, rose, seagull, seahorse, sidebartab, structure, whale, wolverine
+
+%\usefonttheme{serif}
+% font themes: default, professionalfonts, serif, structurebold, structureitalicserif, structuresmallcapsserif
+
+% pdf is displayed in full screen mode automatically
+%\hypersetup{pdfpagemode=FullScreen}
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+
+% \usepackage{beamerinnertheme_______}
+% inner themes include circles, default, inmargin, rectangles, rounded
+
+%\usepackage{beamerouterthemesmoothbars}
+% outer themes include default, infolines, miniframes, shadow, sidebar, smoothbars, smoothtree, split, tree
+
+\useoutertheme[subsection=false]{smoothbars}
+
+% to have the same footer on all slides
+%\setbeamertemplate{footline}[text line]{xxx xxx xxx}
+%\setbeamertemplate{footline}[text line]{} % or empty footer
+
+% include packages
+\usepackage{subfigure}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+\xyoption{arc}
+\usepackage{url}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{CJK}
+
+%\usepackage{tdclock}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{amssymb}
+
+\usepackage{hyperref}
+
+%\usepackage{mathdots}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{CJK*}{GBK}{kai}
+
+\title{Group Theory(2)}
+\subtitle{\scriptsize {Normal Subgroup,Homomorphism,and Permutation Group} }
+\author{Hengfeng Wei \\ \scriptsize \texttt{hengxin0912@gmail.com}}
+%\institute{{\tiny advised by}\\ \vspace{.10cm}Professor Nello Cristianini}
+\date{\scriptsize Department of Computer Science and Technology, NJU\\ \vspace{.10cm} \today}
+
+
+\frame
+{
+  \titlepage
+}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Review}
+
+\subsection{Permutation Group}
+
+\begin{frame}{Permutation Group}
+  \begin{center}
+	\textbf{概念之间的关系辨析:}
+  \end{center}
+
+	\begin{columns}[t]
+	  \column{0.50\textwidth}
+	    \textcolor{blue}{For $X \neq \emptyset$:}  \\
+	    \begin{itemize}
+	    \setlength{\itemsep}{0.30cm}
+	      \item \emph{对称群(Symmetric group)}:   \\
+	        非空集合$X$上的一一变换关于合成运算所构成的群$S_X$.
+	      \item \emph{变换群(Transformation group)}: $S_X$的任一子群.
+	    \end{itemize}
+	  \column{0.50\textwidth}
+	    \textcolor{blue}{For $\vert X \vert = n$:}  \\
+	    \begin{itemize}
+	    \setlength{\itemsep}{0.30cm}
+	      \item \emph{$n$阶置换(Permutation):}  \\
+	         $X$上的一一变换
+	      \item \emph{$n$次对称群:}  $S_n$
+	      \item \emph{置换群(Permutation group):} $S_n$的子群.
+	    \end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Cayley Theorem}
+  \textbf{(Cayley Theorem, 1854)}  \\
+  每一个群都同构于一个变换群.  \\
+  \vspace{0.20cm}
+  每一个有限群都同构与一个置换群.
+
+  \vspace{0.30cm}
+  \textbf{证明要点:}  \\
+  \begin{enumerate}
+    \item $a \in G$, $\phi_a: \phi_a(x) = ax, \forall x \in G.$ \textcolor{blue}{$\phi_a$ is a function.}
+    \item $G_l = \lbrace \phi_a \mid a \in G. \rbrace$ 关于变换的合成构成$S_G$的子群.
+    \item $\rho: G \cong G_l. a \mapsto \phi_a, \forall a \in G.$
+  \end{enumerate}
+
+  \pause
+  \vspace{0.30cm}
+  \textbf{重要意义:}  \\
+  \scriptsize
+  \begin{quote}
+    ``Cayley's theorem puts all groups on the same footing, by considering any group
+    (including infinite groups such as $(\mathbf{R},+)$) as a permutation group of some underlying set.  \\
+    Thus, theorems which are true for permutation groups are true for groups in general.''
+  \end{quote}
+\end{frame}
+
+\begin{frame}{Cayley Theorem}
+  \[
+    a \in G, \phi_a: \phi_a(x) = ax, \forall x \in G.
+  \]
+
+  \emph{Cayley定理在运算表中的体现:}
+  \vspace{0.20cm}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.60]{figurejpg/cayleys3}
+	  \caption[labelInTOC]{Cayley Theorem for $S_3$}
+	  \label{fig:cayley4s3}
+	\end{center}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Permutation}
+  \textbf{置换:}  \\
+  $X$为非空集合，且$\vert X \vert = n$， 则其上定义的双射称为$X$上的$n$元置换。
+
+  \vspace{0.30cm}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.50]{figurejpg/s3}
+	  %\caption[labelInTOC]{$S_3$}
+	  \label{fig:s3}
+	\end{center}
+  \end{figure}
+
+  \textcolor{red}{Q: $S_3$ 是最小的非交换群?}
+\end{frame}
+
+\begin{frame}{Cycle}
+  \textbf{轮换:}  \\
+  \[
+    \sigma = (i_1 i_2 \cdots i_r).
+  \]
+
+  \vspace{0.30cm}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.50]{figurejpg/cycle}
+	  %\caption[labelInTOC]{$S_3$}
+	  \label{fig:cycle}
+	\end{center}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Cycle}
+  \textbf{轮换的性质:}  \\
+  \[
+    \sigma,\tau \textrm{ 为轮换且不相交,则 } \sigma \tau = \tau \sigma.
+  \]
+
+  \vspace{0.30cm}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{figure}[htp]
+	\begin{center}
+	  \includegraphics[scale=0.40]{figurejpg/2cycle}
+	  \caption[labelInTOC]{$\sigma \tau = \tau \sigma$}
+	  \label{fig:2cycle}
+	\end{center}
+  \end{figure}
+
+  \vspace{0.10cm}
+  \textcolor{blue}{Remember: 轮换也是函数！要证明两个函数相等，可考虑他们对于每个元素的作用是相同的。
+    通常，需要对元素进行适当分类。}
+\end{frame}
+
+\begin{frame}{Permutation $\to$ Cycle}
+  \textbf{用轮换表示置换:}  \\
+  (1) 每一个置换可表为一些不相交的轮换的乘积.  \\
+  (2) $n$阶置换的轮换分解式在不计次序的情况下是唯一的.
+
+  \vspace{0.30cm}
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.50]{figurejpg/p2cycle}
+		\end{center}
+	  \end{figure}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.60]{figurejpg/p2cycle2}
+		\end{center}
+	  \end{figure}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Permutation $\to$ Transposition}
+  \textbf{对换:}  \\
+  每一置换都可表为对换的乘积.
+  \[
+    \sigma = (i_1 i_2 \cdots i_r) = (i_1 i_2)(i_1 i_3) \cdots (i_1 i_r).
+  \]
+
+  \vspace{0.30cm}
+  \textcolor{blue}{Q: 置换的对换表示是唯一的吗?  \\
+    如果不唯一,在不同的表示方式中有什么性质是保持不变的(不变式!!!)吗?}
+\end{frame}
+
+\begin{frame}{Permutation $\to$ Transposition}
+  \textbf{Parity of Permutation}  \\
+  每一个置换表为对换的乘积，所用对换个数的奇偶性是唯一的.  \\
+
+  \vspace{0.20cm}
+  \textbf{证明要点:}  \\
+  \textcolor{blue}{Insight:} $\sigma$的对换表示中对换个数与排列$i_1,i_2,\cdots,i_n$的逆序数同奇偶(唯一).
+
+  \vspace{0.20cm}
+  群同态:
+  \[
+    \textrm{sgn}: S_n \to \lbrace -1,1 \rbrace.
+  \]
+
+\end{frame}
+
+\begin{frame}{Permutation $\to$ Transposition}
+  \textbf{计数:}  \\
+  $n \geq 2$阶置换中，偶置换与奇置换各有$\frac{n!}{2}$个. \\
+  \vspace{0.20cm}
+  \begin{itemize}
+    \item $f: A_n \to B_n: p \in A_n, f(p) = (a_1,a_2)p.$
+    \item $g: B_n \to A_n: p \in B_n, g(p) = (a_1,a_2)p.$
+  \end{itemize}
+
+  \vspace{0.20cm}
+  \textbf{$n$次交错群(Alternating group)}  \\
+  在$S_n$中，全体偶置换构成$S_n$的子群,称为$n$次交错群.
+
+  \vspace{0.20cm}
+  \textbf{举例:}
+  \[
+    A_3 = \lbrace (1),(1 2 3),(1 3 2) \rbrace.
+  \]
+
+  \textcolor{red}{Q: 为什么不研究全体奇置换的集合?}
+\end{frame}
+
+
+\subsection{Normal Subgroup and Quotient Group}
+\begin{frame}{Normal Subgroup}
+\textbf{正规子群:}  \\
+$(H, \ast) \triangleleft (G,\ast) : (H,\ast) \leq (G,\ast), (\forall a \in G)(aH = Ha).$  \\
+\vspace{0.20cm}
+\textcolor{blue}{特别提醒:$\forall h \in H, \exists h' \in H, gh = h'g(g \in G).$}
+
+\vspace{0.30cm}
+\textcolor{gray}{
+\textbf{举例:}  \\
+\begin{itemize}
+  \item 平凡群$(\lbrace e \rbrace, \ast)$和$G$是正规子群。($(\forall a \in G)(aG = G = Ga).$)
+  \item 交换群$G$的一切子群都是$G$的正规子群。
+  \item 群$G$的中心$C$是$G$的正规子群。 \\
+    ($C = \lbrace a \mid a \in G \land \forall x \in G (ax = xa) \rbrace.$)
+\end{itemize}}
+\end{frame}
+
+
+\begin{frame}{Normal Subgroup}
+\textbf{正规子群判定定理:}  \\
+$G$为群，$H$为$G$的子群，则:  \\
+\[
+  H \triangleleft G \Leftrightarrow (\forall g \in G, \forall h \in H)(ghg^{-1} \in H).
+\]
+
+\end{frame}
+
+
+\begin{frame}{Quotient Group}
+  \textbf{商群:}  \\
+  设$G$是群，$H$是$G$的正规子群，则$H$的所有陪集组成的集合
+  \[
+    G/H = \lbrace Ha \mid a \in G \rbrace.
+  \]
+  关于陪集的乘法运算$(Ha) \cdot (Hb) = H(ab)$构成群，称为$G$关于$H$的商群。
+
+  \vspace{0.20cm}
+  \textcolor{blue}{正规子群的陪集集合提供了看待群的一种视角。一种视角就是一种抽象。它与普通子群的抽象的区别在于它
+  保持了运算。}  \\
+\scriptsize
+  \pause
+  \textbf{证明:}  \\
+  \begin{enumerate}
+    \item 运算的封闭性 ($Ha \cdot Hb = H(ab) \in G/H$.)
+    \item 结合律 ($(Ha \cdot Hb) \cdot Hc = Ha \cdot (Hb \cdot Hc)$.)
+    \item 单位元 ($He = H$.)
+    \item 逆元   ($(Ha)^{-1} = Ha^{-1}$.)
+  \end{enumerate}
+
+\normalsize
+  \pause
+  \textcolor{blue}{Q: 此证明哪里体现了正规子群的必要性?  \\
+  如果没有，为什么只考虑在正规子群之上定义商群呢?}
+\end{frame}
+
+
+\begin{frame}{Quotient Group}
+  \textbf{良定义(well-defined)的运算:}  \\
+  \[
+    (Ha) \cdot (Hb) = H(ab).
+  \]
+  \textcolor{blue}{要求: \emph{$H$的任意两个陪集$Ha,Hb$的乘积是唯一确定的,与陪集代表元的选取无关}}  \\
+  $Ha' = Ha, Hb' = Hb$,  \\
+  $Ha' \cdot Hb' = H(a'b') = (Ha')b' = (Ha)b' = (aH)b'$ \\
+  $= a(Hb') = a(Hb) = (aH)b = (Ha)b = H(ab) = (Ha) \cdot (Hb).$
+
+  \pause
+  \vspace{0.20cm}
+  \textcolor{gray}{举例:}  \\
+  在群$S_3$中，$H = \lbrace (1),(1,2) \rbrace$.  \\
+  $H(1,3) = \lbrace (1,3),(1,3,2) \rbrace = H(1,3,2).$  \\
+  $H(2,3) = \lbrace (2,3),(1,2,3) \rbrace = H(1,2,3).$  \\
+  然而,
+  $H(1,3) \cdot H(2,3) = H(1,2,3).$  \\
+  $H(1,3,2) \cdot H(1,2,3) = H(1).$
+\end{frame}
+
+
+\subsection{Fundamental Theorem over Homomorphism}
+
+\begin{frame}{Homomorphism}
+  \textbf{同态:}  \\
+  $\phi: G \to G':$
+  \[
+    \phi(ab) = \phi(a)\phi(b).
+  \]
+
+  \vspace{0.20cm}
+  \textcolor{blue}{同态保持了群双方的运算性质.}
+  \textcolor{blue}{同态是一种抽象过程，忽略了等价类中个体之差异，只考虑共有之特性.}
+  %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/+-1}
+% 		  \caption[labelInTOC]{figureCaption}
+		  \label{fig:+-1}
+		\end{center}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Homomorphism}
+%   \begin{columns}
+%     \column{0.50\textwidth}
+	  $G$为群，$H$为$G$的正规子群,定义自然同态：
+	  \[
+	    \sigma: G \to G/H. (a \mapsto Ha.)
+	  \]
+
+	  \vspace{0.20cm}
+% 	\column{0.50\textwidth}
+	  \[
+	    \sigma: G \to G'. H \leq G, K \leq G'.
+	  \]
+	  \begin{enumerate}
+	    \setlength{\itemsep}{0.20cm}
+	    \item $\sigma(H)$是$G'$的子群.
+	    \item $\sigma^{-1}(K)$是$G$的子群.
+	    \item 如果$H$是$G$的正规子群，则$\sigma(H)$是$\sigma(G)$的正规子群.
+	    \item 如果$K$是$G'$的正规子群，则$\sigma^{-1}(K)$是$G$的正规子群.
+	    \item $Ker \sigma$是$G$的正规子群.
+	  \end{enumerate}
+%   \end{columns}
+\end{frame}
+
+
+\begin{frame}{Fundamental Thorem over Homomorphism}
+  \textbf{群同态基本定理:}  \\
+  设$\sigma$是群$G$到群$G'$的满同态，$K = Ker \sigma$, 则
+  \[
+    G/K \cong G'.
+  \]
+
+  \vspace{0.20cm}
+  \begin{itemize}
+    \item 从同构的观点看，群的同态像就是群的商群.
+    \item 同态核可以看作是群与其同态像之间相似度的一个度量.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Fundamental Thorem over Homomorphism}
+  \textbf{两个简单的例子:}  \\
+  \begin{columns}
+    \column{0.50\textwidth}
+	  \[
+	    \phi: Z \to Z_n;
+	  \]
+	  \[
+	    a \mapsto \bar{a}.
+	  \]
+	  \[
+	    Z/\langle n \rangle \cong Z_n.
+	  \]
+    \column{0.50\textwidth}
+      $G = \lbrace \alpha = (a,b) \mid a,b \in R \rbrace,$  \\
+      $\bar{G} = \lbrace a \mid a \in R \rbrace.$  \\
+      $\phi: (a,b) \mapsto a, \forall(a,b) \in G.$
+
+      %\usepackage{graphics} is needed for \includegraphics
+		\begin{figure}[htp]
+			\begin{center}
+			  \includegraphics[scale=0.30]{figurejpg/kerxy}
+			  \label{fig:kerxy}
+			\end{center}
+		\end{figure}
+		\begin{figure}[htp]
+			\begin{center}
+			  \includegraphics[scale=0.30]{figurejpg/xyhomo}
+			  \label{fig:xyhomo}
+			\end{center}
+		\end{figure}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Fundamental Thorem over Homomorphism}
+  \textbf{利用群同态基本定理证明商群同构:}  \\
+  (1) \emph{第一同构定理:}  \\
+	设$\phi$是群$G$到$G'$的同态.则
+	\[
+	  G / \textrm{Ker} \phi \cong \phi(G).
+	\]
+  (2) \emph{第二同构定理:}  \\
+    设$H \leq G, K \triangleleft G$, 则
+    \[
+      HK/K \cong H/(H \cap K).
+    \]
+  (3) \emph{第三同构定理:}  \\
+    设$H \triangleleft G, K \triangleleft G, K \subseteq H$，则
+    \[
+      G/H \cong (G/K)/(H/K).
+    \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Set}
+\subsection{Permutation Group}
+\begin{frame}{Permutation Group}
+  \textbf{试证明:}  \\
+  { \scriptsize
+  \begin{displaymath}
+    \tau = \left( \begin{array}{cccc}
+        1 	& 2 	& \cdots & n  \\
+        k_1 & k_2 	& \cdots & k_n
+      \end{array}\right).
+  \end{displaymath}
+  则对任一$n$阶置换$\sigma$,有
+  \begin{displaymath}
+    \sigma^{-1} \tau \sigma = \left( \begin{array}{cccc}
+        \sigma(1) 	& \sigma(2) 	& \cdots & \sigma(n)  \\
+        \sigma(k_1) & \sigma(k_2) 	& \cdots & \sigma(k_n)
+      \end{array}\right).
+  \end{displaymath}
+  }
+
+  \textbf{解答:}
+  置换是函数。如何证明函数相等?  \\
+
+  \vspace{0.30cm}
+  \pause
+  \textcolor{blue}{Q: What if $\tau = (a_1, a_2, \cdots, a_k)$?}
+\end{frame}
+
+\begin{frame}{Permuation Group}
+  \textbf{试验证:}  \\
+  { \scriptsize
+    $(i_k a \cdots b), (i_n c \cdots d) \textrm{不相交},$则
+  \[
+    (i_k ,i_n)(i_k, a ,\cdots ,b)(i_n ,c ,\cdots ,d) = (i_k ,a, \cdots ,b ,i_n ,c ,\cdots ,d).
+  \]
+  \[
+    (i_k ,i_n)(i_k ,a ,\cdots, b, i_n, c ,\cdots, d) = (i_k, a ,\cdots, b)(i_n, c ,\cdots ,d).
+  \]
+  }
+
+  \vspace{0.30cm}
+  \pause
+  \emph{简单介绍另一种``置换可表为不相交轮换之积''的证明方法。}
+\end{frame}
+
+\begin{frame}{Permutation Group}
+  已知$\sigma^3 = (1 ,4 ,3 ,7 ,5 ,6 ,2)$,求$\sigma$.  \\
+
+  \vspace{0.20cm}
+  \textbf{解答:}  \\
+  \pause
+  $\sigma = (1,6,7,4,2,5,3).$
+
+\end{frame}
+
+
+
+\subsection{Normal Subgroup and Quotient Group}
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+在$S_4$中，令
+\[
+  K = \lbrace (1),(1,2)(3,4),(1,3)(2,4),(1,4)(2,3) \rbrace.
+\]
+$K$是$S_4$的正规子群.
+
+\vspace{0.20cm}
+\textbf{提示:}  \\
+\scriptsize{
+  \begin{displaymath}
+    \sigma^{-1} \tau \sigma = \left( \begin{array}{cccc}
+        \sigma(1) 	& \sigma(2) 	& \cdots & \sigma(n)  \\
+        \sigma(k_1) & \sigma(k_2) 	& \cdots & \sigma(k_n)
+      \end{array}\right).
+  \end{displaymath}}
+
+\end{frame}
+
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+  设$H,K$都是$G$的子群。如果$H \triangleleft G$且$H \subseteq K$, 则$H \triangleleft K$。
+\end{frame}
+
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+	  \[
+	    \sigma: G \to G', \textrm{为同态映射, } H \leq G, K \leq G'.
+	  \]
+	  \begin{enumerate}
+	    \setlength{\itemsep}{0.20cm}
+	    \item $\sigma(H)$是$G'$的子群.
+	    \item $\sigma^{-1}(K)$是$G$的子群.
+	    \item 如果$H$是$G$的正规子群，则$\sigma(H)$是$\sigma(G)$的正规子群.
+	    \item 如果$K$是$G'$的正规子群，则$\sigma^{-1}(K)$是$G$的正规子群.
+	    \item $Ker \sigma$是$G$的正规子群.
+	  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Normal Subgroup}
+  \textbf{请证明:}  \\
+  设$G$为群，$H_1,H_2$为$G$的正规子群。则  \\
+  $H_1 \cap H_2, H_1H_2$ 都是$G$的正规子群。
+
+  \vspace{0.30cm}
+  \textcolor{blue}{Q: 如果$H, K \leq G, \neg(H,K \triangleleft G) ? $}
+
+\end{frame}
+
+
+\subsection{Fundamental Theorem over Homomorphism}
+\begin{frame}{Fundamental Theorem over Homomorphism}
+  \begin{quote}
+    应用(apply)群同态基本定理证明与商群相关的同构关系的例题，请参见文件《离散数学习题解析 第八周》。
+    该文件已上传至教学网站。
+  \end{quote}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Applications and Extension(Optional)}
+\subsection{Permutation Group Behind 15-Puzzle}
+\begin{frame}{Permutation Group Behind 15-Puzzle}
+  %\usepackage{graphics} is needed for \includegraphics
+  \begin{columns}
+    \column{0.30\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/15puzzle}
+		  \caption{{ \tiny The starting position for the 15-puzzle.}}
+		  \label{fig:15puzzle}
+		\end{center}
+	  \end{figure}
+
+    \column{0.30\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/15puzzlenot}
+		  \caption{{ \tiny The unsolvable case for the 15-puzzle.}}
+		  \label{fig:15puzzlenot}
+		\end{center}
+	  \end{figure}
+
+    \column{0.40\textwidth}
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/snakepath}
+		  \caption{{ \tiny The dashed line and the numbers indicate a special ordering of the cells.}}
+		  \label{fig:snakepath}
+		\end{center}
+	  \end{figure}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Permutation Group Behind 15-Puzzle}
+  \textbf{使用置换群建模:}  \\
+  Placement: $\textrm{blocks} \to \textrm{cells}.$  \\
+  Problem: placements 变化繁多.  \\
+  \textcolor{blue}{More Insight: ``以不变应万变''}
+
+  \vspace{0.20cm}
+  \textcolor{blue}{Slot:}  \\
+  block $i$ 在 cell $j$处:  \\
+  如果 blank 在 cell $k > j$处，则称 ``block $i$ is in slot $j$'';  \\
+  否则, 称 ``block $i$ is in slot $(j-1)$''.  \\
+
+  \vspace{0.20cm}
+  \emph{Configuration:}
+  \[
+    \lbrack a_1, a_2, \cdots, a_{15} \rbrack.
+  \]
+
+  \textcolor{blue}{Q: Where is the blank block in the config.?}
+\end{frame}
+
+\begin{frame}{Permutation Group Behind 15-Puzzle}
+  \begin{columns}
+    \column{0.50\textwidth}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.30]{figurejpg/config}
+		  \caption[labelInTOC]{ { \tiny An example for configuration.}}
+		  \label{fig:config}
+		\end{center}
+	  \end{figure}
+	  { \scriptsize
+	  \[
+	    C = \lbrack 1,2,3,4,8,7,6,5,14,12,13,10,15,11,9 \rbrack.
+	  \]}
+    \column{0.50\textwidth}
+%       %\usepackage{graphics} is needed for \includegraphics
+% 	  \begin{figure}[htp]
+% 		\begin{center}
+% 		  \includegraphics[scale=0.10]{figurejpg/move}
+% 		  \label{fig:move}
+% 		\end{center}
+% 	  \end{figure}
+	  \textbf{考察基本元素: Moves}
+      %\usepackage{graphics} is needed for \includegraphics
+	  \begin{figure}[htp]
+		\begin{center}
+		  \includegraphics[scale=0.40]{figurejpg/moves}
+		  \caption[labelInTOC]{ { \tiny Moving the blank from cell $i$ to $j$ effects the permutation $\sigma_{i,j}$.}}
+		  \label{fig:moves}
+		\end{center}
+	  \end{figure}
+  \end{columns}
+
+  \pause
+  \textcolor{blue}{Identifying the subgroup of $S_{15}$ generated by these 18 cycles!}
+\end{frame}
+
+\begin{frame}{Permutation Group Behind 15-Puzzle}
+  \begin{center}
+    \textbf{It is actually $A_{15}$!}  \\
+  \end{center}
+
+  \begin{columns}
+     \column{0.40\textwidth}
+     { \scriptsize
+  	  \emph{非完全严格证明:}  \\
+	  \begin{enumerate}
+	    \setlength{\itemsep}{0.20cm}
+	    \item The 18 cycles generate all \emph{consecutive} 3-cycles in $S_{15}$.
+	    \item The \emph{consecutive} 3-cycles generate all cycles in $S_n$($n \geq 3$).
+	    \item The 3-cycles generate $A_n$($n \geq 3$).
+ 	  \end{enumerate}
+      }
+     \column{0.60\textwidth}
+    %\usepackage{graphics} is needed for \includegraphics
+	\begin{figure}[htp]
+	  \begin{center}
+		\includegraphics[scale=0.30]{figurejpg/3cyclecon}
+		\label{fig:3cyclecon}
+	  \end{center}
+	\end{figure}
+
+	\begin{align}
+	  (a ,b)(c ,d) & = (a ,b ,c) (a ,d ,c)  \\
+	  (a ,b)(b ,c) & = (a ,c ,b)  \\
+	  (a ,b)(a ,b) & = Id
+	\end{align}
+
+  \end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+\frame
+{
+  \huge \center \textbf{That's the end. Thank you.}
+  \begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{figure/question}
+    \caption{Bring Up a Question}
+  \end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{CJK*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

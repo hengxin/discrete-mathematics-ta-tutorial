@@ -1,0 +1,78 @@
+\documentclass[12pt]{ctexart}
+
+\usepackage[dvips]{graphics,color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+% insert name
+\newcommand{\name}{魏恒峰}
+% insert topic
+\newcommand{\topic}{离散数学习题解析}
+% insert document id
+\newcommand{\id}{1}
+% insert comment
+\newcommand{\comment}{2010年05月05日  期中测试试卷}
+
+% document's comment
+\newcommand{\head}{
+  \renewcommand{\thepage}{\id-\arabic{page}}
+  \noindent
+  \begin{center}
+    \framebox{
+      \vbox{
+        \hbox to 5.78in { \tt \hfill NJUCS \comment \hfill }
+        \vspace{4mm}
+        \hbox to 5.78in { {\bf \Large \hfill \topic  \hfill} }
+        \vspace{2mm}
+        \hbox to 5.78in { {{\it \name} \hfill \today} }
+        }
+      }
+  \end{center}
+  \vspace*{4mm}
+  }
+
+
+\begin{document}
+
+% sample use
+\head
+
+\section{2010年05月05日  期中测试试卷}
+
+\begin{enumerate}
+  \setlength{\itemsep}{0.40cm}
+
+
+  \item \textbf{试证明: $P(\cap_{i \in N} A_i) = \cap_{i \in N}P(A_i).$($P$为幂集符号.)}
+  \item \textbf{证明:实数集不可数.}
+  \item \textbf{求欧拉函数的值. 具体题目与解答参见新版教材$P_{91}$例题6.6.}
+  \item \textbf{证明: $st(R) \subseteq ts(R)$($s$表示对称闭包，$t$表示传递闭包.)}
+  \item \textbf{设$A$是$n$元集合，试求:(1) $A$的自反且对称关系有多少个? (2) $A$上的反对称关系有多少个? (3) $A$上的既不对称
+  又不反对称的关系有多少个?}
+  \item \textbf{证明: (1) 任何置换总是可以表示为若干对换的复合. (2) 请将以下置换表示成对换的复合.(该置换第一行为1,2,3,4,5,6,7,8;第二行对应为
+  4,3,8,7,6,1,5,2.)}
+  \item \textbf{证明: 群的中心一定是该群的正规子群.}
+  \item \textbf{证明: 代数系统$G$和$G'$满同态。证明，若$G$是群，则$G'$也是群。若$G'$是群，$G$也是群吗? 请证明.}
+
+\end{enumerate}
+
+\emph{下面两道题目是2010年的期末测试试卷中相关题目.}
+\begin{enumerate}
+  \item \textbf{设$B$是布尔代数，$\forall a,b,c \in B, \textrm{若 } a \leq c, \textrm{则有 } a \lor (b \land c) = (a \lor b)
+  \land c$, 称这个等式为模律。证明布尔代数适合模律.}
+  \item \textbf{设$H$是$G$的子群，$x \in G, \textrm{令 } xHx^{-1} = \lbrace xhx^{-1} \mid h \in H \rbrace.$证明，
+  $xHx^{-1}$是群$G$的子群.}
+\end{enumerate}
+
+\end{document}
+
+
